@@ -1,0 +1,2 @@
+https://github.com/sanogueralorenzo/Android-Kotlin-Clean-Architecture
+https://github.com/bufferapp/clean-architecture-components-boilerplate

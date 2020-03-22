@@ -1,0 +1,5 @@
+<resources>
+    <string name="error_server_response">Error obtaining data from the server</string>
+    <string name="poilist_title">POI LIST</string>
+    <string name="poidetail_title" />
+</resources>

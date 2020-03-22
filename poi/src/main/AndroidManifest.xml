@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.carles.mm"
+    tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application android:theme="@style/AppTheme">
+
+        <activity
+            android:name="com.carles.mm.ui.view.PoiListActivity"
+            android:label="@string/poilist_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.carles.mm.ui.view.PoiDetailActivity"
+            android:label="@string/poidetail_title" />
+
+    </application>
+</manifest>

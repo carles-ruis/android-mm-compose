@@ -2,6 +2,7 @@ package com.carles.mm
 
 import androidx.room.Room
 import com.carles.mm.data.*
+import com.carles.mm.data.datasourcefactory._PoiDatasourceFactory
 import com.carles.mm.domain.FetchPoiListUsecase
 import com.carles.mm.domain.GetPoiDetaiUsecase
 import com.carles.mm.poi.data.datasourcefactory.*

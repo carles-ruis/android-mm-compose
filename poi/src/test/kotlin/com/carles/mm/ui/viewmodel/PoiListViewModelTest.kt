@@ -1,4 +1,4 @@
-package com.carles.mm.poi.viewmodel
+package com.carles.mm.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer

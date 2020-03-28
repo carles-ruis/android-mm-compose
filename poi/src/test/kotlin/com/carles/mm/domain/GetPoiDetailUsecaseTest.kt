@@ -1,4 +1,4 @@
-package com.carles.mm.poi.model.usecase
+package com.carles.mm.domain
 
 import com.carles.core.domain.AppSchedulers
 import com.carles.mm.domain.GetPoiDetaiUsecase

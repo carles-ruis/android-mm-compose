@@ -11,24 +11,6 @@ import com.carles.mm.data.toModel
 import io.reactivex.Single
 
 @SuppressWarnings("ClassNaming")
-class _PoiDatasourceFactory(
-    private val localDatasource: _PoiLocalDatasource,
-    private val remoteDatasource: _PoiRemoteDatasource,
-    private val cache: Cache
-) {
-
-    fun retrieveDatasource(refresh: Boolean, key: CacheKey): _PoiDatasource = when {
-        refresh -> remoteDatasource
-        cache.isCached(key) -> localDatasource
-        else -> remoteDatasource
-    }
-
-    fun retrieveLocalDatasource() = localDatasource
-
-    fun retrieveRemoteDatasource() = remoteDatasource
-}
-
-@SuppressWarnings("ClassNaming")
 interface _PoiDatasource {
 
     fun getPoiList(): Single<List<Poi>>

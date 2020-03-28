@@ -1,4 +1,4 @@
-package com.carles.mm.poi.viewmodel
+package com.carles.mm.ui.viewmodel
 
 import com.carles.mm.domain.GetPoiDetaiUsecase
 import com.carles.mm.ui.viewmodel.PoiDetailViewModel

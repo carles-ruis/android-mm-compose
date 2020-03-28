@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply from: "$rootDir/detekt.gradle"
 
 android {
@@ -13,7 +14,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.carles.base.TestAppRunner"
+        testInstrumentationRunner "com.carles.mm.TestAppRunner"
         consumerProguardFiles 'consumer-rules.pro'
 
         javaCompileOptions {
@@ -33,6 +34,7 @@ android {
         main.java.srcDirs += [file("$buildDir/generated/source/kapt/main")]
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
+        androidTest.java.srcDirs += [file("$buildDir/generated/source/kapt/main")]
     }
     testOptions {
         unitTests.returnDefaultValues = true
@@ -60,10 +62,22 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:2.2"
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.6.0"
 
+    testImplementation "junit:junit:4.13"
+    testImplementation "io.mockk:mockk:1.9.3"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "org.assertj:assertj-core:3.14.0"
+
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test:rules:1.2.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation "org.assertj:assertj-core:3.14.0"
+
+    androidTestImplementation "io.reactivex.rxjava2:rxjava:2.2.17"
+    androidTestImplementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    androidTestImplementation "com.google.code.gson:gson:2.8.2"
+    androidTestImplementation "androidx.room:room-runtime:2.2.4"
+    kaptAndroidTest "androidx.room:room-compiler:2.2.4"
+    androidTestImplementation "androidx.room:room-rxjava2:2.2.4"
 }

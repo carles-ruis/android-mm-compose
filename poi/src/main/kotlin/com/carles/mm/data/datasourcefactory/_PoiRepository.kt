@@ -4,6 +4,7 @@ import com.carles.core.data.CacheItems
 import com.carles.core.data.CacheKey
 import com.carles.mm.Poi
 import com.carles.mm.PoiDetail
+import com.carles.mm.data.datasourcefactory._PoiDatasourceFactory
 import io.reactivex.Single
 
 interface PoiRepo {

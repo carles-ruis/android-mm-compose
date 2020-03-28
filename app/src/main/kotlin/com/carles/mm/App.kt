@@ -12,7 +12,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(poiModule, coreModule)
+            modules(coreModule, poiModule)
         }
 
         if (BuildConfig.DEBUG) {

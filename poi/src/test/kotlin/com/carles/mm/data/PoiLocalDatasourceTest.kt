@@ -1,7 +1,8 @@
-package com.carles.mm.poi.model.data
+package com.carles.mm.data
 
 import com.carles.core.data.Cache
 import com.carles.core.data.CacheItems
+import com.carles.core.data.CacheKey
 import com.carles.core.data.ItemNotCachedException
 import com.carles.mm.data.PoiDao
 import com.carles.mm.data.PoiLocalDatasource
@@ -21,14 +22,14 @@ class PoiLocalDatasourceTest {
 
     @Test
     fun getPoiList_cacheHit() {
-        every { cache.isCached(CacheItems.POI_LIST) } returns true
+        every { cache.isCached(CacheKey(CacheItems.POI_LIST)) } returns true
         every { dao.loadPois() } returns Single.just(poiList)
         datasource.getPoiList().test().assertValue(poiList)
     }
 
     @Test
     fun getPoiList_cacheMiss() {
-        every { cache.isCached(CacheItems.POI_LIST) } returns false
+        every { cache.isCached(CacheKey(CacheItems.POI_LIST)) } returns false
         datasource.getPoiList().test().assertError(ItemNotCachedException)
     }
 
@@ -38,20 +39,20 @@ class PoiLocalDatasourceTest {
         verifyAll {
             dao.deletePois()
             dao.insertPois(poiList)
-            cache.set(CacheItems.POI_LIST)
+            cache.set(CacheKey(CacheItems.POI_LIST))
         }
     }
 
     @Test
     fun getPoiDetail_cacheHit() {
-        every { cache.isCached(CacheItems.POI_DETAIL, "1") } returns true
+        every { cache.isCached(CacheKey(CacheItems.POI_DETAIL, "1")) } returns true
         every { dao.loadPoiById("1") } returns Single.just(poiDetail)
         datasource.getPoiDetail("1").test().assertValue(poiDetail)
     }
 
     @Test
     fun getPoiDetail_cacheMiss() {
-        every { cache.isCached(CacheItems.POI_DETAIL, "1") } returns false
+        every { cache.isCached(CacheKey(CacheItems.POI_DETAIL, "1")) } returns false
         datasource.getPoiDetail("1").test().assertError(ItemNotCachedException)
     }
 
@@ -60,7 +61,7 @@ class PoiLocalDatasourceTest {
         datasource.persist(poiDetail)
         verifyAll {
             dao.insertPoi(poiDetail)
-            cache.set(CacheItems.POI_DETAIL, "1")
+            cache.set(CacheKey(CacheItems.POI_DETAIL, "1"))
         }
     }
 }

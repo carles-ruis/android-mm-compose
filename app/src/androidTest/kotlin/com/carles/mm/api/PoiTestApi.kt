@@ -1,14 +1,12 @@
-package com.carles.kotlin.api
+package com.carles.mm.api
 
-import com.carles.mm.poi.model.data.PoiDetailResponseDto
-import com.carles.mm.poi.model.data.PoiListResponseDto
-import com.carles.kotlin.poi.data.PoiApi
-import com.carles.kotlin.poi.data.PoiDetailResponseDto
-import com.carles.kotlin.poi.data.PoiListResponseDto
+import com.carles.mm.data.PoiApi
+import com.carles.mm.data.PoiDetailResponseDto
+import com.carles.mm.data.PoiListResponseDto
 import com.google.gson.Gson
 import io.reactivex.Single
 
-class TestApi : PoiApi {
+class PoiTestApi : PoiApi {
 
     override fun getPoiList() = Single.just(Gson().fromJson(POI_LIST_RESPONSE, PoiListResponseDto::class.java))
 

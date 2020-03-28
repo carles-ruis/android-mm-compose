@@ -1,4 +1,4 @@
-package com.carles.mm.poi.model.data
+package com.carles.mm.data
 
 import com.carles.mm.data.toModel
 import com.carles.mm.emptyPoiListResponseDto

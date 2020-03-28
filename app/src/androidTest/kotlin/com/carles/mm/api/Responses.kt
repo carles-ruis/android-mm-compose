@@ -1,4 +1,4 @@
-package com.carles.kotlin.api
+package com.carles.mm.api
 
 val POI_LIST_RESPONSE = """
 {

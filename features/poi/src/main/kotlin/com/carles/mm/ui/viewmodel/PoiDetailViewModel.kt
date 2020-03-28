@@ -24,13 +24,11 @@ class PoiDetailViewModel(private val id: String, private val getPoiDetailUsecase
             .addTo(disposables)
     }
 
-    @VisibleForTesting
-    fun onGetPoiDetailSuccess(data: PoiDetail) {
+    private fun onGetPoiDetailSuccess(data: PoiDetail) {
         _observablePoiDetail.setSuccess(data)
     }
 
-    @VisibleForTesting
-    fun onGetPoiDetailError(throwable: Throwable) {
+    private fun onGetPoiDetailError(throwable: Throwable) {
         _observablePoiDetail.setError(throwable.message)
     }
 

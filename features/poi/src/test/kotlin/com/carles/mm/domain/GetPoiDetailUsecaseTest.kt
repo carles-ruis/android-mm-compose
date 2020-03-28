@@ -1,7 +1,6 @@
 package com.carles.mm.domain
 
 import com.carles.core.domain.AppSchedulers
-import com.carles.mm.domain.GetPoiDetaiUsecase
 import com.carles.mm.data.PoiRepository
 import com.carles.mm.poiDetail
 import io.mockk.every

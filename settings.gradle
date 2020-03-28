@@ -1,3 +1,5 @@
 include ':app'
 include ':poi'
 include ':core'
+
+project(":poi").projectDir=new File(rootDir, "features/poi")

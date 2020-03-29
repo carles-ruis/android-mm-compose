@@ -1,5 +1,7 @@
 object Versions {
     val kotlin = "1.3.70"
+    val detekt = "1.6.0"
+
     val appCompat = "1.1.0"
     val material = "1.1.0-alpha09"
     val recyclerView = "1.1.0"
@@ -51,6 +53,7 @@ object Dependencies {
     val stetho = "com.facebook.stetho:stetho:${Versions.stetho}"
     val stethoOkHttp = "com.facebook.stetho:stetho-okhttp3:${Versions.stetho}"
     val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
+    val detekt = "io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detekt}"
 
     object Test {
         val jUnit = "junit:junit:${Versions.jUnit}"

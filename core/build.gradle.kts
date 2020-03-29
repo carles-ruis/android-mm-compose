@@ -3,12 +3,8 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
+    id("io.gitlab.arturbosch.detekt")
 }
-
-//apply {
-//    from("$rootDir/detekt.gradle")
-//    from("$rootDir/dependencies.gradle")
-//}
 
 android {
     compileSdkVersion(Configs.compileSdkVersion)
@@ -48,6 +44,10 @@ androidExtensions {
     isExperimental = true
 }
 
+detekt {
+    config = files("$rootDir/default-detekt-config.yml")
+}
+
 dependencies {
     implementation(Dependencies.kotlin)
     implementation(Dependencies.material)
@@ -72,7 +72,7 @@ dependencies {
     implementation(Dependencies.lifecycleReactive)
     implementation(Dependencies.lifecycleLiveData)
 
-    //   detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.6.0"
+    detektPlugins(Dependencies.detekt)
     implementation(Dependencies.stetho)
     implementation(Dependencies.stethoOkHttp)
 

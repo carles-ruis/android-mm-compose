@@ -1,8 +1,12 @@
 package com.carles.mm.ui.viewmodel
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
-import com.carles.core.ui.viewmodel.*
+import com.carles.core.ui.viewmodel.MutableResourceLiveData
+import com.carles.core.ui.viewmodel.ResourceLiveData
+import com.carles.core.ui.viewmodel.addTo
+import com.carles.core.ui.viewmodel.setError
+import com.carles.core.ui.viewmodel.setLoading
+import com.carles.core.ui.viewmodel.setSuccess
 import com.carles.mm.PoiDetail
 import com.carles.mm.domain.GetPoiDetaiUsecase
 import io.reactivex.disposables.CompositeDisposable

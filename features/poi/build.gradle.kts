@@ -3,14 +3,8 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
+    id("io.gitlab.arturbosch.detekt")
 }
-
-//apply {
-//    from("$rootDir/detekt.gradle")
-//    from("$rootDir/dependencies.gradle")
-//}
-
-// android.applyDefaults(project)
 
 android {
     compileSdkVersion(Configs.compileSdkVersion)
@@ -49,6 +43,10 @@ androidExtensions {
     isExperimental = true
 }
 
+detekt {
+    config = files("$rootDir/default-detekt-config.yml")
+}
+
 dependencies {
     implementation(project(":core"))
 
@@ -59,6 +57,9 @@ dependencies {
     implementation(Dependencies.constraintLayout)
     implementation(Dependencies.preference)
 
+    implementation(Dependencies.koin)
+    implementation(Dependencies.koinScope)
+    implementation(Dependencies.koinViewModel)
     implementation(Dependencies.rxJava)
     implementation(Dependencies.rxAndroid)
     implementation(Dependencies.retrofit)
@@ -72,11 +73,7 @@ dependencies {
     implementation(Dependencies.lifecycleReactive)
     implementation(Dependencies.lifecycleLiveData)
 
-    // detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.6.0")
-
-    implementation(Dependencies.koin)
-    implementation(Dependencies.koinScope)
-    implementation(Dependencies.koinViewModel)
+    detektPlugins(Dependencies.detekt)
 
     testImplementation(Dependencies.Test.jUnit)
     testImplementation(Dependencies.Test.mockk)

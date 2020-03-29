@@ -5,9 +5,16 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.6.0")
+        classpath("com.android.tools.build:gradle:3.6.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
     }
+}
+
+plugins {
+    // use: ./gradlew dependencyUpdates
+    id("com.github.ben-manes.versions").version("0.27.0")
+    // ./gradlew detekt
+    id("io.gitlab.arturbosch.detekt").version(Versions.detekt)
 }
 
 allprojects {
@@ -15,13 +22,7 @@ allprojects {
         google()
         jcenter()
     }
-
-    // ./gradlew detekt
-//    plugins.apply("io.gitlab.arturbosch.detekt:1.6.0")
-    // use: ./gradlew dependencyUpdates
-    //  plugins.apply("com.github.ben-manes.versions:0.27.0")
 }
-
 
 tasks {
     val clean by registering(Delete::class) {

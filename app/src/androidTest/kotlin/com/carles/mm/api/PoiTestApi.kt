@@ -1,8 +1,8 @@
 package com.carles.mm.api
 
-import com.carles.mm.data.PoiApi
-import com.carles.mm.data.PoiDetailResponseDto
-import com.carles.mm.data.PoiListResponseDto
+import com.carles.poi.data.PoiApi
+import com.carles.poi.data.PoiDetailResponseDto
+import com.carles.poi.data.PoiListResponseDto
 import com.google.gson.Gson
 import io.reactivex.Single
 

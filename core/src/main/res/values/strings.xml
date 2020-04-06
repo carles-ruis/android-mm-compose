@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BCN POIS</string>
+    <string name="appname">BCN POIS</string>
     <string name="error_retry">RETRY</string>
+
+    <string name="navigation_settings_deeplink" translatable="false">carles://settings</string>
+    <string name="preferences_cache_key" translatable="false">preferences_cache_key</string>
+    <string-array name="preferences_cache_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>10</item>
+        <item>999999999</item>
+    </string-array>
+    <string name="preferences_cache_default_value" translatable="false">1</string>
+
 </resources>

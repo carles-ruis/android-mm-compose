@@ -3,10 +3,13 @@ object Versions {
     val detekt = "1.6.0"
 
     val appCompat = "1.1.0"
+    val core = "1.0.0"
     val material = "1.1.0-alpha09"
     val recyclerView = "1.1.0"
     val constraintLayout = "1.1.3"
     val preference = "1.1.0"
+    val navigation = "2.3.0-alpha04"
+    val fragment = "1.3.0-alpha02"
     val retrofit = "2.5.0"
     val rxJava = "2.2.17"
     val rxAndroid = "2.1.1"
@@ -16,6 +19,7 @@ object Versions {
     val stetho = "1.5.1"
     val leakCanary = "2.2"
     val gson = "2.8.2"
+    val debugDb = "1.0.6"
 
     val androidTest = "1.1.1"
     val mockk = "1.9.3"
@@ -28,10 +32,14 @@ object Versions {
 object Dependencies {
     val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
+    val core = "androidx.core:core:${Versions.core}"
     val material = "com.google.android.material:material:${Versions.material}"
     val recyclerview = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     val preference = "androidx.preference:preference-ktx:${Versions.preference}"
+    val navigation =  "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+    val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
 
     val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava}"
     val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
@@ -54,6 +62,7 @@ object Dependencies {
     val stethoOkHttp = "com.facebook.stetho:stetho-okhttp3:${Versions.stetho}"
     val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
     val detekt = "io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detekt}"
+    val debugDb = "com.amitshekhar.android:debug-db:${Versions.debugDb}"
 
     object Test {
         val jUnit = "junit:junit:${Versions.jUnit}"

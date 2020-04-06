@@ -13,6 +13,7 @@
 
         <item name="android:fontFamily">@font/sanchez</item>
         <item name="android:textViewStyle">@style/defaultTextViewStyle</item>
+        <item name="preferenceTheme">@style/preferenceThemeOverlay</item>
     </style>
 
     <style name="appToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary" />
@@ -24,6 +25,10 @@
     <style name="PoiDetailTextStyle" parent="defaultTextViewStyle">
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="preferenceThemeOverlay" parent="PreferenceThemeOverlay">
+        <item name="android:layout">@layout/fragment_settings</item>
     </style>
 
 </resources>

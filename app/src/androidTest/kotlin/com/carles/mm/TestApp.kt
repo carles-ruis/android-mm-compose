@@ -7,8 +7,10 @@ import androidx.test.runner.AndroidJUnitRunner
 import com.carles.core.coreModule
 import com.carles.core.domain.AppSchedulers
 import com.carles.mm.api.PoiTestApi
-import com.carles.mm.data.PoiApi
-import com.carles.mm.data.PoiDatabase
+import com.carles.poi.data.PoiApi
+import com.carles.poi.data.PoiDatabase
+import com.carles.poi.poiModule
+import com.carles.settings.settingsModule
 import io.reactivex.android.schedulers.AndroidSchedulers
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -20,7 +22,7 @@ class TestApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@TestApp)
-            modules(coreModule, poiModule, testModule)
+            modules(testModule, coreModule, poiModule, settingsModule)
         }
     }
 }

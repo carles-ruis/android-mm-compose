@@ -38,6 +38,10 @@ android {
         unitTests.isReturnDefaultValues = true
         unitTests.isIncludeAndroidResources = true
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 androidExtensions {
@@ -55,6 +59,9 @@ dependencies {
     implementation(Dependencies.recyclerview)
     implementation(Dependencies.constraintLayout)
     implementation(Dependencies.preference)
+    implementation(Dependencies.navigation)
+    implementation(Dependencies.navigationFragment)
+    implementation(Dependencies.fragment)
 
     implementation(Dependencies.koin)
     implementation(Dependencies.koinScope)

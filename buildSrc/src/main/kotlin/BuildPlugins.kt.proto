@@ -1,0 +1,4 @@
+object BuildPlugins {
+    const val detekt = ""
+    const val dependencyUpdates = ""
+}

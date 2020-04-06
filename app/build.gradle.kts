@@ -1,3 +1,10 @@
+import Configs.compileSdkVersion
+import Configs.minSdkVersion
+import Configs.targetSdkVersion
+import Configs.versionCode
+import Configs.versionName
+import org.jetbrains.kotlin.resolve.calls.model.ResolvedCallArgument.DefaultArgument.arguments
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -41,6 +48,10 @@ android {
         unitTests.isIncludeAndroidResources = true
         animationsDisabled = true
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 androidExtensions {
@@ -53,9 +64,15 @@ detekt {
 
 dependencies {
     implementation(project(":poi"))
+    implementation(project(":settings"))
     implementation(project(":core"))
 
     implementation(Dependencies.kotlin)
+    implementation(Dependencies.appCompat)
+    implementation(Dependencies.constraintLayout)
+    implementation(Dependencies.navigation)
+    implementation(Dependencies.navigationFragment)
+    implementation(Dependencies.fragment)
 
     implementation(Dependencies.koin)
     implementation(Dependencies.koinScope)
@@ -64,6 +81,7 @@ dependencies {
     implementation(Dependencies.stetho)
     implementation(Dependencies.stethoOkHttp)
     debugImplementation(Dependencies.leakCanary)
+    debugImplementation(Dependencies.debugDb)
     detektPlugins(Dependencies.detekt)
 
     testImplementation(Dependencies.Test.jUnit)

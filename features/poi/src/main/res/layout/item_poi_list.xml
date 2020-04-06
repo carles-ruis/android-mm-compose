@@ -8,5 +8,5 @@
     android:maxLines="1"
     android:padding="16dp"
     android:textAppearance="?textAppearanceSubtitle1"
-    tools:showIn="@layout/activity_poi_list"
+    tools:showIn="@layout/fragment_poi_list"
     tools:text="@tools:sample/cities" />

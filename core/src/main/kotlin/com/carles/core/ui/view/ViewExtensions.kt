@@ -7,30 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import com.carles.core.R
-import com.google.android.material.appbar.MaterialToolbar
+import androidx.fragment.app.Fragment
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int) = LayoutInflater.from(context).inflate(layoutRes, this, false)
 
-inline fun AppCompatActivity.consume(f: () -> Unit): Boolean {
+inline fun Fragment.consumeMenuClick(f: () -> Unit): Boolean {
     f()
     return true
 }
 
 fun AppCompatActivity.getStrings(ids: List<Int>) = ids.map { getString(it) }.toTypedArray()
 
-fun AppCompatActivity.initDefaultToolbar(): MaterialToolbar {
-    val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-    setSupportActionBar(toolbar)
-    supportActionBar?.apply {
-        setDisplayHomeAsUpEnabled(true)
-        setDisplayShowHomeEnabled(true)
-    }
-    toolbar.setNavigationOnClickListener { onBackPressed() }
-    return toolbar
-}
+fun Int.toPx() = this * Resources.getSystem().displayMetrics.density
 
-fun Int.toPx() = this / Resources.getSystem().displayMetrics.density
+fun Int.toDp() = this / Resources.getSystem().displayMetrics.density
 
 fun View.setDebounceClickListener(action: () -> Unit, debounceTime: Long = 2000L) {
     var lastClickTime: Long = 0

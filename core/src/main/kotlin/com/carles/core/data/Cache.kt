@@ -6,11 +6,7 @@ data class CacheKey(val cacheItem: CacheItems, val itemId: String = "")
 
 enum class CacheItems { POI_LIST, POI_DETAIL }
 
-class Cache {
-
-    companion object {
-        private const val EXPIRE_TIME = 1000 * 60
-    }
+class Cache(private val preferences: AppPreferences) {
 
     private val map: MutableMap<CacheKey, Long> = mutableMapOf()
 
@@ -21,8 +17,15 @@ class Cache {
         return map.containsKey(key)
     }
 
+    @SuppressWarnings("MagicNumber")
     fun set(key: CacheKey) {
-        map.set(key, now() + EXPIRE_TIME)
+        map.set(key, now() + preferences.cacheExpirationTime * 60 * 1000)
+    }
+
+    fun updateCacheExpiration() {
+        for (key in map.keys) {
+            set(key)
+        }
     }
 
     fun now() = Calendar.getInstance().timeInMillis

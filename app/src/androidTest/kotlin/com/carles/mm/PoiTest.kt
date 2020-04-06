@@ -13,7 +13,6 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.carles.mm.extensions.atPosition
 import com.carles.mm.extensions.recyclerViewSize
-import com.carles.mm.ui.view.PoiListActivity
 import junit.framework.Assert.assertTrue
 import org.hamcrest.Matchers.startsWith
 import org.junit.Rule
@@ -24,13 +23,13 @@ import org.junit.runner.RunWith
 class PoiTest {
 
     @get:Rule
-    val activityRule = ActivityTestRule(PoiListActivity::class.java)
+    val activityRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
     fun showPoiListAndNavigateToPoiDetail() {
         // display POI LIST, check first and last rows, click on last item
-        val appName = activityRule.activity.resources.getString(R.string.app_name)
-        onView(withId(R.id.toolbar)).check(matches(hasDescendant(withText(appName))))
+        val appName = activityRule.activity.resources.getString(R.string.appname)
+        onView(withId(R.id.poilist_toolbar)).check(matches(hasDescendant(withText(appName))))
 
         onView(withId(R.id.poilist_recyclerview)).check(matches(recyclerViewSize(52)))
         onView(withId(R.id.poilist_recyclerview))
@@ -42,7 +41,7 @@ class PoiTest {
             .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(51, click()))
 
         // open POI DETAIL, scroll to check phone number
-        onView(withId(R.id.toolbar)).check(matches(hasDescendant(withText("Il·luminació Torre Agbar"))))
+        onView(withId(R.id.poidetail_toolbar)).check(matches(hasDescendant(withText("Il·luminació Torre Agbar"))))
         onView(withId(R.id.poidetail_address_textview)).check(matches(withText(startsWith("Avinguda Diagonal"))))
         onView(withId(R.id.poidetail_description_textview)).check(matches(withText(startsWith("One of the most characteristic"))))
         onView(withId(R.id.poidetail_phone_textview))
@@ -51,7 +50,7 @@ class PoiTest {
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
 
         // again on POI LIST, click on first item
-        onView(withId(R.id.toolbar)).check(matches(hasDescendant(withText(appName))))
+        onView(withId(R.id.poilist_toolbar)).check(matches(hasDescendant(withText(appName))))
         onView(withId(R.id.poilist_recyclerview))
             .perform(scrollToPosition<RecyclerView.ViewHolder>(0))
         Thread.sleep(1000)
@@ -59,7 +58,7 @@ class PoiTest {
             .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
         // first POI DETAIL, check and go back twice to close app
-        onView(withId(R.id.toolbar)).check(matches(hasDescendant(withText("Casa Batlló"))))
+        onView(withId(R.id.poidetail_toolbar)).check(matches(hasDescendant(withText("Casa Batlló"))))
         onView(withId(R.id.poidetail_address_textview)).check(matches(withText("Paseo de Gracia, 43, 08007 Barcelona")))
         onView(withId(R.id.poidetail_description_textview)).check(matches(withText(startsWith("Casa Batlló is a key feature"))))
         onView(withId(R.id.poidetail_phone_textview)).check(matches(withText("info@casabatllo.cat")))

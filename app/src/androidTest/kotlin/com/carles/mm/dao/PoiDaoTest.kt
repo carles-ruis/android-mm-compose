@@ -4,10 +4,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.carles.mm.Poi
-import com.carles.mm.PoiDetail
-import com.carles.mm.data.PoiDao
-import com.carles.mm.data.PoiDatabase
+import com.carles.poi.Poi
+import com.carles.poi.PoiDetail
+import com.carles.poi.data.PoiDao
+import com.carles.poi.data.PoiDatabase
 import org.assertj.core.api.Assertions
 import org.junit.After
 import org.junit.Before

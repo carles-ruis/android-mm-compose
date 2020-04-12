@@ -1,9 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.carles.mm"
-    tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application android:theme="@style/AppTheme" />
-</manifest>
+    package="com.carles.poi" />

@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.carles.mm">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:name="com.carles.mm.App"
+        android:name=".App"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"

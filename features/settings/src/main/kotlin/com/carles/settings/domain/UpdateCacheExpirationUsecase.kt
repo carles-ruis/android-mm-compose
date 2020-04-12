@@ -8,7 +8,4 @@ class UpdateCacheExpirationUsecase(private val repository: SettingsRepository, p
 
     operator fun invoke(): Completable =
         repository.updateCacheExpiration().subscribeOn(schedulers.io).observeOn(schedulers.ui)
-
 }
-
-

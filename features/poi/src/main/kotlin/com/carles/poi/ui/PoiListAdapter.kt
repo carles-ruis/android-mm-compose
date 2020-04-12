@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.carles.core.ui.view.DebounceClickListener
 import com.carles.core.ui.view.inflate
-import com.carles.mm.R
 import com.carles.poi.Poi
+import com.carles.poi.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_poi_list.*
 

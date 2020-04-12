@@ -28,7 +28,7 @@ class Cache(private val preferences: AppPreferences) {
         }
     }
 
-    fun now() = Calendar.getInstance().timeInMillis
+    private fun now() = Calendar.getInstance().timeInMillis
 }
 
 object ItemNotCachedException : RuntimeException()

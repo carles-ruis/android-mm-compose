@@ -13,5 +13,4 @@ val settingsModule = module {
     single { SettingsRepository(datasource = get()) }
     factory { UpdateCacheExpirationUsecase(repository = get(), schedulers = get()) }
     viewModel { SettingsViewModel(updateCacheExpirationUsecase = get()) }
-
 }

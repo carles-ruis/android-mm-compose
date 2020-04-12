@@ -3,6 +3,7 @@ package com.carles.core.data
 import io.mockk.clearAllMocks
 import io.mockk.clearStaticMockk
 import io.mockk.every
+import io.mockk.impl.instantiation.JvmMockFactoryHelper.cache
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.spyk
@@ -12,7 +13,8 @@ import java.util.*
 
 class CacheTest {
 
-    val cache = Cache()
+    val preferences : AppPreferences = mockk(relaxed = true)
+    val cache = Cache(preferences)
     val calendar : Calendar = mockk()
     val cacheKey = CacheKey(CacheItems.POI_LIST)
 
@@ -23,6 +25,13 @@ class CacheTest {
 
     @Test
     fun isCached_itemExpired() {
+        every { preferences.cacheExpirationTime } returns 0
+        cache.set(cacheKey)
+        Assertions.assertThat(cache.isCached(cacheKey)).isFalse()
+    }
+ /*
+    @Test
+    fun isCached_itemExpired_MockStaticCalendar() {
         mockkStatic(Calendar::class)
         every { Calendar.getInstance() } returns calendar
         every { calendar.timeInMillis } returns 0L
@@ -34,16 +43,17 @@ class CacheTest {
 
     @Test
     fun isCached_itemExpired_Spy() {
-        val spy : Cache = spyk()
+        val spy : Cache = spyk(cache)
         every { spy.now() } returns 0L
         spy.set(cacheKey)
 
         clearAllMocks()
         Assertions.assertThat(spy.isCached(cacheKey)).isFalse()
-    }
+    }*/
 
     @Test
     fun isCached_success() {
+        every { preferences.cacheExpirationTime } returns 60000
         cache.set(cacheKey)
         Assertions.assertThat(cache.isCached(cacheKey)).isTrue()
     }

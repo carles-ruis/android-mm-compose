@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="poilist_title">@string/appname</string>
     <string name="poilist_menu_settings">Settings</string>

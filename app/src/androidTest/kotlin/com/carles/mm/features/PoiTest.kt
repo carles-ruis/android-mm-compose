@@ -1,4 +1,4 @@
-package com.carles.mm
+package com.carles.mm.features
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
@@ -11,8 +11,10 @@ import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import com.carles.mm.extensions.atPosition
-import com.carles.mm.extensions.recyclerViewSize
+import com.carles.mm.MainActivity
+import com.carles.mm.R
+import com.carles.mm.atPosition
+import com.carles.mm.recyclerViewSize
 import junit.framework.Assert.assertTrue
 import org.hamcrest.Matchers.startsWith
 import org.junit.Rule
@@ -23,12 +25,12 @@ import org.junit.runner.RunWith
 class PoiTest {
 
     @get:Rule
-    val activityRule = ActivityTestRule(MainActivity::class.java)
+    val activityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
     fun showPoiListAndNavigateToPoiDetail() {
         // display POI LIST, check first and last rows, click on last item
-        val appName = activityRule.activity.resources.getString(R.string.appname)
+        val appName = activityTestRule.activity.resources.getString(R.string.appname)
         onView(withId(R.id.poilist_toolbar)).check(matches(hasDescendant(withText(appName))))
 
         onView(withId(R.id.poilist_recyclerview)).check(matches(recyclerViewSize(52)))
@@ -64,7 +66,7 @@ class PoiTest {
         onView(withId(R.id.poidetail_phone_textview)).check(matches(withText("info@casabatllo.cat")))
         Espresso.pressBack()
         Espresso.pressBackUnconditionally()
-        assertTrue(activityRule.activity.isDestroyed)
+        assertTrue(activityTestRule.activity.isDestroyed)
     }
 
 }

@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.carles.core.ui.view.BaseDialogFragment
-import com.carles.mm.R
+import com.carles.poi.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ErrorDialogFragment : BaseDialogFragment() {

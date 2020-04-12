@@ -16,8 +16,8 @@ import com.carles.core.ui.viewmodel.ERROR
 import com.carles.core.ui.viewmodel.LOADING
 import com.carles.core.ui.viewmodel.ResourceState
 import com.carles.core.ui.viewmodel.SUCCESS
-import com.carles.mm.R
 import com.carles.poi.Poi
+import com.carles.poi.R
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.android.synthetic.main.fragment_poi_list.*
 import org.koin.android.viewmodel.ext.android.viewModel

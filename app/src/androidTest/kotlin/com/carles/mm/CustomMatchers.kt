@@ -1,4 +1,4 @@
-package com.carles.mm.extensions
+package com.carles.mm
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

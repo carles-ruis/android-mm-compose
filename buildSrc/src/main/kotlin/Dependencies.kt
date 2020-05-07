@@ -9,7 +9,7 @@ object Versions {
     val constraintLayout = "1.1.3"
     val preference = "1.1.0"
     val navigation = "2.3.0-alpha04"
-    val fragment = "1.3.0-alpha02"
+    val fragment = "1.3.0-alpha04"
     val retrofit = "2.5.0"
     val rxJava = "2.2.17"
     val rxAndroid = "2.1.1"

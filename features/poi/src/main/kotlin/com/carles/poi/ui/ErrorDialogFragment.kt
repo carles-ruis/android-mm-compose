@@ -2,12 +2,13 @@ package com.carles.poi.ui
 
 import android.app.Dialog
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.os.bundleOf
-import com.carles.core.ui.view.BaseDialogFragment
+import androidx.fragment.app.setFragmentResult
 import com.carles.poi.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class ErrorDialogFragment : BaseDialogFragment() {
+class ErrorDialogFragment : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val message = requireArguments().getString(EXTRA_MESSAGE, getString(R.string.error_server_response))
@@ -17,13 +18,16 @@ class ErrorDialogFragment : BaseDialogFragment() {
         if (retry) {
             isCancelable = false
             alertDialogBuilder.setPositiveButton(R.string.error_retry) { _, _ ->
-                navigateBackWithResult()
+                dismiss()
+                setFragmentResult(REQUEST_CODE_RETRY, Bundle.EMPTY)
             }
         }
         return alertDialogBuilder.create()
     }
 
     companion object {
+        const val REQUEST_CODE_RETRY = "request_code_retry"
+
         private const val EXTRA_MESSAGE = "extra_message"
         private const val EXTRA_RETRY = "extra_retry"
         fun getBundle(message: String? = null, retry: Boolean? = null) =

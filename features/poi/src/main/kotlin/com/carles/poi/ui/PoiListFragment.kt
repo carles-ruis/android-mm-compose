@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,6 +19,7 @@ import com.carles.core.ui.viewmodel.ResourceState
 import com.carles.core.ui.viewmodel.SUCCESS
 import com.carles.poi.Poi
 import com.carles.poi.R
+import com.carles.poi.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.android.synthetic.main.fragment_poi_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -26,6 +28,11 @@ class PoiListFragment : BaseFragment(R.layout.fragment_poi_list) {
 
     private val viewModel by viewModel<PoiListViewModel>()
     private lateinit var adapter: PoiListAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setResultListener()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,20 +83,15 @@ class PoiListFragment : BaseFragment(R.layout.fragment_poi_list) {
 
     private fun navigateToError(errorMessage: String?) {
         hideProgress()
-        navigateForResult(
-            R.id.action_poiListFragment_to_errorDialogFragment, ErrorDialogFragment.getBundle(errorMessage, true),
-            REQUEST_CODE_RETRY
+        findNavController().navigate(
+            R.id.action_poiListFragment_to_errorDialogFragment,
+            ErrorDialogFragment.getBundle(errorMessage, true)
         )
     }
 
-    override fun onNavigationResult(requestCode: String, result: Bundle) {
-        super.onNavigationResult(requestCode, result)
-        when (requestCode) {
-            REQUEST_CODE_RETRY -> viewModel.retry()
+    private fun setResultListener() {
+        this.setFragmentResultListener(REQUEST_CODE_RETRY) { _, _ ->
+            viewModel.retry()
         }
-    }
-
-    companion object {
-        private const val REQUEST_CODE_RETRY = "request_code_retry"
     }
 }

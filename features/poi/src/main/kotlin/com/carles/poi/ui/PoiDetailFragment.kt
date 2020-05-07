@@ -7,7 +7,9 @@ import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.carles.core.ui.view.BaseFragment
 import com.carles.core.ui.viewmodel.ERROR
 import com.carles.core.ui.viewmodel.LOADING
@@ -15,6 +17,7 @@ import com.carles.core.ui.viewmodel.ResourceState
 import com.carles.core.ui.viewmodel.SUCCESS
 import com.carles.poi.PoiDetail
 import com.carles.poi.R
+import com.carles.poi.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.android.synthetic.main.fragment_poi_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -24,6 +27,11 @@ class PoiDetailFragment : BaseFragment(R.layout.fragment_poi_detail) {
 
     private val viewModel by viewModel<PoiDetailViewModel> { parametersOf(requireArguments().getString(EXTRA_ID)) }
     private lateinit var toolbar: Toolbar
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setResultListener()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,23 +72,20 @@ class PoiDetailFragment : BaseFragment(R.layout.fragment_poi_detail) {
 
     private fun navigateToError(errorMessage: String?) {
         hideProgress()
-        navigateForResult(
-            R.id.action_poiDetailFragment_to_errorDialogFragment, ErrorDialogFragment.getBundle(errorMessage, true),
-            REQUEST_CODE_RETRY
+        findNavController().navigate(
+            R.id.action_poiDetailFragment_to_errorDialogFragment,
+            ErrorDialogFragment.getBundle(errorMessage, true)
         )
     }
 
-    override fun onNavigationResult(requestCode: String, result: Bundle) {
-        super.onNavigationResult(requestCode, result)
-        when (requestCode) {
-            REQUEST_CODE_RETRY -> viewModel.retry()
+    private fun setResultListener() {
+        this.setFragmentResultListener(REQUEST_CODE_RETRY) { _, _ ->
+            viewModel.retry()
         }
     }
 
     companion object {
         private const val EXTRA_ID = "poi_detail_extra_id"
         fun getBundle(id: String) = bundleOf(EXTRA_ID to id)
-
-        private const val REQUEST_CODE_RETRY = "request_code_retry"
     }
 }

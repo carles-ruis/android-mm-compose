@@ -1,6 +1,7 @@
 package com.carles.core.ui.view
 
 import android.content.res.Resources
+import android.os.Bundle
 import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int) = LayoutInflater.from(context).inflate(layoutRes, this, false)
 
@@ -31,4 +33,10 @@ fun View.setDebounceClickListener(action: () -> Unit, debounceTime: Long = 2000L
             action()
         }
     })
+}
+
+fun Fragment.safeNavigate(fragmentId: Int, actionResourceId: Int, bundle: Bundle?) {
+    if (findNavController().currentDestination?.id == fragmentId) {
+        findNavController().navigate(actionResourceId, bundle)
+    }
 }

@@ -1,10 +1,3 @@
-import Configs.compileSdkVersion
-import Configs.minSdkVersion
-import Configs.targetSdkVersion
-import Configs.versionCode
-import Configs.versionName
-import org.jetbrains.kotlin.resolve.calls.model.ResolvedCallArgument.DefaultArgument.arguments
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -84,18 +77,8 @@ dependencies {
     debugImplementation(Dependencies.debugDb)
     detektPlugins(Dependencies.detekt)
 
-    testImplementation(Dependencies.Test.jUnit)
-    testImplementation(Dependencies.Test.mockk)
-    testImplementation(Dependencies.Test.archCoreTesting)
-    testImplementation(Dependencies.Test.assertj)
-
-    androidTestImplementation(Dependencies.Test.jUnit)
-    androidTestImplementation(Dependencies.Test.testRules)
-    androidTestImplementation(Dependencies.Test.testRunner)
-    androidTestImplementation(Dependencies.Test.espresso)
-    androidTestImplementation(Dependencies.Test.espressoContrib)
-    androidTestImplementation(Dependencies.Test.archCoreTesting)
-    androidTestImplementation(Dependencies.Test.assertj)
+    Dependencies.testImplementations.forEach(::testImplementation)
+    Dependencies.androidTestImplementations.forEach(::androidTestImplementation)
     androidTestImplementation(Dependencies.rxJava)
     androidTestImplementation(Dependencies.rxAndroid)
     androidTestImplementation(Dependencies.gson)

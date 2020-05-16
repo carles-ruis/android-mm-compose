@@ -11,6 +11,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.carles.core.ui.view.BaseFragment
+import com.carles.core.ui.view.safeNavigate
 import com.carles.core.ui.viewmodel.ERROR
 import com.carles.core.ui.viewmodel.LOADING
 import com.carles.core.ui.viewmodel.ResourceState
@@ -72,7 +73,8 @@ class PoiDetailFragment : BaseFragment(R.layout.fragment_poi_detail) {
 
     private fun navigateToError(errorMessage: String?) {
         hideProgress()
-        findNavController().navigate(
+        safeNavigate(
+            R.id.poiDetailFragment,
             R.id.action_poiDetailFragment_to_errorDialogFragment,
             ErrorDialogFragment.getBundle(errorMessage, true)
         )

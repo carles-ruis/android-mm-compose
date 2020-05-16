@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.carles.core.ui.view.BaseFragment
 import com.carles.core.ui.view.consumeMenuClick
+import com.carles.core.ui.view.safeNavigate
 import com.carles.core.ui.viewmodel.ERROR
 import com.carles.core.ui.viewmodel.LOADING
 import com.carles.core.ui.viewmodel.ResourceState
@@ -83,7 +84,8 @@ class PoiListFragment : BaseFragment(R.layout.fragment_poi_list) {
 
     private fun navigateToError(errorMessage: String?) {
         hideProgress()
-        findNavController().navigate(
+        safeNavigate(
+            R.id.poiListFragment,
             R.id.action_poiListFragment_to_errorDialogFragment,
             ErrorDialogFragment.getBundle(errorMessage, true)
         )

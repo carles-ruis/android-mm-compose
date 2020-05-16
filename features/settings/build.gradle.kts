@@ -65,7 +65,5 @@ dependencies {
 
     detektPlugins(Dependencies.detekt)
 
-    testImplementation(Dependencies.Test.jUnit)
-    testImplementation(Dependencies.Test.mockk)
-    testImplementation(Dependencies.Test.assertj)
+    Dependencies.testImplementations.forEach(::testImplementation)
 }

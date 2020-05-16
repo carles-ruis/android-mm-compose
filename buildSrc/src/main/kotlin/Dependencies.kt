@@ -64,15 +64,16 @@ object Dependencies {
     val detekt = "io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detekt}"
     val debugDb = "com.amitshekhar.android:debug-db:${Versions.debugDb}"
 
-    object Test {
-        val jUnit = "junit:junit:${Versions.jUnit}"
-        val mockk = "io.mockk:mockk:${Versions.mockk}"
-        val archCoreTesting = "androidx.arch.core:core-testing:${Versions.archCoreTesting}"
-        val assertj = "org.assertj:assertj-core:${Versions.assertj}"
+    private val jUnit = "junit:junit:${Versions.jUnit}"
+    private val mockk = "io.mockk:mockk:${Versions.mockk}"
+    private val archCoreTesting = "androidx.arch.core:core-testing:${Versions.archCoreTesting}"
+    private val assertj = "org.assertj:assertj-core:${Versions.assertj}"
 
-        val testRunner = "androidx.test.ext:junit:${Versions.androidTest}"
-        val testRules = "androidx.test:rules:${Versions.androidTest}"
-        val espressoContrib = "com.android.support.test.espresso:espresso-contrib:${Versions.espresso}"
-        val espresso = "com.android.support.test.espresso:espresso-core:${Versions.espresso}"
-    }
+    private val testRunner = "androidx.test.ext:junit:${Versions.androidTest}"
+    private val testRules = "androidx.test:rules:${Versions.androidTest}"
+    private val espressoContrib = "com.android.support.test.espresso:espresso-contrib:${Versions.espresso}"
+    private val espresso = "com.android.support.test.espresso:espresso-core:${Versions.espresso}"
+
+    val testImplementations = listOf(jUnit, mockk, archCoreTesting, assertj)
+    val androidTestImplementations = listOf(jUnit, archCoreTesting, assertj, testRunner, testRules, espressoContrib, espresso)
 }

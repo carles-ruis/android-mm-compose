@@ -83,8 +83,5 @@ dependencies {
     implementation(Dependencies.stetho)
     implementation(Dependencies.stethoOkHttp)
 
-    testImplementation(Dependencies.Test.jUnit)
-    testImplementation(Dependencies.Test.mockk)
-    testImplementation(Dependencies.Test.archCoreTesting)
-    testImplementation(Dependencies.Test.assertj)
+    Dependencies.testImplementations.forEach(::testImplementation)
 }

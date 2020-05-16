@@ -1,4 +1,4 @@
-package com.carles.core.ui.viewmodel
+package com.carles.core.ui
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

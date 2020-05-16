@@ -15,7 +15,7 @@
 
         <activity
             android:name="com.carles.mm.MainActivity"
-            android:label="@string/appname">
+            android:label="@string/poilist_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

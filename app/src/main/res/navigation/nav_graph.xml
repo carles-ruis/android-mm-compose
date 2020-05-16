@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_poi"
     app:startDestination="@id/poiListFragment">
 
     <fragment
@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_poiListFragment_to_errorDialogFragment"
             app:destination="@id/errorDialogFragment" />
+        <action
+            android:id="@+id/action_poiListFragment_to_appPreferencesFragment"
+            app:destination="@id/appPreferencesFragment" />
     </fragment>
 
     <fragment
@@ -31,9 +34,15 @@
             android:id="@+id/action_poiDetailFragment_to_errorDialogFragment"
             app:destination="@id/errorDialogFragment" />
     </fragment>
+
     <dialog
         android:id="@+id/errorDialogFragment"
         android:name="com.carles.poi.ui.ErrorDialogFragment"
         android:label="ErrorDialogFragment" />
 
+    <fragment
+        android:id="@+id/appPreferencesFragment"
+        android:name="com.carles.settings.ui.SettingsFragment"
+        android:label="AppPreferencesFragment"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

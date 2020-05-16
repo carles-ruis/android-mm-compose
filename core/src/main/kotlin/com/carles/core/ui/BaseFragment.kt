@@ -1,4 +1,4 @@
-package com.carles.core.ui.view
+package com.carles.core.ui
 
 import android.view.View.GONE
 import android.view.View.VISIBLE

@@ -9,24 +9,34 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import com.carles.core.ui.view.BaseFragment
-import com.carles.core.ui.view.safeNavigate
-import com.carles.core.ui.viewmodel.ERROR
-import com.carles.core.ui.viewmodel.LOADING
-import com.carles.core.ui.viewmodel.ResourceState
-import com.carles.core.ui.viewmodel.SUCCESS
+import com.carles.core.Navigator
+import com.carles.core.ui.BaseFragment
+import com.carles.core.ui.ERROR
+import com.carles.core.ui.LOADING
+import com.carles.core.ui.ResourceState
+import com.carles.core.ui.SUCCESS
 import com.carles.poi.PoiDetail
 import com.carles.poi.R
 import com.carles.poi.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
 import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.android.synthetic.main.fragment_poi_detail.*
+import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_address_textview
+import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_contentview
+import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_description_textview
+import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_mail_textview
+import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_phone_textview
+import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_toolbar
+import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_transport_textview
+import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class PoiDetailFragment : BaseFragment(R.layout.fragment_poi_detail) {
 
-    private val viewModel by viewModel<PoiDetailViewModel> { parametersOf(requireArguments().getString(EXTRA_ID)) }
+    private val viewModel: PoiDetailViewModel by viewModel { parametersOf(requireArguments().getString(EXTRA_ID)) }
+    private val navigate: Navigator by lazy {
+        requireActivity().lifecycleScope.get<Navigator> { parametersOf(requireActivity()) }
+    }
+
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +62,10 @@ class PoiDetailFragment : BaseFragment(R.layout.fragment_poi_detail) {
                 hideProgress()
                 if (poiDetail != null) displayPoiDetail(poiDetail)
             }
-            ERROR -> navigateToError(errorMessage)
+            ERROR -> {
+                hideProgress()
+                navigate.toErrorFromPoiDetail(errorMessage)
+            }
             LOADING -> showProgress()
         }
     }
@@ -69,15 +82,6 @@ class PoiDetailFragment : BaseFragment(R.layout.fragment_poi_detail) {
         poidetail_mail_textview.visibility = if (poi.email == null) GONE else VISIBLE
         poidetail_phone_textview.text = poi.phone ?: ""
         poidetail_phone_textview.visibility = if (poi.phone == null) GONE else VISIBLE
-    }
-
-    private fun navigateToError(errorMessage: String?) {
-        hideProgress()
-        safeNavigate(
-            R.id.poiDetailFragment,
-            R.id.action_poiDetailFragment_to_errorDialogFragment,
-            ErrorDialogFragment.getBundle(errorMessage, true)
-        )
     }
 
     private fun setResultListener() {

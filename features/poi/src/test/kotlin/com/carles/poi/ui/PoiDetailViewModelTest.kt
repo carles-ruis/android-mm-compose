@@ -1,8 +1,8 @@
 package com.carles.poi.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.carles.core.ui.viewmodel.ERROR
-import com.carles.core.ui.viewmodel.SUCCESS
+import com.carles.core.ui.ERROR
+import com.carles.core.ui.SUCCESS
 import com.carles.poi.domain.GetPoiDetaiUsecase
 import com.carles.poi.poiDetail
 import io.mockk.every

@@ -14,7 +14,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(coreModule, poiModule, settingsModule)
+            modules(appModule, coreModule, poiModule, settingsModule)
         }
 
         if (BuildConfig.DEBUG) {

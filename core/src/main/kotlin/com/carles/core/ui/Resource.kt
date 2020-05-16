@@ -1,4 +1,4 @@
-package com.carles.core.ui.viewmodel
+package com.carles.core.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

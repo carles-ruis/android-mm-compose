@@ -2,9 +2,9 @@ package com.carles.poi.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.carles.core.ui.viewmodel.ERROR
-import com.carles.core.ui.viewmodel.Resource
-import com.carles.core.ui.viewmodel.SUCCESS
+import com.carles.core.ui.ERROR
+import com.carles.core.ui.Resource
+import com.carles.core.ui.SUCCESS
 import com.carles.poi.Poi
 import com.carles.poi.domain.FetchPoiListUsecase
 import com.carles.poi.poiList

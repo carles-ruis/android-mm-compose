@@ -3,8 +3,8 @@ package com.carles.poi.ui
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.carles.core.ui.view.DebounceClickListener
-import com.carles.core.ui.view.inflate
+import com.carles.core.ui.DebounceClickListener
+import com.carles.core.ui.inflate
 import com.carles.poi.Poi
 import com.carles.poi.R
 import kotlinx.android.extensions.LayoutContainer

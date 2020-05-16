@@ -1,7 +1,12 @@
 package com.carles.poi.ui
 
 import androidx.lifecycle.ViewModel
-import com.carles.core.ui.viewmodel.*
+import com.carles.core.ui.MutableResourceLiveData
+import com.carles.core.ui.ResourceLiveData
+import com.carles.core.ui.addTo
+import com.carles.core.ui.setError
+import com.carles.core.ui.setLoading
+import com.carles.core.ui.setSuccess
 import com.carles.poi.PoiDetail
 import com.carles.poi.domain.GetPoiDetaiUsecase
 import io.reactivex.disposables.CompositeDisposable

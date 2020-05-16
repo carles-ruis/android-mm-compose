@@ -1,7 +1,11 @@
 package com.carles.poi
 
 import androidx.room.Room
-import com.carles.poi.data.*
+import com.carles.poi.data.PoiApi
+import com.carles.poi.data.PoiDatabase
+import com.carles.poi.data.PoiLocalDatasource
+import com.carles.poi.data.PoiRemoteDatasource
+import com.carles.poi.data.PoiRepository
 import com.carles.poi.data.datasourcefactory._PoiDatasourceFactory
 import com.carles.poi.domain.FetchPoiListUsecase
 import com.carles.poi.domain.GetPoiDetaiUsecase
@@ -32,12 +36,12 @@ val poiModule = module {
     single { (get() as Retrofit).create(PoiApi::class.java) }
     single { PoiLocalDatasource(dao = get(), cache = get()) }
     single { PoiRemoteDatasource(api = get()) }
-    single(POI_REPO) { PoiRepository(localDatasource = get(), remoteDatasource = get()) as PoiRepo }
+    single<PoiRepo>(POI_REPO) { PoiRepository(localDatasource = get(), remoteDatasource = get()) }
 
     single { _PoiLocalDatasource(dao = get(), cache = get()) }
     single { _PoiRemoteDatasource(api = get()) }
     single { _PoiDatasourceFactory(localDatasource = get(), remoteDatasource = get(), cache = get()) }
-    single(_POI_REPO) { _PoiRepository(datasourceFactory = get()) as PoiRepo }
+    single<PoiRepo>(_POI_REPO) { _PoiRepository(datasourceFactory = get()) }
 
     factory { FetchPoiListUsecase(repository = get(POI_REPO), schedulers = get()) }
     factory { GetPoiDetaiUsecase(repository = get(POI_REPO), schedulers = get()) }

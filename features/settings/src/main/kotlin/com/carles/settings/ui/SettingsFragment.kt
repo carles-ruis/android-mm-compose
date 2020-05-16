@@ -3,17 +3,22 @@ package com.carles.settings.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
+import com.carles.core.Navigator
 import com.carles.settings.R
 import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.settings_toolbar
+import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    private val viewModel by viewModel<SettingsViewModel>()
+    private val viewModel: SettingsViewModel by viewModel()
+    private val navigate: Navigator by lazy {
+        requireActivity().lifecycleScope.get<Navigator> { parametersOf(requireActivity()) }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,7 +30,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setDisplayShowHomeEnabled(true)
             setTitle(R.string.settings)
         }
-        toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+        toolbar.setNavigationOnClickListener { navigate.up() }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

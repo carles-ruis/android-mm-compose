@@ -22,7 +22,7 @@ class TestApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@TestApp)
-            modules(coreModule, poiModule, settingsModule, testModule)
+            modules(appModule, coreModule, poiModule, settingsModule, testModule)
         }
     }
 }

@@ -13,8 +13,8 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.carles.mm.MainActivity
 import com.carles.mm.R
-import com.carles.mm.atPosition
-import com.carles.mm.recyclerViewSize
+import com.carles.mm.RecyclerMatchers.atPosition
+import com.carles.mm.RecyclerMatchers.recyclerViewSize
 import junit.framework.Assert.assertTrue
 import org.hamcrest.Matchers.startsWith
 import org.junit.Rule

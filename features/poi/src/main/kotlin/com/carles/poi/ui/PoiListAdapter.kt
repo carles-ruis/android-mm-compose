@@ -1,21 +1,20 @@
 package com.carles.poi.ui
 
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.carles.core.ui.DebounceClickListener
-import com.carles.core.ui.inflate
 import com.carles.poi.Poi
-import com.carles.poi.R
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_poi_list.*
+import com.carles.poi.databinding.ItemPoiListBinding
 
 class PoiListAdapter(onPoiClicked: (Poi) -> Unit) : RecyclerView.Adapter<PoiListAdapter.ViewHolder>() {
 
     private val items = ArrayList<Poi>()
     private val debouncePoiClickListener = DebounceClickListener(onPoiClicked)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(parent.inflate(R.layout.item_poi_list))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        ItemPoiListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) { holder.onBindView(items.get(position)) }
 
@@ -27,14 +26,14 @@ class PoiListAdapter(onPoiClicked: (Poi) -> Unit) : RecyclerView.Adapter<PoiList
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(val binding: ItemPoiListBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            containerView.setOnClickListener { debouncePoiClickListener.onClick(items.get(adapterPosition)) }
+            binding.root.setOnClickListener { debouncePoiClickListener.onClick(items.get(adapterPosition)) }
         }
 
         fun onBindView(item: Poi) {
-            poilist_item_title_textview.text = item.title
+            binding.poilistItemTitleTextview.text = item.title
         }
     }
 }

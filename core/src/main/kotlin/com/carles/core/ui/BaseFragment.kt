@@ -1,21 +1,32 @@
 package com.carles.core.ui
 
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.view_progress.progress
+import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
+abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
-    protected fun showProgress() {
-        progress?.visibility = VISIBLE
+    private var _binding: T? = null
+    protected val binding get() = _binding!!
+    protected abstract val progress: View?
+
+    abstract fun setBinding(inflater: LayoutInflater, container: ViewGroup?): T
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = setBinding(inflater, container)
+        return binding.root
     }
 
-    protected fun hideProgress() {
-        progress?.visibility = GONE
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     protected fun initDefaultToolbar(toolbar: Toolbar): Toolbar {
@@ -26,5 +37,13 @@ abstract class BaseFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
         }
         toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         return toolbar
+    }
+
+    protected fun showProgress() {
+        progress?.isVisible = true
+    }
+
+    protected fun hideProgress() {
+        progress?.isVisible = false
     }
 }

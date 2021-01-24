@@ -1,10 +1,12 @@
 package com.carles.poi.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
@@ -18,15 +20,13 @@ import com.carles.core.ui.SUCCESS
 import com.carles.core.ui.consumeMenuClick
 import com.carles.poi.Poi
 import com.carles.poi.R
+import com.carles.poi.databinding.FragmentPoiListBinding
 import com.carles.poi.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
-import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.android.synthetic.main.fragment_poi_list.poilist_recyclerview
-import kotlinx.android.synthetic.main.fragment_poi_list.poilist_toolbar
 import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class PoiListFragment : BaseFragment(R.layout.fragment_poi_list) {
+class PoiListFragment : BaseFragment<FragmentPoiListBinding>() {
 
     private val viewModel: PoiListViewModel by viewModel()
     private val navigate: Navigator by lazy {
@@ -34,24 +34,31 @@ class PoiListFragment : BaseFragment(R.layout.fragment_poi_list) {
     }
     private lateinit var adapter: PoiListAdapter
 
+    override val progress
+        get() = binding.poilistProgress.progress
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setResultListener()
+    }
+
+    override fun setBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentPoiListBinding {
+        return FragmentPoiListBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        val toolbar = poilist_toolbar as MaterialToolbar
+        val toolbar = binding.poilistToolbar.toolbar
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         toolbar.setTitle(R.string.poilist_title)
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp)
         toolbar.setNavigationOnClickListener { activity?.finish() }
 
         adapter = PoiListAdapter { poi -> navigate.toPoiDetailFromPoiList(poi.id) }
-        poilist_recyclerview.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        poilist_recyclerview.adapter = adapter
+        binding.poilistRecyclerview.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        binding.poilistRecyclerview.adapter = adapter
 
         viewModel.observablePoiList.observe(viewLifecycleOwner, Observer {
             it?.let { handlePoiList(it.state, it.data, it.message) }

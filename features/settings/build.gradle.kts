@@ -1,8 +1,8 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
+    id("org.jetbrains.kotlin.plugin.parcelize") version "1.4.30-RC"
     id("io.gitlab.arturbosch.detekt")
 }
 
@@ -35,10 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-}
-
-androidExtensions {
-    isExperimental = true
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 detekt {

@@ -22,5 +22,7 @@
         app:layout_constraintVertical_weight="1"
         tools:listitem="@layout/item_poi_list" />
 
-    <include layout="@layout/view_progress" />
+    <include
+        android:id="@+id/poilist_progress"
+        layout="@layout/view_progress" />
 </androidx.constraintlayout.widget.ConstraintLayout>

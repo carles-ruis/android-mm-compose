@@ -6,9 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.carles.core.Navigator
+import com.carles.core.databinding.FragmentSettingsBinding
 import com.carles.settings.R
-import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.android.synthetic.main.fragment_settings.settings_toolbar
 import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -23,7 +22,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toolbar = settings_toolbar as MaterialToolbar
+        val binding = FragmentSettingsBinding.bind(view)
+        val toolbar = binding.settingsToolbar.toolbar
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         (activity as AppCompatActivity).supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)

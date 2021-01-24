@@ -73,5 +73,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <include layout="@layout/view_progress" />
+    <include
+        android:id="@+id/poidetail_progress"
+        layout="@layout/view_progress" />
 </androidx.constraintlayout.widget.ConstraintLayout>

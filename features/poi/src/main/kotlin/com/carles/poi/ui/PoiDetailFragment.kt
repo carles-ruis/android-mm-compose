@@ -1,11 +1,12 @@
 package com.carles.poi.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
@@ -16,38 +17,35 @@ import com.carles.core.ui.LOADING
 import com.carles.core.ui.ResourceState
 import com.carles.core.ui.SUCCESS
 import com.carles.poi.PoiDetail
-import com.carles.poi.R
+import com.carles.poi.databinding.FragmentPoiDetailBinding
 import com.carles.poi.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
-import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_address_textview
-import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_contentview
-import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_description_textview
-import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_mail_textview
-import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_phone_textview
-import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_toolbar
-import kotlinx.android.synthetic.main.fragment_poi_detail.poidetail_transport_textview
 import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class PoiDetailFragment : BaseFragment(R.layout.fragment_poi_detail) {
+class PoiDetailFragment : BaseFragment<FragmentPoiDetailBinding>() {
 
     private val viewModel: PoiDetailViewModel by viewModel { parametersOf(requireArguments().getString(EXTRA_ID)) }
     private val navigate: Navigator by lazy {
         requireActivity().lifecycleScope.get<Navigator> { parametersOf(requireActivity()) }
     }
 
-    private lateinit var toolbar: Toolbar
+    override val progress
+        get() = binding.poidetailProgress.progress
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setResultListener()
     }
 
+    override fun setBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentPoiDetailBinding {
+        return FragmentPoiDetailBinding.inflate(inflater, container, false)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar = initDefaultToolbar(poidetail_toolbar as MaterialToolbar)
+        initDefaultToolbar(binding.poidetailToolbar.toolbar)
 
         viewModel.observablePoiDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -72,16 +70,16 @@ class PoiDetailFragment : BaseFragment(R.layout.fragment_poi_detail) {
 
     private fun displayPoiDetail(poi: PoiDetail) {
         (activity as AppCompatActivity).supportActionBar?.title = poi.title
-        poidetail_contentview.visibility = VISIBLE
-        poidetail_address_textview.text = poi.address
-        poidetail_description_textview.text = poi.description
+        binding.poidetailContentview.visibility = VISIBLE
+        binding.poidetailAddressTextview.text = poi.address
+        binding.poidetailDescriptionTextview.text = poi.description
 
-        poidetail_transport_textview.text = poi.transport ?: ""
-        poidetail_transport_textview.visibility = if (poi.transport == null) GONE else VISIBLE
-        poidetail_mail_textview.text = poi.email ?: ""
-        poidetail_mail_textview.visibility = if (poi.email == null) GONE else VISIBLE
-        poidetail_phone_textview.text = poi.phone ?: ""
-        poidetail_phone_textview.visibility = if (poi.phone == null) GONE else VISIBLE
+        binding.poidetailTransportTextview.text = poi.transport ?: ""
+        binding.poidetailTransportTextview.visibility = if (poi.transport == null) GONE else VISIBLE
+        binding.poidetailMailTextview.text = poi.email ?: ""
+        binding.poidetailMailTextview.visibility = if (poi.email == null) GONE else VISIBLE
+        binding.poidetailPhoneTextview.text = poi.phone ?: ""
+        binding.poidetailPhoneTextview.visibility = if (poi.phone == null) GONE else VISIBLE
     }
 
     private fun setResultListener() {

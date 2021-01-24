@@ -35,7 +35,7 @@ class PoiListFragment : BaseFragment<FragmentPoiListBinding>() {
     private lateinit var adapter: PoiListAdapter
 
     override val progress
-        get() = binding.poilistProgress.progress
+        get() = binding.poilistProgress.progres
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

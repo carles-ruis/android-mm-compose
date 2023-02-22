@@ -1,7 +1,7 @@
 package com.carles.poi.data.datasourcefactory
 
-import com.carles.core.data.Cache
-import com.carles.core.data.CacheKey
+import com.carles.common.data.Cache
+import com.carles.common.data.CacheKey
 
 @Suppress("ClassNaming", "Filename")
 class _PoiDatasourceFactory(

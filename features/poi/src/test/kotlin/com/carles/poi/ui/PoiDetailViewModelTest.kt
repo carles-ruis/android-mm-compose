@@ -1,14 +1,14 @@
 package com.carles.poi.ui
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.carles.core.ui.ERROR
-import com.carles.core.ui.SUCCESS
+import androidx.arch.common.executor.testing.InstantTaskExecutorRule
+import com.carles.common.ui.ERROR
+import com.carles.common.ui.SUCCESS
 import com.carles.poi.domain.GetPoiDetaiUsecase
 import com.carles.poi.poiDetail
 import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Single
-import org.assertj.core.api.Assertions
+import org.assertj.common.api.Assertions
 import org.junit.Rule
 import org.junit.Test
 

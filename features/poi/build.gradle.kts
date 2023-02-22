@@ -53,8 +53,8 @@ detekt {
 }
 
 dependencies {
-    implementation(project(":core"))
 
+    implementation(project(":common"))
     implementation(Dependence.kotlin)
     implementation(Dependence.material)
     implementation(Dependence.appCompat)

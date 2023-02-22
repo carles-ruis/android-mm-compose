@@ -1,6 +1,6 @@
 package com.carles.poi.domain
 
-import com.carles.core.domain.AppSchedulers
+import com.carles.common.domain.AppSchedulers
 import com.carles.poi.data.PoiRepository
 import com.carles.poi.poiList
 import io.mockk.every

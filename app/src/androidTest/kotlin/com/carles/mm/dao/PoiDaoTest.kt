@@ -1,6 +1,6 @@
 package com.carles.mm.dao
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.arch.common.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -8,7 +8,7 @@ import com.carles.poi.Poi
 import com.carles.poi.PoiDetail
 import com.carles.poi.data.PoiDao
 import com.carles.poi.data.PoiDatabase
-import org.assertj.core.api.Assertions
+import org.assertj.common.api.Assertions
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

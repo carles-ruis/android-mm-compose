@@ -2,7 +2,7 @@ package com.carles.mm
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.carles.core.databinding.ActivityMainBinding
+import com.carles.mm.databinding.ActivityMainBinding
 import org.koin.android.scope.AndroidScopeComponent
 import org.koin.androidx.scope.activityRetainedScope
 import org.koin.core.scope.Scope

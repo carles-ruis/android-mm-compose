@@ -1,9 +1,9 @@
 package com.carles.poi.data
 
-import com.carles.core.data.Cache
-import com.carles.core.data.CacheItems
-import com.carles.core.data.CacheKey
-import com.carles.core.data.ItemNotCachedException
+import com.carles.common.data.Cache
+import com.carles.common.data.CacheItems
+import com.carles.common.data.CacheKey
+import com.carles.common.data.ItemNotCachedException
 import com.carles.poi.Poi
 import com.carles.poi.PoiDetail
 import io.reactivex.Single

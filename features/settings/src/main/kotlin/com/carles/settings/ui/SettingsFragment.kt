@@ -5,8 +5,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
-import com.carles.core.Navigator
-import com.carles.core.databinding.FragmentSettingsBinding
+import com.carles.common.Navigator
+import com.carles.common.databinding.FragmentSettingsBinding
 import com.carles.settings.R
 import org.koin.android.scope.AndroidScopeComponent
 import org.koin.androidx.viewmodel.ext.android.viewModel

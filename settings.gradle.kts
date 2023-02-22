@@ -1,4 +1,4 @@
-include("app", "poi", "core", "settings")
+include("app", "poi", "common", "settings")
 rootProject.buildFileName = "build.gradle.kts"
 
 project(":poi").projectDir = File(rootDir, "features/poi")

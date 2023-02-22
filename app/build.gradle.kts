@@ -54,7 +54,7 @@ detekt {
 dependencies {
     implementation(project(":poi"))
     implementation(project(":settings"))
-    implementation(project(":core"))
+    implementation(project(":common"))
 
     implementation(Dependence.kotlin)
     implementation(Dependence.appCompat)

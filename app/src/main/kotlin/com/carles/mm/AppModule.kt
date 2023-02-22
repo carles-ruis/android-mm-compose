@@ -1,6 +1,6 @@
 package com.carles.mm
 
-import com.carles.core.Navigator
+import com.carles.common.Navigator
 import org.koin.dsl.module
 
 val appModule = module {

@@ -2,7 +2,7 @@ package com.carles.mm
 
 import android.util.Log
 import androidx.navigation.findNavController
-import com.carles.core.Navigator
+import com.carles.common.Navigator
 import com.carles.poi.ui.ErrorDialogFragment
 import com.carles.poi.ui.PoiDetailFragment
 

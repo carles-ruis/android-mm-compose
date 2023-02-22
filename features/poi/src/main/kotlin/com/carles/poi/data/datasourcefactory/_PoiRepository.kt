@@ -1,8 +1,8 @@
 @file:Suppress("Filename", "ClassNaming")
 package com.carles.poi.data.datasourcefactory
 
-import com.carles.core.data.CacheItems
-import com.carles.core.data.CacheKey
+import com.carles.common.data.CacheItems
+import com.carles.common.data.CacheKey
 import com.carles.poi.Poi
 import com.carles.poi.PoiDetail
 import com.carles.poi.data.PoiRepo

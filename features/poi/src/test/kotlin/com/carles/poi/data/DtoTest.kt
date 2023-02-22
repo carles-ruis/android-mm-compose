@@ -6,7 +6,7 @@ import com.carles.poi.emptyPoiListResponseDto
 import com.carles.poi.poiDetailResponseDto
 import com.carles.poi.poiListResponseDto
 import com.carles.poi.poiResponseDto
-import org.assertj.core.api.Assertions
+import org.assertj.common.api.Assertions
 import org.junit.Test
 import java.util.*
 

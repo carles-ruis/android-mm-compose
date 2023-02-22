@@ -1,13 +1,13 @@
 package com.carles.poi.data.datasourcefactory
 
-import com.carles.core.data.Cache
-import com.carles.core.data.CacheItems
-import com.carles.core.data.CacheKey
+import com.carles.common.data.Cache
+import com.carles.common.data.CacheItems
+import com.carles.common.data.CacheKey
 import com.carles.poi.poi.data.datasourcefactory._PoiLocalDatasource
 import com.carles.poi.poi.data.datasourcefactory._PoiRemoteDatasource
 import io.mockk.every
 import io.mockk.mockk
-import org.assertj.core.api.Assertions
+import org.assertj.common.api.Assertions
 import org.junit.Test
 
 class _PoiDatasourceFactoryTest {

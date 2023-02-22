@@ -1,6 +1,6 @@
 package com.carles.poi.domain
 
-import com.carles.core.domain.AppSchedulers
+import com.carles.common.domain.AppSchedulers
 import com.carles.poi.PoiDetail
 import com.carles.poi.data.PoiRepo
 import io.reactivex.Single

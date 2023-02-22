@@ -1,6 +1,6 @@
 package com.carles.settings.domain
 
-import com.carles.core.domain.AppSchedulers
+import com.carles.common.domain.AppSchedulers
 import com.carles.settings.data.SettingsRepository
 import io.mockk.every
 import io.mockk.mockk

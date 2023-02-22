@@ -3,9 +3,9 @@ package com.carles.poi.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.carles.core.databinding.ItemPoiListBinding
-import com.carles.core.ui.DebounceClickListener
+import com.carles.common.ui.DebounceClickListener
 import com.carles.poi.Poi
+import com.carles.poi.databinding.ItemPoiListBinding
 
 class PoiListAdapter(onPoiClicked: (Poi) -> Unit) : RecyclerView.Adapter<PoiListAdapter.ViewHolder>() {
 

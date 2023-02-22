@@ -1,6 +1,6 @@
 package com.carles.settings.data
 
-import com.carles.core.data.Cache
+import com.carles.common.data.Cache
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Test

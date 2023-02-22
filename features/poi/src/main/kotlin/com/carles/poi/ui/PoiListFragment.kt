@@ -11,22 +11,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.carles.core.Navigator
-import com.carles.core.databinding.FragmentPoiListBinding
-import com.carles.core.ui.BaseFragment
-import com.carles.core.ui.ERROR
-import com.carles.core.ui.LOADING
-import com.carles.core.ui.ResourceState
-import com.carles.core.ui.SUCCESS
-import com.carles.core.ui.consumeMenuClick
+import com.carles.common.Navigator
+import com.carles.common.ui.BaseFragment
+import com.carles.common.ui.ERROR
+import com.carles.common.ui.LOADING
+import com.carles.common.ui.ResourceState
+import com.carles.common.ui.SUCCESS
+import com.carles.common.ui.consumeMenuClick
 import com.carles.poi.Poi
 import com.carles.poi.R
+import com.carles.poi.databinding.FragmentPoiListBinding
 import com.carles.poi.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
-import org.koin.android.ext.android.get
 import org.koin.android.scope.AndroidScopeComponent
-import org.koin.androidx.scope.scope
-import org.koin.core.parameter.parametersOf
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class PoiListFragment : BaseFragment<FragmentPoiListBinding>() {
 

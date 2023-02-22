@@ -1,10 +1,10 @@
 package com.carles.poi.ui
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.arch.common.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.carles.core.ui.ERROR
-import com.carles.core.ui.Resource
-import com.carles.core.ui.SUCCESS
+import com.carles.common.ui.ERROR
+import com.carles.common.ui.Resource
+import com.carles.common.ui.SUCCESS
 import com.carles.poi.Poi
 import com.carles.poi.domain.FetchPoiListUsecase
 import com.carles.poi.poiList
@@ -13,7 +13,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.Single
-import org.assertj.core.api.Assertions
+import org.assertj.common.api.Assertions
 import org.junit.Rule
 import org.junit.Test
 

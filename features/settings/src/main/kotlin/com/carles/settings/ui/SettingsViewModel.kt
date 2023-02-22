@@ -1,7 +1,7 @@
 package com.carles.settings.ui
 
 import androidx.lifecycle.ViewModel
-import com.carles.core.ui.addTo
+import com.carles.common.ui.addTo
 import com.carles.settings.domain.UpdateCacheExpirationUsecase
 import io.reactivex.disposables.CompositeDisposable
 

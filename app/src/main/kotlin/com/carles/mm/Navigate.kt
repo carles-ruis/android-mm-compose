@@ -15,11 +15,15 @@ class Navigate(private val activity: MainActivity) : Navigator {
     }
 
     override fun toPoiDetailFromPoiList(id: String) {
-        navController.navigate(R.id.action_poiListFragment_to_poiDetailFragment, PoiDetailFragment.getBundle(id))
+        safeNavigation {
+            navController.navigate(R.id.action_poiListFragment_to_poiDetailFragment, PoiDetailFragment.getBundle(id))
+        }
     }
 
     override fun toSettings() {
-        navController.navigate(R.id.action_poiListFragment_to_appPreferencesFragment)
+        safeNavigation {
+            navController.navigate(R.id.action_poiListFragment_to_appPreferencesFragment)
+        }
     }
 
     override fun toErrorFromPoiList(errorMessage: String?) {

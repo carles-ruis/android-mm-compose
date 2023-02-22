@@ -7,13 +7,12 @@ import org.junit.Test
 
 class SettingsLocalDatasourceTest {
 
-    val cache : Cache = mockk(relaxed = true)
-    val datasource = SettingsLocalDatasource(cache)
+    private val cache: Cache = mockk(relaxed = true)
+    private val datasource = SettingsLocalDatasource(cache)
 
     @Test
     fun updateCacheExpiration_success() {
         datasource.updateCacheExpiration().test()
         verify { cache.updateCacheExpiration() }
     }
-
 }

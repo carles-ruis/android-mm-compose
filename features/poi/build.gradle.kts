@@ -1,28 +1,29 @@
+@file:Suppress("UnstableApiUsage")
 
 plugins {
     id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
-    id("org.jetbrains.kotlin.plugin.parcelize") version "1.4.30-RC"
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.parcelize")
     id("io.gitlab.arturbosch.detekt")
 }
 
 android {
-    compileSdkVersion(Configs.compileSdkVersion)
+    compileSdk = AppConfig.compileSdk
+    namespace = "com.carles.poi"
 
     defaultConfig {
-        minSdkVersion(Configs.minSdkVersion)
-        targetSdkVersion(Configs.targetSdkVersion)
-        versionCode = Configs.versionCode
-        versionName = Configs.versionName
-        testInstrumentationRunner = Configs.testRunner
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        testInstrumentationRunner = AppConfig.testRunner
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = mapOf("room.schemaLocation" to "$projectDir/schemas")
+                arguments.put("room.schemaLocation", "$projectDir/schemas")
             }
         }
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -54,33 +55,36 @@ detekt {
 dependencies {
     implementation(project(":core"))
 
-    implementation(Dependencies.kotlin)
-    implementation(Dependencies.material)
-    implementation(Dependencies.appCompat)
-    implementation(Dependencies.recyclerview)
-    implementation(Dependencies.constraintLayout)
-    implementation(Dependencies.preference)
-    implementation(Dependencies.navigation)
-    implementation(Dependencies.navigationFragment)
-    implementation(Dependencies.fragment)
+    implementation(Dependence.kotlin)
+    implementation(Dependence.material)
+    implementation(Dependence.appCompat)
+    implementation(Dependence.recyclerview)
+    implementation(Dependence.constraintLayout)
+    implementation(Dependence.preference)
+    implementation(Dependence.navigation)
+    implementation(Dependence.navigationFragment)
+    implementation(Dependence.fragment)
 
-    implementation(Dependencies.koin)
-    implementation(Dependencies.koinScope)
-    implementation(Dependencies.koinViewModel)
-    implementation(Dependencies.rxJava)
-    implementation(Dependencies.rxAndroid)
-    implementation(Dependencies.retrofit)
-    implementation(Dependencies.retrofitConverterGson)
-    implementation(Dependencies.retrofitRxJava)
-    implementation(Dependencies.roomRuntime)
-    kapt(Dependencies.roomCompiler)
-    implementation(Dependencies.roomRxJava)
-    implementation(Dependencies.lifecycleExtensions)
-    kapt(Dependencies.lifecycleCompiler)
-    implementation(Dependencies.lifecycleReactive)
-    implementation(Dependencies.lifecycleLiveData)
+    implementation(Dependence.koin)
+    implementation(Dependence.koinNavigation)
+    //implementation(Dependencies.koinScope)
+    //implementation(Dependencies.koinViewModel)
+    implementation(Dependence.rxJava)
+    implementation(Dependence.rxAndroid)
+    implementation(Dependence.retrofit)
+    implementation(Dependence.retrofitConverterGson)
+    implementation(Dependence.retrofitRxJava)
+    implementation(Dependence.roomRuntime)
+    kapt(Dependence.roomCompiler)
+    implementation(Dependence.roomRxJava)
+    implementation(Dependence.lifecycleExtensions)
+    kapt(Dependence.lifecycleCompiler)
+    implementation(Dependence.lifecycleReactive)
+    implementation(Dependence.lifecycleLiveData)
 
-    detektPlugins(Dependencies.detekt)
+    detektPlugins(Dependence.detekt)
 
-    Dependencies.testImplementations.forEach(::testImplementation)
+    Dependence.testImplementations.forEach(::testImplementation)
+
+    implementation(kotlin("stdlib-jdk7", version = Version.kotlin))
 }

@@ -12,7 +12,7 @@ import org.junit.Test
 
 class _PoiDatasourceFactoryTest {
 
-    val localDatasource : _PoiLocalDatasource = mockk()
+    val localDatasource: _PoiLocalDatasource = mockk()
     val remoteDatasource: _PoiRemoteDatasource = mockk()
     val cache: Cache = mockk(relaxed = true)
     val factory = _PoiDatasourceFactory(localDatasource, remoteDatasource, cache)

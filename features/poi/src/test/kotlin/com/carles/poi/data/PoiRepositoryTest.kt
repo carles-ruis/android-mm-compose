@@ -63,7 +63,7 @@ class PoiRepositoryTest {
     fun getPoiDetail_localErrorFallbackToRemote() {
         every { localDatasource.getPoiDetail("1") } returns Single.error(Throwable())
         every { remoteDatasource.getPoiDetail("1") } returns Single.just(anotherPoiDetail)
-        every { localDatasource.persist(anotherPoiDetail)} returns anotherPoiDetail
+        every { localDatasource.persist(anotherPoiDetail) } returns anotherPoiDetail
         repository.getPoiDetail("1").test().assertValue(anotherPoiDetail)
     }
 }

@@ -25,7 +25,7 @@ private fun createPoiDetail(id: String = DEFAULT_ID) = PoiDetail(
 private fun createPoiResponseDto(id: String = DEFAULT_ID) =
     PoiResponseDto(id, "the title", "the geocoordinates")
 
-private fun createPoiDetailResponseDto(id: String = DEFAULT_ID) =
+private fun createPoiDetailResponseDto() =
     PoiDetailResponseDto(
         id = DEFAULT_ID,
         title = "the_title",
@@ -33,5 +33,3 @@ private fun createPoiDetailResponseDto(id: String = DEFAULT_ID) =
         email = "the_email",
         phone = "the_phone"
     )
-
-

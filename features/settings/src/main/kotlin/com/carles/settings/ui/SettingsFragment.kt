@@ -8,15 +8,15 @@ import androidx.preference.PreferenceFragmentCompat
 import com.carles.core.Navigator
 import com.carles.core.databinding.FragmentSettingsBinding
 import com.carles.settings.R
-import org.koin.android.scope.lifecycleScope
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.scope.AndroidScopeComponent
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private val viewModel: SettingsViewModel by viewModel()
     private val navigate: Navigator by lazy {
-        requireActivity().lifecycleScope.get<Navigator> { parametersOf(requireActivity()) }
+        (requireActivity() as AndroidScopeComponent).scope.get { parametersOf(requireActivity()) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

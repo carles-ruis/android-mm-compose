@@ -16,7 +16,7 @@ class PoiDetailViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
-    val getPoiDetailUsecase : GetPoiDetaiUsecase = mockk(relaxed = true)
+    val getPoiDetailUsecase: GetPoiDetaiUsecase = mockk(relaxed = true)
     lateinit var viewModel: PoiDetailViewModel
 
     @Test

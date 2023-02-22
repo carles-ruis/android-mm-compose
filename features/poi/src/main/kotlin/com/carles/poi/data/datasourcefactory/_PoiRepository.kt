@@ -1,20 +1,13 @@
-package com.carles.poi.poi.data.datasourcefactory
+@file:Suppress("Filename", "ClassNaming")
+package com.carles.poi.data.datasourcefactory
 
 import com.carles.core.data.CacheItems
 import com.carles.core.data.CacheKey
 import com.carles.poi.Poi
 import com.carles.poi.PoiDetail
-import com.carles.poi.data.datasourcefactory._PoiDatasourceFactory
+import com.carles.poi.data.PoiRepo
 import io.reactivex.Single
 
-interface PoiRepo {
-
-    fun getPoiList(refresh: Boolean = false): Single<List<Poi>>
-
-    fun getPoiDetail(itemId: String, refresh: Boolean = false): Single<PoiDetail>
-}
-
-@SuppressWarnings("ClassNaming")
 class _PoiRepository(private val datasourceFactory: _PoiDatasourceFactory) : PoiRepo {
 
     override fun getPoiList(refresh: Boolean): Single<List<Poi>> =

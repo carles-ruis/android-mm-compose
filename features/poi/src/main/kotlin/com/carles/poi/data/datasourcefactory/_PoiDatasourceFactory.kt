@@ -2,11 +2,8 @@ package com.carles.poi.data.datasourcefactory
 
 import com.carles.core.data.Cache
 import com.carles.core.data.CacheKey
-import com.carles.poi.poi.data.datasourcefactory._PoiDatasource
-import com.carles.poi.poi.data.datasourcefactory._PoiLocalDatasource
-import com.carles.poi.poi.data.datasourcefactory._PoiRemoteDatasource
 
-@SuppressWarnings("ClassNaming")
+@Suppress("ClassNaming", "Filename")
 class _PoiDatasourceFactory(
     private val localDatasource: _PoiLocalDatasource,
     private val remoteDatasource: _PoiRemoteDatasource,

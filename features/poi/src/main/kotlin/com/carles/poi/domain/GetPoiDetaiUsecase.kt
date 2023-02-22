@@ -2,7 +2,7 @@ package com.carles.poi.domain
 
 import com.carles.core.domain.AppSchedulers
 import com.carles.poi.PoiDetail
-import com.carles.poi.poi.data.datasourcefactory.PoiRepo
+import com.carles.poi.data.PoiRepo
 import io.reactivex.Single
 
 class GetPoiDetaiUsecase(private val repository: PoiRepo, private val schedulers: AppSchedulers) {

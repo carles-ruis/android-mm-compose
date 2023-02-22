@@ -1,27 +1,24 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    id("org.jetbrains.kotlin.plugin.parcelize") version "1.4.30-RC"
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.parcelize")
     id("io.gitlab.arturbosch.detekt")
 }
 
 android {
-    compileSdkVersion(Configs.compileSdkVersion)
+    compileSdk = AppConfig.compileSdk
+    namespace = "com.carles.mm"
 
     defaultConfig {
         applicationId = "com.carles.carleskotlin"
-        minSdkVersion(Configs.minSdkVersion)
-        targetSdkVersion(Configs.targetSdkVersion)
-        versionCode = Configs.versionCode
-        versionName = Configs.versionName
-        testInstrumentationRunner = Configs.testRunner
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = mapOf("room.schemaLocation" to "$projectDir/schemas")
-            }
-        }
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
+        testInstrumentationRunner = AppConfig.testRunner
     }
     buildTypes {
         getByName("release") {
@@ -59,29 +56,31 @@ dependencies {
     implementation(project(":settings"))
     implementation(project(":core"))
 
-    implementation(Dependencies.kotlin)
-    implementation(Dependencies.appCompat)
-    implementation(Dependencies.constraintLayout)
-    implementation(Dependencies.navigation)
-    implementation(Dependencies.navigationFragment)
-    implementation(Dependencies.fragment)
+    implementation(Dependence.kotlin)
+    implementation(Dependence.appCompat)
+    implementation(Dependence.constraintLayout)
+    implementation(Dependence.navigation)
+    implementation(Dependence.navigationFragment)
+    implementation(Dependence.fragment)
 
-    implementation(Dependencies.koin)
-    implementation(Dependencies.koinScope)
-    implementation(Dependencies.koinViewModel)
+    implementation(Dependence.koin)
+    implementation(Dependence.koinNavigation)
+   // implementation(Dependencies.koinScope)
+   // implementation(Dependencies.koinViewModel)
 
-    implementation(Dependencies.stetho)
-    implementation(Dependencies.stethoOkHttp)
-    debugImplementation(Dependencies.leakCanary)
-    debugImplementation(Dependencies.debugDb)
-    detektPlugins(Dependencies.detekt)
+    implementation(Dependence.stetho)
+    implementation(Dependence.stethoOkHttp)
+    debugImplementation(Dependence.leakCanary)
+    detektPlugins(Dependence.detekt)
 
-    Dependencies.testImplementations.forEach(::testImplementation)
-    Dependencies.androidTestImplementations.forEach(::androidTestImplementation)
-    androidTestImplementation(Dependencies.rxJava)
-    androidTestImplementation(Dependencies.rxAndroid)
-    androidTestImplementation(Dependencies.gson)
-    androidTestImplementation(Dependencies.roomRuntime)
-    kaptAndroidTest(Dependencies.roomCompiler)
-    androidTestImplementation(Dependencies.roomRxJava)
+    Dependence.testImplementations.forEach(::testImplementation)
+    Dependence.androidTestImplementations.forEach(::androidTestImplementation)
+    androidTestImplementation(Dependence.rxJava)
+    androidTestImplementation(Dependence.rxAndroid)
+    androidTestImplementation(Dependence.gson)
+    androidTestImplementation(Dependence.roomRuntime)
+    kaptAndroidTest(Dependence.roomCompiler)
+    androidTestImplementation(Dependence.roomRxJava)
+
+    implementation(kotlin("stdlib-jdk7", version = Version.kotlin))
 }

@@ -4,7 +4,7 @@ import com.carles.settings.data.SettingsLocalDatasource
 import com.carles.settings.data.SettingsRepository
 import com.carles.settings.domain.UpdateCacheExpirationUsecase
 import com.carles.settings.ui.SettingsViewModel
-import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val settingsModule = module {

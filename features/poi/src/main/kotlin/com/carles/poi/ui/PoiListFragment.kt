@@ -12,6 +12,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.carles.core.Navigator
+import com.carles.core.databinding.FragmentPoiListBinding
 import com.carles.core.ui.BaseFragment
 import com.carles.core.ui.ERROR
 import com.carles.core.ui.LOADING
@@ -20,22 +21,23 @@ import com.carles.core.ui.SUCCESS
 import com.carles.core.ui.consumeMenuClick
 import com.carles.poi.Poi
 import com.carles.poi.R
-import com.carles.poi.databinding.FragmentPoiListBinding
 import com.carles.poi.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
-import org.koin.android.scope.lifecycleScope
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.get
+import org.koin.android.scope.AndroidScopeComponent
+import org.koin.androidx.scope.scope
 import org.koin.core.parameter.parametersOf
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PoiListFragment : BaseFragment<FragmentPoiListBinding>() {
 
     private val viewModel: PoiListViewModel by viewModel()
     private val navigate: Navigator by lazy {
-        requireActivity().lifecycleScope.get<Navigator> { parametersOf(requireActivity()) }
+        (requireActivity() as AndroidScopeComponent).scope.get { parametersOf(requireActivity()) }
     }
     private lateinit var adapter: PoiListAdapter
 
     override val progress
-        get() = binding.poilistProgress.progres
+        get() = binding.poilistProgress.progress
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

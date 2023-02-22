@@ -2,30 +2,28 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        gradlePluginPortal()
     }
-    dependencies {
-        classpath("com.android.tools.build:gradle:4.0.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
+   dependencies {
+         classpath("com.android.tools.build:gradle:${Version.gradle}")
+         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
     }
 }
 
 plugins {
     // use: ./gradlew dependencyUpdates
-    id("com.github.ben-manes.versions").version("0.27.0")
+    id("com.github.ben-manes.versions").version(Version.benManes)
     // ./gradlew detekt
-    id("io.gitlab.arturbosch.detekt").version(Versions.detekt)
+    id("io.gitlab.arturbosch.detekt").version(Version.detekt)
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        gradlePluginPortal()
     }
 }
 
-tasks {
-    val clean by registering(Delete::class) {
-        delete(buildDir)
-    }
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }

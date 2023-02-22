@@ -19,7 +19,7 @@ class GetPoiDetailUsecaseTest {
 
     @Test
     fun invoke_fetchFromRepo() {
-        every { repository.getPoiDetail(any(),any()) } returns Single.just(poiDetail)
+        every { repository.getPoiDetail(any(), any()) } returns Single.just(poiDetail)
 
         val result = usecase.invoke("1").test()
         scheduler.triggerActions()

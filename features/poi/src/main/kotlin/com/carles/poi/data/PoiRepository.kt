@@ -2,7 +2,6 @@ package com.carles.poi.data
 
 import com.carles.poi.Poi
 import com.carles.poi.PoiDetail
-import com.carles.poi.poi.data.datasourcefactory.PoiRepo
 import io.reactivex.Single
 
 class PoiRepository(private val localDatasource: PoiLocalDatasource, private val remoteDatasource: PoiRemoteDatasource) :

@@ -1,20 +1,21 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
-    id("org.jetbrains.kotlin.plugin.parcelize") version "1.4.30-RC"
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.parcelize")
     id("io.gitlab.arturbosch.detekt")
 }
 
 android {
-    compileSdkVersion(Configs.compileSdkVersion)
+    compileSdk = AppConfig.compileSdk
+    namespace = "com.carles.settings"
 
     defaultConfig {
-        minSdkVersion(Configs.minSdkVersion)
-        targetSdkVersion(Configs.targetSdkVersion)
-        versionCode = Configs.versionCode
-        versionName = Configs.versionName
-        testInstrumentationRunner = Configs.testRunner
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        testInstrumentationRunner = AppConfig.testRunner
     }
     buildTypes {
         getByName("release") {
@@ -47,22 +48,25 @@ detekt {
 dependencies {
     implementation(project(":core"))
 
-    implementation(Dependencies.kotlin)
-    implementation(Dependencies.appCompat)
-    implementation(Dependencies.core)
-    implementation(Dependencies.material)
-    implementation(Dependencies.constraintLayout)
-    implementation(Dependencies.preference)
-    implementation(Dependencies.navigation)
-    implementation(Dependencies.navigationFragment)
+    implementation(Dependence.kotlin)
+    implementation(Dependence.appCompat)
+    implementation(Dependence.core)
+    implementation(Dependence.material)
+    implementation(Dependence.constraintLayout)
+    implementation(Dependence.preference)
+    implementation(Dependence.navigation)
+    implementation(Dependence.navigationFragment)
 
-    implementation(Dependencies.koin)
-    implementation(Dependencies.koinScope)
-    implementation(Dependencies.koinViewModel)
-    implementation(Dependencies.rxJava)
-    implementation(Dependencies.rxAndroid)
+    implementation(Dependence.koin)
+    implementation(Dependence.koinNavigation)
+    //implementation(Dependencies.koinScope)
+    //implementation(Dependencies.koinViewModel)
+    implementation(Dependence.rxJava)
+    implementation(Dependence.rxAndroid)
 
-    detektPlugins(Dependencies.detekt)
+    detektPlugins(Dependence.detekt)
 
-    Dependencies.testImplementations.forEach(::testImplementation)
+    Dependence.testImplementations.forEach(::testImplementation)
+
+    implementation(kotlin("stdlib-jdk7", version = Version.kotlin))
 }

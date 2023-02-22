@@ -12,10 +12,10 @@ import org.junit.Test
 
 class FetchPoiListUsecaseTest {
 
-    val repository : PoiRepository = mockk(relaxed = true)
-    val scheduler = TestScheduler()
-    val schedulers = AppSchedulers(scheduler, scheduler, scheduler)
-    val usecase = FetchPoiListUsecase(repository, schedulers)
+    private val repository: PoiRepository = mockk(relaxed = true)
+    private val scheduler = TestScheduler()
+    private val schedulers = AppSchedulers(scheduler, scheduler, scheduler)
+    private val usecase = FetchPoiListUsecase(repository, schedulers)
 
     @Test
     fun invoke_fetchRepository() {

@@ -10,10 +10,10 @@ import org.junit.Test
 
 class UpdateCacheExpirationUsecaseTest {
 
-    val scheduler = TestScheduler()
-    val schedulers = AppSchedulers(scheduler, scheduler, scheduler)
-    val repository : SettingsRepository = mockk()
-    val usecase = UpdateCacheExpirationUsecase(repository, schedulers)
+    private val scheduler = TestScheduler()
+    private val schedulers = AppSchedulers(scheduler, scheduler, scheduler)
+    private val repository: SettingsRepository = mockk()
+    private val usecase = UpdateCacheExpirationUsecase(repository, schedulers)
 
     @Test
     fun invoke_updateSettings() {
@@ -22,5 +22,4 @@ class UpdateCacheExpirationUsecaseTest {
         scheduler.triggerActions()
         result.assertComplete()
     }
-
 }

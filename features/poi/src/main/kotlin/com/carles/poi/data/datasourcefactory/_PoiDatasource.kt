@@ -1,4 +1,5 @@
-package com.carles.poi.poi.data.datasourcefactory
+@file:Suppress("ClassNaming", "Filename")
+package com.carles.poi.data.datasourcefactory
 
 import com.carles.core.data.Cache
 import com.carles.core.data.CacheItems
@@ -10,7 +11,6 @@ import com.carles.poi.data.PoiDao
 import com.carles.poi.data.toModel
 import io.reactivex.Single
 
-@SuppressWarnings("ClassNaming")
 interface _PoiDatasource {
 
     fun getPoiList(): Single<List<Poi>>
@@ -18,7 +18,6 @@ interface _PoiDatasource {
     fun getPoiDetail(itemId: String): Single<PoiDetail>
 }
 
-@SuppressWarnings("ClassNaming")
 class _PoiLocalDatasource(private val cache: Cache, private val dao: PoiDao) : _PoiDatasource {
 
     override fun getPoiList() = dao.loadPois()

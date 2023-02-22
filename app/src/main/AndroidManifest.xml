@@ -1,12 +1,10 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.carles.mm">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".App"
-        android:allowBackup="true"
-        android:fullBackupContent="false"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/appname"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -15,7 +13,8 @@
 
         <activity
             android:name="com.carles.mm.MainActivity"
-            android:label="@string/poilist_title">
+            android:label="@string/poilist_title"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

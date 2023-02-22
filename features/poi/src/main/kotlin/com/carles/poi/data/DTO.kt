@@ -36,4 +36,4 @@ fun PoiDetailResponseDto.toModel() =
 
 @SuppressWarnings("ComplexCondition")
 private fun sanitize(source: String?): String? =
-        if (source == null || source.isEmpty() || source == "null" || source == "undefined") null else source
+    if (source == null || source.isEmpty() || source == "null" || source == "undefined") null else source

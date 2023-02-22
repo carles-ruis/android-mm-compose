@@ -11,23 +11,24 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import com.carles.core.Navigator
+import com.carles.core.databinding.FragmentPoiDetailBinding
 import com.carles.core.ui.BaseFragment
 import com.carles.core.ui.ERROR
 import com.carles.core.ui.LOADING
 import com.carles.core.ui.ResourceState
 import com.carles.core.ui.SUCCESS
 import com.carles.poi.PoiDetail
-import com.carles.poi.databinding.FragmentPoiDetailBinding
 import com.carles.poi.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
-import org.koin.android.scope.lifecycleScope
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.get
+import org.koin.android.scope.AndroidScopeComponent
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class PoiDetailFragment : BaseFragment<FragmentPoiDetailBinding>() {
 
     private val viewModel: PoiDetailViewModel by viewModel { parametersOf(requireArguments().getString(EXTRA_ID)) }
     private val navigate: Navigator by lazy {
-        requireActivity().lifecycleScope.get<Navigator> { parametersOf(requireActivity()) }
+        (requireActivity() as AndroidScopeComponent).scope.get { parametersOf(requireActivity()) }
     }
 
     override val progress

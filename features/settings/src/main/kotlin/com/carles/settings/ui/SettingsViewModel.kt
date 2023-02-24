@@ -1,5 +1,6 @@
 package com.carles.settings.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.carles.common.ui.addTo
 import com.carles.settings.domain.UpdateCacheExpirationUsecase
@@ -10,7 +11,9 @@ class SettingsViewModel(private val updateCacheExpirationUsecase: UpdateCacheExp
     private val disposables = CompositeDisposable()
 
     fun updateCacheExpiration() {
-        updateCacheExpirationUsecase().subscribe().addTo(disposables)
+        updateCacheExpirationUsecase.execute().subscribe({}, { error ->
+            Log.w("SettingsViewModel", error)
+        }).addTo(disposables)
     }
 
     override fun onCleared() {

@@ -19,7 +19,11 @@ fun Int.toPx() = this * Resources.getSystem().displayMetrics.density
 
 fun Int.toDp() = this / Resources.getSystem().displayMetrics.density
 
-fun View.setDebounceClickListener(action: () -> Unit, debounceTime: Long = 2000L) {
+fun View.setDebounceClickListener(action: () -> Unit) {
+    setDebounceClickListener(action, 2_000L)
+}
+
+fun View.setDebounceClickListener(action: () -> Unit, debounceTime: Long) {
     var lastClickTime: Long = 0
     this.setOnClickListener(object : View.OnClickListener {
         override fun onClick(v: View?) {

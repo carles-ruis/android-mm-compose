@@ -1,5 +1,5 @@
 object AppConfig {
-    val minSdk = 21
+    val minSdk = 23
     val compileSdk = 33
     val targetSdk = 33
     val versionCode = 1
@@ -22,6 +22,7 @@ object Version {
     val navigation = "2.6.0-alpha05"
     val fragment = "1.6.0-alpha05"
     val retrofit = "2.9.0"
+    val loggingInterceptor = "4.10.0"
     val rxJava = "2.2.21"
     val rxAndroid = "2.1.1"
     val lifecycle = "2.2.0"
@@ -30,6 +31,7 @@ object Version {
     val stetho = "1.6.0"
     val leakCanary = "2.10"
     val gson = "2.8.5"
+    val chucker = "3.5.2"
 
     val androidTestRules = "1.5.0"
     val androidTestRunner = "1.1.5"
@@ -57,10 +59,9 @@ object Dependence {
     val retrofit = "com.squareup.retrofit2:retrofit:${Version.retrofit}"
     val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Version.retrofit}"
     val retrofitRxJava = "com.squareup.retrofit2:adapter-rxjava2:${Version.retrofit}"
+    val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Version.loggingInterceptor}"
     val koin = "io.insert-koin:koin-android:${Version.koin}"
     val koinNavigation = "io.insert-koin:koin-androidx-navigation:${Version.koin}"
-  //  val koinScope = " io.insert-koin:koin-android-scope:${Version.koin}"
-  //  val koinViewModel = "io.insert-koin:koin-android-viewmodel:${Version.koin}"
     val roomRuntime = "androidx.room:room-runtime:${Version.room}"
     val roomCompiler = "androidx.room:room-compiler:${Version.room}"
     val roomRxJava = "androidx.room:room-rxjava2:${Version.room}"
@@ -70,6 +71,8 @@ object Dependence {
     val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle}"
     val gson = "com.google.code.gson:gson:${Version.gson}"
 
+    // Http inspector
+    val chucker = "com.github.chuckerteam.chucker:library:${Version.chucker}"
     // Displays network traffic in chrome browser
     val stetho = "com.facebook.stetho:stetho:${Version.stetho}"
     val stethoOkHttp = "com.facebook.stetho:stetho-okhttp3:${Version.stetho}"

@@ -3,46 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/poiListFragment">
+    app:startDestination="@id/monstersFragment">
 
     <fragment
-        android:id="@+id/poiListFragment"
-        android:name="com.carles.poi.ui.PoiListFragment"
-        android:label="PoiListFragment"
-        tools:layout="@layout/fragment_poi_list">
+        android:id="@+id/monstersFragment"
+        android:name="com.carles.hyrule.ui.MonstersFragment"
+        android:label="MonstersFragment"
+        tools:layout="@layout/fragment_monsters">
         <action
-            android:id="@+id/action_poiListFragment_to_poiDetailFragment"
-            app:destination="@id/poiDetailFragment"
+            android:id="@+id/to_monsterDetail_from_monsters"
+            app:destination="@id/monsterDetailFragment"
             app:enterAnim="@anim/slide_in_from_right_to_left"
             app:exitAnim="@anim/slide_out_from_right_to_left"
             app:popEnterAnim="@anim/slide_in_from_left_to_right"
             app:popExitAnim="@anim/slide_out_from_left_to_right" />
         <action
-            android:id="@+id/action_poiListFragment_to_errorDialogFragment"
+            android:id="@+id/to_errorDialog_from_monsters"
             app:destination="@id/errorDialogFragment" />
         <action
-            android:id="@+id/action_poiListFragment_to_appPreferencesFragment"
-            app:destination="@id/appPreferencesFragment" />
+            android:id="@+id/to_settings_from_monsters"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/poiDetailFragment"
-        android:name="com.carles.poi.ui.PoiDetailFragment"
-        android:label="PoiDetailFragment"
-        tools:layout="@layout/fragment_poi_detail" >
+        android:id="@+id/monsterDetailFragment"
+        android:name="com.carles.hyrule.ui.MonsterDetailFragment"
+        android:label="MonsterDetailFragment"
+        tools:layout="@layout/fragment_monster_detail" >
         <action
-            android:id="@+id/action_poiDetailFragment_to_errorDialogFragment"
+            android:id="@+id/to_errorDialog_from_monsterDetail"
             app:destination="@id/errorDialogFragment" />
     </fragment>
 
     <dialog
         android:id="@+id/errorDialogFragment"
-        android:name="com.carles.poi.ui.ErrorDialogFragment"
+        android:name="com.carles.hyrule.ui.ErrorDialogFragment"
         android:label="ErrorDialogFragment" />
 
     <fragment
-        android:id="@+id/appPreferencesFragment"
+        android:id="@+id/settingsFragment"
         android:name="com.carles.settings.ui.SettingsFragment"
-        android:label="AppPreferencesFragment"
+        android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
 </navigation>

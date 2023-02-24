@@ -9,8 +9,8 @@ plugins {
 }
 
 android {
-    compileSdk = AppConfig.compileSdk
     namespace = "com.carles.common"
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
         minSdk = AppConfig.minSdk
@@ -18,17 +18,12 @@ android {
         testInstrumentationRunner = AppConfig.testRunner
     }
 
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
         getByName("main").java.srcDirs(File("$buildDir/generated/source/kapt/main"))
         getByName("test").java.srcDirs("src/test/kotlin")
     }
+
     testOptions {
         unitTests.isReturnDefaultValues = true
         unitTests.isIncludeAndroidResources = true
@@ -56,7 +51,6 @@ dependencies {
     implementation(Dependence.navigation)
     implementation(Dependence.navigationFragment)
     implementation(Dependence.fragment)
-
     implementation(Dependence.koin)
     implementation(Dependence.koinNavigation)
     implementation(Dependence.rxJava)
@@ -73,10 +67,10 @@ dependencies {
     implementation(Dependence.lifecycleLiveData)
 
     detektPlugins(Dependence.detekt)
-    implementation(Dependence.stetho)
-    implementation(Dependence.stethoOkHttp)
+    debugImplementation(Dependence.stetho)
+    debugImplementation(Dependence.stethoOkHttp)
+    debugImplementation(Dependence.loggingInterceptor)
+    debugImplementation(Dependence.chucker)
 
     Dependence.testImplementations.forEach(::testImplementation)
-
-    implementation(kotlin("stdlib-jdk7", version = Version.kotlin))
 }

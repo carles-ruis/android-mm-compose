@@ -9,8 +9,8 @@ plugins {
 }
 
 android {
-    compileSdk = AppConfig.compileSdk
     namespace = "com.carles.mm"
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
         applicationId = "com.carles.carleskotlin"
@@ -52,21 +52,17 @@ detekt {
 }
 
 dependencies {
-    implementation(project(":poi"))
+    implementation(project(":hyrule"))
     implementation(project(":settings"))
     implementation(project(":common"))
-
     implementation(Dependence.kotlin)
     implementation(Dependence.appCompat)
     implementation(Dependence.constraintLayout)
     implementation(Dependence.navigation)
     implementation(Dependence.navigationFragment)
     implementation(Dependence.fragment)
-
     implementation(Dependence.koin)
     implementation(Dependence.koinNavigation)
-   // implementation(Dependencies.koinScope)
-   // implementation(Dependencies.koinViewModel)
 
     implementation(Dependence.stetho)
     implementation(Dependence.stethoOkHttp)
@@ -81,6 +77,4 @@ dependencies {
     androidTestImplementation(Dependence.roomRuntime)
     kaptAndroidTest(Dependence.roomCompiler)
     androidTestImplementation(Dependence.roomRxJava)
-
-    implementation(kotlin("stdlib-jdk7", version = Version.kotlin))
 }

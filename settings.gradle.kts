@@ -1,5 +1,6 @@
-include("app", "poi", "common", "settings")
+include("app", "poi", "hyrule", "common", "settings")
 rootProject.buildFileName = "build.gradle.kts"
 
-project(":poi").projectDir = File(rootDir, "features/poi")
 project(":settings").projectDir = File(rootDir, "features/settings")
+project(":hyrule").projectDir = File(rootDir, "features/hyrule")
+project(":poi").projectDir = File(rootDir, "features/poi")

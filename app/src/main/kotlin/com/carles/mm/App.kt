@@ -2,7 +2,7 @@ package com.carles.mm
 
 import android.app.Application
 import com.carles.common.commonModule
-import com.carles.poi.poiModule
+import com.carles.hyrule.hyruleModule
 import com.carles.settings.settingsModule
 import com.facebook.stetho.Stetho
 import org.koin.android.ext.koin.androidContext
@@ -14,7 +14,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(appModule, commonModule, poiModule, settingsModule)
+            modules(appModule, commonModule, hyruleModule, settingsModule)
         }
 
         if (BuildConfig.DEBUG) {

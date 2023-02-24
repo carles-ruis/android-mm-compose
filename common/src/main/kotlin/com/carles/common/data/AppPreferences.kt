@@ -12,5 +12,5 @@ class AppPreferences(private val context: Context) {
         get() = preferences.getString(
             context.getString(R.string.preferences_cache_key),
             context.getString(R.string.preferences_cache_default_value)
-        )!!.toLong()
+        )?.toLong() ?: 0L
 }

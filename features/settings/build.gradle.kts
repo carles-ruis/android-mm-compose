@@ -9,25 +9,21 @@ plugins {
 }
 
 android {
-    compileSdk = AppConfig.compileSdk
     namespace = "com.carles.settings"
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
         minSdk = AppConfig.minSdk
         targetSdk = AppConfig.targetSdk
         testInstrumentationRunner = AppConfig.testRunner
     }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
+
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
         getByName("main").java.srcDirs(File("$buildDir/generated/source/kapt/main"))
         getByName("test").java.srcDirs("src/test/kotlin")
     }
+
     testOptions {
         unitTests.isReturnDefaultValues = true
         unitTests.isIncludeAndroidResources = true
@@ -46,7 +42,6 @@ detekt {
 }
 
 dependencies {
-
     implementation(project(":common"))
     implementation(Dependence.kotlin)
     implementation(Dependence.appCompat)
@@ -56,17 +51,12 @@ dependencies {
     implementation(Dependence.preference)
     implementation(Dependence.navigation)
     implementation(Dependence.navigationFragment)
-
     implementation(Dependence.koin)
     implementation(Dependence.koinNavigation)
-    //implementation(Dependencies.koinScope)
-    //implementation(Dependencies.koinViewModel)
     implementation(Dependence.rxJava)
     implementation(Dependence.rxAndroid)
 
     detektPlugins(Dependence.detekt)
 
     Dependence.testImplementations.forEach(::testImplementation)
-
-    implementation(kotlin("stdlib-jdk7", version = Version.kotlin))
 }

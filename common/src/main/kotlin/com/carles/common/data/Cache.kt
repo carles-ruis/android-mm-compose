@@ -2,9 +2,9 @@ package com.carles.common.data
 
 import java.util.*
 
-data class CacheKey(val cacheItem: CacheItems, val itemId: String = "")
+data class CacheKey(val cacheItem: CacheItems, val itemId: Int = 0)
 
-enum class CacheItems { POI_LIST, POI_DETAIL }
+enum class CacheItems { MONSTERS, MONSTER_DETAIL }
 
 class Cache(private val preferences: AppPreferences) {
 

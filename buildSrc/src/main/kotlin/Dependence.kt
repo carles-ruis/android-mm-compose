@@ -31,6 +31,7 @@ object Version {
     val stetho = "1.6.0"
     val leakCanary = "2.10"
     val gson = "2.8.5"
+    val glide = "4.14.2"
     val chucker = "3.5.2"
 
     val androidTestRules = "1.5.0"
@@ -70,6 +71,7 @@ object Dependence {
     val lifecycleReactive = "androidx.lifecycle:lifecycle-reactivestreams:${Version.lifecycle}"
     val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle}"
     val gson = "com.google.code.gson:gson:${Version.gson}"
+    val glide = "com.github.bumptech.glide:glide:${Version.glide}"
 
     // Http inspector
     val chucker = "com.github.chuckerteam.chucker:library:${Version.chucker}"

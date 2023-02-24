@@ -1,7 +1,7 @@
 package com.carles.hyrule
 
 import androidx.room.Room
-import com.carles.hyrule.data.HyruleDatasourceFactory
+import com.carles.hyrule.data.HyruleDatasourceFactoryAlt
 import com.carles.hyrule.data.HyruleRepo
 import com.carles.hyrule.data.HyruleRepository
 import com.carles.hyrule.data.HyruleRepositoryAlt
@@ -58,7 +58,7 @@ val hyruleModule = module {
             monsterDetailMapper = get()
         )
     }
-    single { HyruleDatasourceFactory(localDatasource = get(), remoteDatasource = get(), cache = get()) }
+    single { HyruleDatasourceFactoryAlt(localDatasource = get(), remoteDatasource = get(), cache = get()) }
     single<HyruleRepo>(REPOSITORY_ALT) { HyruleRepositoryAlt(factory = get()) }
 
     factory { RefreshMonstersUsecase(repository = get(REPOSITORY), schedulers = get()) }

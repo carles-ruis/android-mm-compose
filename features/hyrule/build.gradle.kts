@@ -72,6 +72,7 @@ dependencies {
     kapt(Dependence.lifecycleCompiler)
     implementation(Dependence.lifecycleReactive)
     implementation(Dependence.lifecycleLiveData)
+    implementation(Dependence.glide)
 
     detektPlugins(Dependence.detekt)
 

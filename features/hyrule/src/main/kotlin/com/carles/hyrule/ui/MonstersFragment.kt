@@ -71,7 +71,7 @@ class MonstersFragment : BaseFragment<FragmentMonstersBinding>() {
         setHasOptionsMenu(true)
         val toolbar = binding.monstersToolbar.toolbar
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        toolbar.setTitle(R.string.poilist_title)
+        toolbar.setTitle(R.string.monsters_title)
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp)
         toolbar.setNavigationOnClickListener { activity?.finish() }
     }

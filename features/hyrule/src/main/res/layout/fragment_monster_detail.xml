@@ -50,8 +50,16 @@
                 android:layout_height="1dp"
                 android:background="@color/divider_grey" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/monster_image"
+                android:layout_marginTop="16dp"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:layout_gravity="center_horizontal"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/monster_image_url"
                 style="@style/MonsterDetailTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -2,52 +2,39 @@ package com.carles.common.data
 
 import io.mockk.every
 import io.mockk.mockk
-import org.assertj.core.api.Assertions
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 
 class CacheTest {
 
-    private val preferences: AppPreferences = mockk(relaxed = true)
-    private val cache = Cache(preferences)
-    private val cacheKey = CacheKey(CacheItems.POI_LIST)
+    private val preferences: AppPreferences = mockk()
+    private val cacheKey = CacheKey(CacheItems.MONSTERS)
+    private lateinit var cache: Cache
 
-    @Test
-    fun isCached_itemNotCached() {
-        Assertions.assertThat(cache.isCached(cacheKey)).isFalse
+    @Before
+    fun setup() {
+        cache = Cache(preferences)
     }
 
     @Test
-    fun isCached_itemExpired() {
+    fun `given isCached, when no item set, then it returns false`() {
+        every { preferences.cacheExpirationTime } returns 60_000L
+        assertFalse(cache.isCached(cacheKey))
+    }
+
+    @Test
+    fun `given isCached, when item set and expired, then it returns false`() {
         every { preferences.cacheExpirationTime } returns 0
         cache.set(cacheKey)
-        Assertions.assertThat(cache.isCached(cacheKey)).isFalse
-    }
- /*
-    @Test
-    fun isCached_itemExpired_MockStaticCalendar() {
-        mockkStatic(Calendar::class)
-        every { Calendar.getInstance() } returns calendar
-        every { calendar.timeInMillis } returns 0L
-        cache.set(cacheKey)
-
-        clearStaticMockk(Calendar::class)
-        Assertions.assertThat(cache.isCached(cacheKey)).isFalse()
+        assertFalse(cache.isCached(cacheKey))
     }
 
     @Test
-    fun isCached_itemExpired_Spy() {
-        val spy : Cache = spyk(cache)
-        every { spy.now() } returns 0L
-        spy.set(cacheKey)
-
-        clearAllMocks()
-        Assertions.assertThat(spy.isCached(cacheKey)).isFalse()
-    }*/
-
-    @Test
-    fun isCached_success() {
+    fun `given isCached, When item is set and not expired, then it returns true`() {
         every { preferences.cacheExpirationTime } returns 60_000L
         cache.set(cacheKey)
-        Assertions.assertThat(cache.isCached(cacheKey)).isTrue
+        assertTrue(cache.isCached(cacheKey))
     }
 }

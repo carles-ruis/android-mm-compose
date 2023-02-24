@@ -13,4 +13,3 @@ data class MonsterDto(
     @SerializedName("name")
     val name: String
 )
-

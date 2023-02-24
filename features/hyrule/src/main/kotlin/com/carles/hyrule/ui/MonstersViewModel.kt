@@ -44,5 +44,4 @@ class MonstersViewModel(
     fun retry() {
         refreshMonsters()
     }
-
 }

@@ -12,6 +12,8 @@ interface HasToolbar {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
-        toolbar.setNavigationOnClickListener { navigate.up() }
+        toolbar.setNavigationOnClickListener {
+            navigate.up()
+        }
     }
 }

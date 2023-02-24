@@ -13,7 +13,7 @@
 
         <activity
             android:name="com.carles.mm.MainActivity"
-            android:label="@string/poilist_title"
+            android:label="@string/monsters_title"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

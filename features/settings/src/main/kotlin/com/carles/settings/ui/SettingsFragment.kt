@@ -37,7 +37,7 @@ class SettingsFragment : PreferenceFragmentCompat(), HasToolbar {
         cacheListPreference?.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
         cacheListPreference?.setOnPreferenceChangeListener { preference, _ ->
             when (preference.key) {
-                getString(R.string.preferences_cache_key) -> viewModel.updateCacheExpiration()
+                getString(R.string.preferences_cache_key) -> viewModel.onPreferenceCacheChanged()
             }
             true
         }

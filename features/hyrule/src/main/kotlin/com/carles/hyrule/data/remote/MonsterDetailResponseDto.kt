@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 
 data class MonsterDetailResponseDto(
     @SerializedName("data")
-    val data: MonstersDetailDto
+    val data: MonsterDetailDto
 )
 
-data class MonstersDetailDto(
+data class MonsterDetailDto(
     @PrimaryKey
     @SerializedName("id")
     val id: Int,

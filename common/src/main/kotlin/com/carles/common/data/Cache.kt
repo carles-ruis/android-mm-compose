@@ -23,7 +23,7 @@ class Cache(private val preferences: AppPreferences) {
         map[key] = now() + preferences.cacheExpirationTime * 60 * 1000
     }
 
-    fun updateCacheExpiration() {
+    fun resetCacheExpiration() {
         for (key in map.keys) {
             set(key)
         }

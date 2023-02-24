@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
+private const val DEFAULT_DEBOUNCE_TIME = 2_000L
+
 inline fun Fragment.consumeMenuClick(f: () -> Unit): Boolean {
     f()
     return true
@@ -20,7 +22,7 @@ fun Int.toPx() = this * Resources.getSystem().displayMetrics.density
 fun Int.toDp() = this / Resources.getSystem().displayMetrics.density
 
 fun View.setDebounceClickListener(action: () -> Unit) {
-    setDebounceClickListener(action, 2_000L)
+    setDebounceClickListener(action, DEFAULT_DEBOUNCE_TIME)
 }
 
 fun View.setDebounceClickListener(action: () -> Unit, debounceTime: Long) {

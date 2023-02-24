@@ -6,7 +6,7 @@ import com.carles.hyrule.Monster
 import com.carles.hyrule.MonsterDetail
 import io.reactivex.Single
 
-class HyruleRepositoryAlt(private val factory: HyruleDatasourceFactory) : HyruleRepo {
+class HyruleRepositoryAlt(private val factory: HyruleDatasourceFactoryAlt) : HyruleRepo {
 
     override fun getMonsters(): Single<List<Monster>> {
         return factory.provideDatasource(CacheKey(CacheItems.MONSTERS)).getMonsters()
@@ -23,5 +23,4 @@ class HyruleRepositoryAlt(private val factory: HyruleDatasourceFactory) : Hyrule
     override fun refreshMonsterDetail(id: Int): Single<MonsterDetail> {
         return factory.provideDatasource(CacheKey(CacheItems.MONSTER_DETAIL, id), refresh = true).getMonsterDetail(id)
     }
-
 }

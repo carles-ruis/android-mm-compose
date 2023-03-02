@@ -91,6 +91,7 @@ class MonsterDetailFragment : BaseFragment<FragmentMonsterDetailBinding>(), HasT
                     target: Target<Drawable?>?,
                     isFirstResource: Boolean
                 ): Boolean {
+                    binding.monsterImageUrl.visibility = VISIBLE
                     binding.monsterImageUrl.text = monster.image
                     return false
                 }

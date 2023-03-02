@@ -26,7 +26,7 @@ class CacheTest {
 
     @Test
     fun `given isCached, when item set and expired, then it returns false`() {
-        every { preferences.cacheExpirationTime } returns 0
+        every { preferences.cacheExpirationTime } returns -10_000L
         cache.set(cacheKey)
         assertFalse(cache.isCached(cacheKey))
     }

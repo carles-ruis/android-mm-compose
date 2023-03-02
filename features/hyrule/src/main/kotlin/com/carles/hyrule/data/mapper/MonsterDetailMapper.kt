@@ -11,7 +11,7 @@ class MonsterDetailMapper {
             MonsterDetailEntity(
                 id = id,
                 name = name,
-                commonLocations = commonLocations.joinToString(", "),
+                commonLocations = commonLocations?.joinToString(", ") ?: "",
                 description = description,
                 image = image
             )

@@ -15,7 +15,7 @@ android {
     defaultConfig {
         minSdk = AppConfig.minSdk
         targetSdk = AppConfig.targetSdk
-        testInstrumentationRunner = AppConfig.testRunner
+        //testInstrumentationRunner = AppConfig.testRunner
 
         javaCompileOptions {
             annotationProcessorOptions {

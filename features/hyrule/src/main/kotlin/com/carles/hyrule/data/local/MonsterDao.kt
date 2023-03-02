@@ -9,7 +9,7 @@ import io.reactivex.Single
 @Dao
 interface MonsterDao {
 
-    @Query("SELECT * FROM monster")
+    @Query("SELECT * FROM monster ORDER BY name ASC")
     fun loadMonsters(): Single<List<MonsterEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

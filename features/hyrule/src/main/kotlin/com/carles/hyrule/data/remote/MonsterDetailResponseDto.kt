@@ -15,7 +15,7 @@ data class MonsterDetailDto(
     @SerializedName("name")
     val name: String,
     @SerializedName("common_locations")
-    val commonLocations: List<String>,
+    val commonLocations: List<String>?,
     @SerializedName("description")
     val description: String,
     @SerializedName("image")

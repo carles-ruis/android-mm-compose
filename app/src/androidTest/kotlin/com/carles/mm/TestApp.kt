@@ -1,19 +1,17 @@
 package com.carles.mm
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
-import androidx.test.runner.AndroidJUnitRunner
 import com.carles.common.commonModule
 import com.carles.common.domain.AppSchedulers
-import com.carles.mm.api.PoiTestApi
-import com.carles.poi.data.PoiApi
-import com.carles.poi.data.PoiDatabase
-import com.carles.poi.poiModule
+import com.carles.hyrule.data.local.HyruleDatabase
+import com.carles.hyrule.data.remote.HyruleRemoteDatasource
+import com.carles.hyrule.hyruleModule
+import com.carles.mm.api.FakeHyruleApi
 import com.carles.settings.settingsModule
 import io.reactivex.android.schedulers.AndroidSchedulers
 import org.koin.android.ext.koin.androidContext
-import org.koin.common.context.startKoin
+import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 class TestApp : Application() {
@@ -22,19 +20,13 @@ class TestApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@TestApp)
-            modules(appModule, commonModule, poiModule, settingsModule, testModule)
+            modules(appModule, commonModule, hyruleModule, settingsModule, testModule)
         }
     }
 }
 
-class TestAppRunner : AndroidJUnitRunner() {
-    override fun newApplication(cl: ClassLoader?, className: String?, context: Context?): Application {
-        return super.newApplication(cl, TestApp::class.java.name, context)
-    }
-}
-
 private val testModule = module {
-    single(override = true) {
+    single {
         AppSchedulers(
             io = AndroidSchedulers.mainThread(),
             ui = AndroidSchedulers.mainThread(),
@@ -42,12 +34,13 @@ private val testModule = module {
         )
     }
 
-    single(override = true) {
-        Room.inMemoryDatabaseBuilder(androidContext(), PoiDatabase::class.java)
+    single {
+        Room.inMemoryDatabaseBuilder(androidContext(), HyruleDatabase::class.java)
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()
     }
 
-    single(override = true) { PoiTestApi() as PoiApi }
+    single { FakeHyruleApi() }
+    single { HyruleRemoteDatasource(api = get<FakeHyruleApi>()) }
 }

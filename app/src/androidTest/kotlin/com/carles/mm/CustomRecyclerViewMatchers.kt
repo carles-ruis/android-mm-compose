@@ -5,9 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.matcher.BoundedMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.TypeSafeMatcher
 
-object RecyclerMatchers {
+object CustomRecyclerViewMatchers {
 
     fun viewAtPosition(position: Int, targetViewId: Int, itemMatcher: Matcher<View>): Matcher<View> =
         ViewAtPositionMatcher(position, targetViewId, itemMatcher)
@@ -23,7 +22,7 @@ private class ViewAtPositionMatcher(val position: Int, val targetViewId: Int, va
     BoundedMatcher<View, RecyclerView>(RecyclerView::class.java) {
 
     override fun describeTo(description: Description) {
-        description.appendText("has view id " + itemMatcher + " at position " + position);
+        description.appendText("has view id $itemMatcher at position $position");
     }
 
     override fun matchesSafely(recyclerView: RecyclerView): Boolean {
@@ -38,7 +37,7 @@ private class AtPositionMatcher(val position: Int, val itemMatcher: Matcher<View
     BoundedMatcher<View, RecyclerView>(RecyclerView::class.java) {
 
     override fun describeTo(description: Description) {
-        description.appendText("has item at position " + position + ": " + itemMatcher)
+        description.appendText("has item at position $position: $itemMatcher")
     }
 
     override fun matchesSafely(recyclerView: RecyclerView): Boolean {

@@ -4,7 +4,7 @@ object AppConfig {
     val targetSdk = 33
     val versionCode = 1
     val versionName = "1.0"
-    val testRunner = "com.carles.mm.TestAppRunner"
+    val testRunner = "com.carles.mm.CustomTestRunner"
 }
 
 object Version {
@@ -40,7 +40,6 @@ object Version {
     val archCoreTesting = "2.2.0-rc01"
     val espresso = "3.2.0"
     val jUnit = "4.13.2"
-    val assertj = "3.24.2"
 }
 
 object Dependence {
@@ -85,13 +84,11 @@ object Dependence {
     private val jUnit = "junit:junit:${Version.jUnit}"
     private val mockk = "io.mockk:mockk:${Version.mockk}"
     private val archCoreTesting = "androidx.arch.core:core-testing:${Version.archCoreTesting}"
-    private val assertj = "org.assertj:assertj-core:${Version.assertj}"
-
     private val testRunner = "androidx.test.ext:junit:${Version.androidTestRunner}"
     private val testRules = "androidx.test:rules:${Version.androidTestRules}"
     private val espressoContrib = "com.android.support.test.espresso:espresso-contrib:${Version.espresso}"
     private val espresso = "com.android.support.test.espresso:espresso-core:${Version.espresso}"
 
-    val testImplementations = listOf(jUnit, mockk, archCoreTesting, assertj)
-    val androidTestImplementations = listOf(jUnit, archCoreTesting, assertj, testRunner, testRules, espressoContrib, espresso)
+    val testImplementations = listOf(jUnit, mockk, archCoreTesting)
+    val androidTestImplementations = listOf(jUnit, archCoreTesting, testRunner, testRules, espressoContrib, espresso)
 }

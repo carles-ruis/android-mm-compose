@@ -9,12 +9,12 @@ import com.carles.common.ui.setError
 import com.carles.common.ui.setLoading
 import com.carles.common.ui.setSuccess
 import com.carles.hyrule.MonsterDetail
-import com.carles.hyrule.domain.GetMonsterDetailUsecase
+import com.carles.hyrule.domain.GetMonsterDetail
 import io.reactivex.disposables.CompositeDisposable
 
 class MonsterDetailViewModel(
     private val id: Int,
-    private val getMonsterDetail: GetMonsterDetailUsecase
+    private val getMonsterDetail: GetMonsterDetail
 ) : ViewModel() {
 
     private val disposables = CompositeDisposable()

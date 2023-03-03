@@ -6,7 +6,7 @@ import com.carles.common.R
 
 class AppPreferences(private val context: Context) {
 
-    private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private val preferences by lazy { PreferenceManager.getDefaultSharedPreferences(context) }
 
     val cacheExpirationTime: Long
         get() = preferences.getString(

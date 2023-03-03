@@ -5,7 +5,7 @@ import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.data.HyruleRepo
 import io.reactivex.Single
 
-class GetMonsterDetailUsecase(
+class GetMonsterDetail(
     private val repository: HyruleRepo,
     private val schedulers: AppSchedulers
 ) {

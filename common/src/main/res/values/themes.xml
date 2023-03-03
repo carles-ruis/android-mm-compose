@@ -14,8 +14,8 @@
         <item name="colorOnSecondary">@android:color/white</item>
 
         <item name="android:fontFamily">@font/sanchez</item>
-        <item name="android:textViewStyle">@style/defaultTextViewStyle</item>
-        <item name="preferenceTheme">@style/preferenceThemeOverlay</item>
+        <item name="android:textViewStyle">@style/Widget.App.TextView</item>
+        <item name="preferenceTheme">@style/PreferenceTheme.App</item>
     </style>
 
 </resources>

@@ -29,17 +29,20 @@ class HyruleLocalDatasource(
     }
 
     fun persist(monsters: List<MonsterEntity>): Completable {
-        return Completable.fromAction {
-            dao.deleteMonsters()
-            dao.insertMonsters(monsters)
-            cache.set(CacheKey(CacheItems.MONSTERS))
+        return dao.deleteMonsters().flatMapCompletable {
+            dao.insertMonsters(monsters).flatMapCompletable {
+                Completable.fromAction {
+                    cache.set(CacheKey(CacheItems.MONSTERS))
+                }
+            }
         }
     }
 
     fun persist(monster: MonsterDetailEntity): Completable {
-        return Completable.fromAction {
-            dao.insertMonsterDetail(monster)
-            cache.set(CacheKey(CacheItems.MONSTER_DETAIL, monster.id))
+        return dao.insertMonsterDetail(monster).flatMapCompletable {
+            Completable.fromAction {
+                cache.set(CacheKey(CacheItems.MONSTER_DETAIL, monster.id))
+            }
         }
     }
 }

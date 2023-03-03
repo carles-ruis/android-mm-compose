@@ -10,16 +10,16 @@ import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Test
 
-class ResetCacheExpirationUsecaseTest {
+class ResetCacheExpirationTest {
 
     private val scheduler = TestScheduler()
     private val schedulers = AppSchedulers(scheduler, scheduler, scheduler)
     private val repository: SettingsRepository = mockk()
-    private lateinit var usecase: ResetCacheExpirationUsecase
+    private lateinit var usecase: ResetCacheExpiration
 
     @Before
     fun setup() {
-        usecase = ResetCacheExpirationUsecase(repository, schedulers)
+        usecase = ResetCacheExpiration(repository, schedulers)
     }
 
     @Test

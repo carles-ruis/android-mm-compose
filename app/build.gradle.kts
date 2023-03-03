@@ -4,7 +4,6 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
-    id("org.jetbrains.kotlin.plugin.parcelize")
     id("io.gitlab.arturbosch.detekt")
 }
 
@@ -66,7 +65,7 @@ dependencies {
 
     implementation(Dependence.stetho)
     implementation(Dependence.stethoOkHttp)
-    debugImplementation(Dependence.leakCanary)
+    //debugImplementation(Dependence.leakCanary)
     detektPlugins(Dependence.detekt)
 
     Dependence.testImplementations.forEach(::testImplementation)

@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.carles.common.ui.ERROR
 import com.carles.common.ui.SUCCESS
 import com.carles.hyrule.Monster
-import com.carles.hyrule.domain.RefreshMonstersUsecase
+import com.carles.hyrule.domain.RefreshMonsters
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -20,7 +20,7 @@ class MonstersViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val refreshMonsters: RefreshMonstersUsecase = mockk()
+    private val refreshMonsters: RefreshMonsters = mockk()
     private lateinit var viewModel: MonstersViewModel
 
     @Test

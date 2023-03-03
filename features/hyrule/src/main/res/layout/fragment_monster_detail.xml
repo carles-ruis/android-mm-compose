@@ -26,7 +26,7 @@
 
             <TextView
                 android:id="@+id/monster_locations"
-                style="@style/MonsterDetailTextStyle"
+                style="@style/Widget.App.TextView.MonsterDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sanchez"
@@ -39,7 +39,7 @@
 
             <TextView
                 android:id="@+id/monster_description"
-                style="@style/MonsterDetailTextStyle"
+                style="@style/Widget.App.TextView.MonsterDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?textAppearanceHeadline6"
@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/monster_image_url"
-                style="@style/MonsterDetailTextStyle"
+                style="@style/Widget.App.TextView.MonsterDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"

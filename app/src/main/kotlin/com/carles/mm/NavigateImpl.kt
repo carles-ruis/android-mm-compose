@@ -48,7 +48,7 @@ class NavigateImpl(private val activity: MainActivity) : Navigate {
         try {
             navigation()
         } catch (e: IllegalArgumentException) {
-            Log.e(NavigateImpl::class.simpleName, e.localizedMessage ?: "navigation unknown")
+            Log.e("NavigateImpl", e.localizedMessage ?: "navigation unknown")
         }
     }
 }

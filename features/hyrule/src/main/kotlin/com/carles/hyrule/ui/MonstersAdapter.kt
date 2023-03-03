@@ -12,6 +12,15 @@ import com.carles.hyrule.databinding.ItemMonsterBinding
 class MonstersAdapter(private val onClick: (Monster) -> Unit) :
     ListAdapter<Monster, MonstersAdapter.MonstersViewHolder>(DiffCallback()) {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonstersViewHolder {
+        val binding = ItemMonsterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MonstersViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: MonstersViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
     private class DiffCallback : DiffUtil.ItemCallback<Monster>() {
         override fun areItemsTheSame(oldItem: Monster, newItem: Monster): Boolean {
             return oldItem.id == newItem.id
@@ -28,14 +37,5 @@ class MonstersAdapter(private val onClick: (Monster) -> Unit) :
             binding.root.setDebounceClickListener { onClick(item) }
             binding.monsterTitle.text = item.name
         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonstersViewHolder {
-        val binding = ItemMonsterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MonstersViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: MonstersViewHolder, position: Int) {
-        holder.bind(getItem(position))
     }
 }

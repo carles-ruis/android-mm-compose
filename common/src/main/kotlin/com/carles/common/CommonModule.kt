@@ -3,8 +3,6 @@ package com.carles.common
 import com.carles.common.data.AppPreferences
 import com.carles.common.data.Cache
 import com.carles.common.domain.AppSchedulers
-import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -35,8 +33,8 @@ val commonModule = module {
         }
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .addInterceptor(ChuckerInterceptor.Builder(androidApplication()).build())
-            .addNetworkInterceptor(StethoInterceptor())
+//            .addInterceptor(ChuckerInterceptor.Builder(androidApplication()).build())
+//            .addNetworkInterceptor(StethoInterceptor())
             .build()
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())

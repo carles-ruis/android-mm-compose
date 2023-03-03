@@ -14,6 +14,7 @@
         <activity
             android:name="com.carles.mm.MainActivity"
             android:label="@string/monsters_title"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

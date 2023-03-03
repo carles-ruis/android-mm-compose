@@ -5,7 +5,7 @@ import com.carles.hyrule.Monster
 import com.carles.hyrule.data.HyruleRepo
 import io.reactivex.Single
 
-class RefreshMonstersUsecase(
+class RefreshMonsters(
     private val repository: HyruleRepo,
     private val schedulers: AppSchedulers
 ) {

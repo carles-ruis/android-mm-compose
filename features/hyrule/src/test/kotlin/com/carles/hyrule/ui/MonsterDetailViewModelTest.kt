@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.carles.common.ui.ERROR
 import com.carles.common.ui.SUCCESS
 import com.carles.hyrule.MonsterDetail
-import com.carles.hyrule.domain.GetMonsterDetailUsecase
+import com.carles.hyrule.domain.GetMonsterDetail
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -20,7 +20,7 @@ class MonsterDetailViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val getMonsterDetail: GetMonsterDetailUsecase = mockk()
+    private val getMonsterDetail: GetMonsterDetail = mockk()
     private val id = 1
     private lateinit var viewModel: MonsterDetailViewModel
 

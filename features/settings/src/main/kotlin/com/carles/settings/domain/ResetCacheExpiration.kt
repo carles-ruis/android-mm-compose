@@ -4,7 +4,7 @@ import com.carles.common.domain.AppSchedulers
 import com.carles.settings.data.SettingsRepository
 import io.reactivex.Completable
 
-class ResetCacheExpirationUsecase(
+class ResetCacheExpiration(
     private val repository: SettingsRepository,
     private val schedulers: AppSchedulers
 ) {

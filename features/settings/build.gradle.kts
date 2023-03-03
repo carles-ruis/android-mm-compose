@@ -4,7 +4,6 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
-    id("org.jetbrains.kotlin.plugin.parcelize")
     id("io.gitlab.arturbosch.detekt")
 }
 

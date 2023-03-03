@@ -11,16 +11,16 @@ import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Test
 
-class RefreshMonstersUsecaseTest {
+class RefreshMonstersTest {
 
     private val scheduler = TestScheduler()
     private val schedulers = AppSchedulers(scheduler, scheduler, scheduler)
     private val repository: HyruleRepo = mockk()
-    private lateinit var usecase: RefreshMonstersUsecase
+    private lateinit var usecase: RefreshMonsters
 
     @Before
     fun setup() {
-        usecase = RefreshMonstersUsecase(repository, schedulers)
+        usecase = RefreshMonsters(repository, schedulers)
     }
 
     @Test

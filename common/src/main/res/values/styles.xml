@@ -2,16 +2,16 @@
 
     <style name="appToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary" />
 
-    <style name="defaultTextViewStyle" parent="Widget.MaterialComponents.TextView">
+    <style name="Widget.App.TextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:textAppearance">?textAppearanceBody1</item>
     </style>
 
-    <style name="MonsterDetailTextStyle" parent="defaultTextViewStyle">
+    <style name="Widget.App.TextView.MonsterDetail">
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
     </style>
 
-    <style name="preferenceThemeOverlay" parent="PreferenceThemeOverlay">
+    <style name="PreferenceTheme.App" parent="PreferenceThemeOverlay">
         <item name="android:layout">@layout/fragment_settings</item>
     </style>
 

@@ -13,8 +13,8 @@ import com.carles.hyrule.data.mapper.MonstersMapper
 import com.carles.hyrule.data.remote.HyruleApi
 import com.carles.hyrule.data.remote.HyruleRemoteDatasource
 import com.carles.hyrule.data.remote.HyruleRemoteDatasourceAlt
-import com.carles.hyrule.domain.GetMonsterDetailUsecase
-import com.carles.hyrule.domain.RefreshMonstersUsecase
+import com.carles.hyrule.domain.GetMonsterDetail
+import com.carles.hyrule.domain.RefreshMonsters
 import com.carles.hyrule.ui.MonsterDetailViewModel
 import com.carles.hyrule.ui.MonstersViewModel
 import org.koin.android.ext.koin.androidContext
@@ -61,8 +61,8 @@ val hyruleModule = module {
     single { HyruleDatasourceFactoryAlt(localDatasource = get(), remoteDatasource = get(), cache = get()) }
     single<HyruleRepo>(REPOSITORY_ALT) { HyruleRepositoryAlt(factory = get()) }
 
-    factory { RefreshMonstersUsecase(repository = get(REPOSITORY), schedulers = get()) }
-    factory { GetMonsterDetailUsecase(repository = get(REPOSITORY), schedulers = get()) }
+    factory { RefreshMonsters(repository = get(REPOSITORY), schedulers = get()) }
+    factory { GetMonsterDetail(repository = get(REPOSITORY), schedulers = get()) }
 
     viewModel { MonstersViewModel(refreshMonsters = get()) }
     viewModel { (id: Int) -> MonsterDetailViewModel(id = id, getMonsterDetail = get()) }

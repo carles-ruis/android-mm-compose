@@ -5,17 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/monster_toolbar"
-        layout="@layout/view_toolbar" />
-
     <ScrollView
         android:id="@+id/monster_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/monster_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
         <LinearLayout
@@ -52,10 +48,10 @@
 
             <ImageView
                 android:id="@+id/monster_image"
-                android:layout_marginTop="16dp"
                 android:layout_width="260dp"
                 android:layout_height="260dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
                 tools:ignore="ContentDescription" />
 
             <TextView

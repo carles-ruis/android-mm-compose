@@ -2,32 +2,19 @@ package com.carles.settings.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
-import com.carles.common.Navigate
 import com.carles.common.databinding.FragmentSettingsBinding
-import com.carles.common.ui.component.HasToolbar
 import com.carles.settings.R
-import org.koin.android.scope.AndroidScopeComponent
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 
-class SettingsFragment : PreferenceFragmentCompat(), HasToolbar {
+class SettingsFragment : PreferenceFragmentCompat() {
 
     private val viewModel: SettingsViewModel by viewModel()
-    private val navigate: Navigate by lazy {
-        (requireActivity() as AndroidScopeComponent).scope.get { parametersOf(requireActivity()) }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentSettingsBinding.bind(view)
-
-        binding.settingsToolbar.toolbar.apply {
-            initDefaultToolbar(this, activity as AppCompatActivity, navigate)
-            setTitle(R.string.settings)
-        }
+        FragmentSettingsBinding.bind(view)
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

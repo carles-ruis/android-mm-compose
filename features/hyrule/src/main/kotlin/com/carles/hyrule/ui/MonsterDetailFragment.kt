@@ -14,25 +14,19 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.carles.common.Navigate
 import com.carles.common.ui.BaseFragment
 import com.carles.common.ui.ERROR
 import com.carles.common.ui.LOADING
 import com.carles.common.ui.SUCCESS
-import com.carles.common.ui.component.HasToolbar
 import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.databinding.FragmentMonsterDetailBinding
 import com.carles.hyrule.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
-import org.koin.android.scope.AndroidScopeComponent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class MonsterDetailFragment : BaseFragment<FragmentMonsterDetailBinding>(), HasToolbar {
+class MonsterDetailFragment : BaseFragment<FragmentMonsterDetailBinding>() {
 
     private val viewModel: MonsterDetailViewModel by viewModel { parametersOf(requireArguments().getInt(EXTRA_ID)) }
-    private val navigate: Navigate by lazy {
-        (requireActivity() as AndroidScopeComponent).scope.get { parametersOf(requireActivity()) }
-    }
 
     override val progress: View
         get() = binding.monsterProgress.progress
@@ -48,9 +42,6 @@ class MonsterDetailFragment : BaseFragment<FragmentMonsterDetailBinding>(), HasT
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.monsterToolbar.toolbar.apply {
-            initDefaultToolbar(this, activity as AppCompatActivity, navigate)
-        }
         observeMonsterDetail()
     }
 
@@ -69,7 +60,7 @@ class MonsterDetailFragment : BaseFragment<FragmentMonsterDetailBinding>(), HasT
                 }
                 ERROR -> {
                     hideProgress()
-                    navigate.toErrorFromMonsterDetail(result.message)
+                    navigate.toErrorDialog(result.message)
                 }
                 LOADING -> showProgress()
             }
@@ -110,7 +101,7 @@ class MonsterDetailFragment : BaseFragment<FragmentMonsterDetailBinding>(), HasT
     }
 
     companion object {
-        private const val EXTRA_ID = "extra_monster_detail_id"
+        private const val EXTRA_ID = "extraId"
         fun getBundle(id: Int) = bundleOf(EXTRA_ID to id)
     }
 }

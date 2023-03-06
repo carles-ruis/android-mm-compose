@@ -4,9 +4,10 @@ buildscript {
         google()
         gradlePluginPortal()
     }
-   dependencies {
-         classpath("com.android.tools.build:gradle:${Version.gradle}")
-         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
+    dependencies {
+        classpath("com.android.tools.build:gradle:${Version.gradle}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Version.navigation}")
     }
 }
 

@@ -7,28 +7,25 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.carles.common.Navigate
 import com.carles.common.ui.BaseFragment
 import com.carles.common.ui.ERROR
 import com.carles.common.ui.LOADING
 import com.carles.common.ui.SUCCESS
-import com.carles.common.ui.consumeMenuClick
 import com.carles.hyrule.R
 import com.carles.hyrule.databinding.FragmentMonstersBinding
 import com.carles.hyrule.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
-import org.koin.android.scope.AndroidScopeComponent
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 
 class MonstersFragment : BaseFragment<FragmentMonstersBinding>() {
 
     private val viewModel: MonstersViewModel by viewModel()
-    private val navigate: Navigate by lazy {
-        (requireActivity() as AndroidScopeComponent).scope.get { parametersOf(requireActivity()) }
-    }
 
     override val progress: View
         get() = binding.monstersProgress.progress
@@ -44,21 +41,12 @@ class MonstersFragment : BaseFragment<FragmentMonstersBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolbar()
+        setupMenu()
         binding.monstersRecycler.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        binding.monstersRecycler.adapter = MonstersAdapter { monster -> navigate.toMonsterDetailFromMonsters(monster.id) }
-        observeMonsters()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.monsters_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.monsters_settings_menu -> consumeMenuClick { navigate.toSettings() }
-            else -> super.onOptionsItemSelected(item)
+        binding.monstersRecycler.adapter = MonstersAdapter { monster ->
+            navigate.toMonsterDetail(monster.id)
         }
+        observeMonsters()
     }
 
     private fun setResultListener() {
@@ -67,13 +55,16 @@ class MonstersFragment : BaseFragment<FragmentMonstersBinding>() {
         }
     }
 
-    private fun initToolbar() {
-        setHasOptionsMenu(true)
-        val toolbar = binding.monstersToolbar.toolbar
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        toolbar.setTitle(R.string.monsters_title)
-        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp)
-        toolbar.setNavigationOnClickListener { activity?.finish() }
+    private fun setupMenu() {
+        (activity as MenuHost).addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.monsters_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return menuItem.onNavDestinationSelected(findNavController())
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun observeMonsters() {
@@ -85,7 +76,7 @@ class MonstersFragment : BaseFragment<FragmentMonstersBinding>() {
                 }
                 ERROR -> {
                     hideProgress()
-                    navigate.toErrorFromMonsters(result.message)
+                    navigate.toErrorDialog(result.message)
                 }
                 LOADING -> showProgress()
             }

@@ -28,8 +28,8 @@ class ErrorDialogFragment : AppCompatDialogFragment() {
     companion object {
         const val REQUEST_CODE_RETRY = "request_code_retry"
 
-        private const val EXTRA_MESSAGE = "extra_message"
-        private const val EXTRA_RETRY = "extra_retry"
+        private const val EXTRA_MESSAGE = "extraMessage"
+        private const val EXTRA_RETRY = "extraRetry"
         fun getBundle(message: String? = null, retry: Boolean? = null) =
             bundleOf(EXTRA_MESSAGE to message, EXTRA_RETRY to retry)
     }

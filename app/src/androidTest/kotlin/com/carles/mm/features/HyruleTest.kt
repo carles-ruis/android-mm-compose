@@ -33,7 +33,7 @@ class HyruleTest {
     fun displayMonstersAndNavigateToMonsterDetail() {
         val appName = InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.appname)
         // monsters screen
-        onView(withId(R.id.monsters_toolbar))
+        onView(withId(R.id.main_toolbar))
             .check(matches(isDisplayed()))
             .check(matches(hasDescendant(withText(appName))))
         onView(withId(R.id.monsters_recycler))
@@ -44,7 +44,7 @@ class HyruleTest {
             .perform(RecyclerViewActions.actionOnItem<RecyclerView.ViewHolder>(withText("molduga"), click()))
 
         // monster detail screen
-        onView(withId(R.id.monster_toolbar)).check(matches(hasDescendant(withText("molduga"))))
+        onView(withId(R.id.main_toolbar)).check(matches(hasDescendant(withText("molduga"))))
         onView(withId(R.id.monster_locations)).check(matches(withText("Gerudo Desert")))
         onView(withId(R.id.monster_description)).check(matches(withText(startsWith("This massive monster swims"))))
         onView(withId(R.id.monster_image)).check(matches(CustomDrawableMatchers.hasDrawable()))
@@ -52,11 +52,11 @@ class HyruleTest {
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
 
         // monster screen again
-        onView(withId(R.id.monsters_toolbar)).check(matches(hasDescendant(withText(appName))))
+        onView(withId(R.id.main_toolbar)).check(matches(hasDescendant(withText(appName))))
         onView(withId(R.id.monsters_recycler))
             .perform(RecyclerViewActions.actionOnItem<RecyclerView.ViewHolder>(withText("guardian scout iv"), click()))
         // monster detail again, back and exit
-        onView(withId(R.id.monster_toolbar)).check(matches(hasDescendant(withText("guardian scout iv"))))
+        onView(withId(R.id.main_toolbar)).check(matches(hasDescendant(withText("guardian scout iv"))))
         onView(withId(R.id.monster_locations)).check(matches(withText("")))
         Espresso.pressBack()
         Espresso.pressBackUnconditionally()

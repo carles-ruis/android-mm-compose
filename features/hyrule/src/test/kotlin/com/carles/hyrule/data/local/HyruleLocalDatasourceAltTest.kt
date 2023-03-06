@@ -55,8 +55,8 @@ class HyruleLocalDatasourceAltTest {
 
     @Test
     fun `given persist, when monsters are provided, then insert them to database and update cache`() {
-        every { dao.deleteMonsters() } returns 1
-        every { dao.insertMonsters(any()) } returns listOf(1)
+        every { dao.deleteMonsters() } returns Single.just(1)
+        every { dao.insertMonsters(any()) } returns Single.just(listOf(1))
         every { cache.set(any()) } just runs
         val observer = datasource.persist(MONSTERS_ENTITY).test()
 
@@ -68,7 +68,7 @@ class HyruleLocalDatasourceAltTest {
 
     @Test
     fun `given persist, when monster is provided, then insert it to database and update cache`() {
-        every { dao.insertMonsterDetail(any()) } returns 1
+        every { dao.insertMonsterDetail(any()) } returns Single.just(1)
         every { cache.set(any()) } just runs
         val observer = datasource.persist(MONSTER_DETAIL_ENTITY).test()
 

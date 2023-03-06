@@ -5,10 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/monsters_toolbar"
-        layout="@layout/view_toolbar" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/monsters_recycler"
         android:layout_width="match_parent"
@@ -18,7 +14,7 @@
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monsters_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="1"
         tools:listitem="@layout/item_monster" />
 

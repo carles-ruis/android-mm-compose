@@ -25,8 +25,8 @@ class SettingsTest {
     @Test
     fun displayAndSetSettings() {
         // settings screen
-        onView(withId(R.id.monsters_settings_menu)).perform(click())
-        onView(withId(R.id.settings_toolbar)).check(matches(hasDescendant(withText(R.string.settings))))
+        onView(withId(R.id.settings_destination)).perform(click())
+        onView(withId(R.id.main_toolbar)).check(matches(hasDescendant(withText(R.string.settings))))
         onView(withText(R.string.preferences_cache_expiration))
             .check(matches(isDisplayed()))
             .perform(click())

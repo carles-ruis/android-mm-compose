@@ -1,6 +1,7 @@
 package com.carles.hyrule.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.SavedStateHandle
 import com.carles.common.ui.ERROR
 import com.carles.common.ui.SUCCESS
 import com.carles.hyrule.MonsterDetail
@@ -21,7 +22,9 @@ class MonsterDetailViewModelTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val getMonsterDetail: GetMonsterDetail = mockk()
-    private val id = 1
+    private val state = SavedStateHandle().apply {
+        set(MonsterDetailFragment.EXTRA_ID, 1)
+    }
     private lateinit var viewModel: MonsterDetailViewModel
 
     @Test
@@ -29,7 +32,7 @@ class MonsterDetailViewModelTest {
         val monsterDetail = MonsterDetail(1, "Monster", "here", "big monster", "https://url")
         every { getMonsterDetail.execute(any()) } returns Single.just(monsterDetail)
 
-        viewModel = MonsterDetailViewModel(id, getMonsterDetail)
+        viewModel = MonsterDetailViewModel(state, getMonsterDetail)
 
         verify { getMonsterDetail.execute(1) }
         val result = viewModel.monsterDetail.value!!
@@ -43,7 +46,7 @@ class MonsterDetailViewModelTest {
         val message = "some error"
         every { getMonsterDetail.execute(any()) } returns Single.error(Exception(message))
 
-        viewModel = MonsterDetailViewModel(id, getMonsterDetail)
+        viewModel = MonsterDetailViewModel(state, getMonsterDetail)
 
         verify { getMonsterDetail.execute(1) }
         val result = viewModel.monsterDetail.value!!

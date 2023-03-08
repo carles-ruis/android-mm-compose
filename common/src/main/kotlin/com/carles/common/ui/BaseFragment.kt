@@ -6,17 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.carles.common.Navigate
-import org.koin.android.scope.AndroidScopeComponent
-import org.koin.core.parameter.parametersOf
+import javax.inject.Inject
 
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
-    protected val navigate: Navigate by lazy {
-        (requireActivity() as AndroidScopeComponent).scope.get { parametersOf(findNavController()) }
-    }
+    @Inject
+    lateinit var navigate: Navigate
 
     private var _binding: T? = null
     protected val binding get() = _binding!!

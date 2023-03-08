@@ -7,13 +7,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.carles.mm.databinding.ActivityMainBinding
-import org.koin.android.scope.AndroidScopeComponent
-import org.koin.androidx.scope.activityScope
-import org.koin.core.scope.Scope
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity(), AndroidScopeComponent {
-
-    override val scope: Scope by activityScope()
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
     private val navController: NavController by lazy {
         val navHost = supportFragmentManager.findFragmentById(R.id.fragment_nav_host) as NavHostFragment

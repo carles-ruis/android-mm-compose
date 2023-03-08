@@ -6,8 +6,10 @@ import com.carles.common.data.CacheKey
 import com.carles.common.data.ItemNotCachedException
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class HyruleLocalDatasource(
+class HyruleLocalDatasource @Inject constructor(
     private val dao: MonsterDao,
     private val cache: Cache,
 ) {

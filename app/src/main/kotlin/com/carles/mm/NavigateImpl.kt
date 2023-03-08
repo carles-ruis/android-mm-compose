@@ -1,10 +1,14 @@
 package com.carles.mm
 
 import android.util.Log
-import androidx.navigation.NavController
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import com.carles.common.Navigate
+import javax.inject.Inject
 
-class NavigateImpl(private val navController: NavController) : Navigate {
+class NavigateImpl @Inject constructor(private val activity: FragmentActivity) : Navigate {
+
+    private val navController by lazy { activity.findNavController(R.id.fragment_nav_host) }
 
     override fun toMonsterDetail(id: Int) {
         safeNavigation {

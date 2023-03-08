@@ -10,9 +10,12 @@ import com.carles.common.ui.setLoading
 import com.carles.common.ui.setSuccess
 import com.carles.hyrule.Monster
 import com.carles.hyrule.domain.RefreshMonsters
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class MonstersViewModel(
+@HiltViewModel
+class MonstersViewModel @Inject constructor(
     private val refreshMonsters: RefreshMonsters
 ) : ViewModel() {
 

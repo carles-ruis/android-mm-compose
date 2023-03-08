@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -21,12 +22,12 @@ import com.carles.common.ui.SUCCESS
 import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.databinding.FragmentMonsterDetailBinding
 import com.carles.hyrule.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MonsterDetailFragment : BaseFragment<FragmentMonsterDetailBinding>() {
 
-    private val viewModel: MonsterDetailViewModel by viewModel { parametersOf(requireArguments().getInt(EXTRA_ID)) }
+    private val viewModel: MonsterDetailViewModel by viewModels()
 
     override val progress: View
         get() = binding.monsterProgress.progress
@@ -101,7 +102,7 @@ class MonsterDetailFragment : BaseFragment<FragmentMonsterDetailBinding>() {
     }
 
     companion object {
-        private const val EXTRA_ID = "extraId"
+        const val EXTRA_ID = "extraId"
         fun getBundle(id: Int) = bundleOf(EXTRA_ID to id)
     }
 }

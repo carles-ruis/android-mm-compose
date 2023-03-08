@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
@@ -21,11 +22,12 @@ import com.carles.common.ui.SUCCESS
 import com.carles.hyrule.R
 import com.carles.hyrule.databinding.FragmentMonstersBinding
 import com.carles.hyrule.ui.ErrorDialogFragment.Companion.REQUEST_CODE_RETRY
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MonstersFragment : BaseFragment<FragmentMonstersBinding>() {
 
-    private val viewModel: MonstersViewModel by viewModel()
+    private val viewModel: MonstersViewModel by viewModels()
 
     override val progress: View
         get() = binding.monstersProgress.progress

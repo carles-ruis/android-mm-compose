@@ -7,8 +7,9 @@ import com.carles.hyrule.data.mapper.MonsterDetailMapper
 import com.carles.hyrule.data.mapper.MonstersMapper
 import com.carles.hyrule.data.remote.HyruleRemoteDatasource
 import io.reactivex.Single
+import javax.inject.Inject
 
-class HyruleRepository(
+class HyruleRepository @Inject constructor(
     private val localDatasource: HyruleLocalDatasource,
     private val remoteDatasource: HyruleRemoteDatasource,
     private val monstersMapper: MonstersMapper,

@@ -5,8 +5,9 @@ import com.carles.common.data.CacheKey
 import com.carles.hyrule.Monster
 import com.carles.hyrule.MonsterDetail
 import io.reactivex.Single
+import javax.inject.Inject
 
-class HyruleRepositoryAlt(private val factory: HyruleDatasourceFactoryAlt) : HyruleRepo {
+class HyruleRepositoryAlt @Inject constructor(private val factory: HyruleDatasourceFactoryAlt) : HyruleRepo {
 
     override fun getMonsters(): Single<List<Monster>> {
         return factory.provideDatasource(CacheKey(CacheItems.MONSTERS)).getMonsters()

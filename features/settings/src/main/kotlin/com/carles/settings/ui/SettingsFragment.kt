@@ -2,15 +2,18 @@ package com.carles.settings.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.carles.common.databinding.FragmentSettingsBinding
 import com.carles.settings.R
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    private val viewModel: SettingsViewModel by viewModel()
+    private val viewModel: SettingsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

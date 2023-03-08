@@ -16,6 +16,8 @@ import com.carles.mm.CustomRecyclerViewMatchers.atPosition
 import com.carles.mm.CustomRecyclerViewMatchers.recyclerViewSize
 import com.carles.mm.MainActivity
 import com.carles.mm.R
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.CoreMatchers.startsWith
 import org.junit.Assert.assertTrue
@@ -24,9 +26,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
 class HyruleTest {
 
-    @get:Rule
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test

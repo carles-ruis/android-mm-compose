@@ -1,16 +1,19 @@
 package com.carles.common.data
 
-import android.content.Context
+import android.app.Application
 import androidx.preference.PreferenceManager
 import com.carles.common.R
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class AppPreferences(private val context: Context) {
+@Singleton
+class AppPreferences @Inject constructor(private val app: Application) {
 
-    private val preferences by lazy { PreferenceManager.getDefaultSharedPreferences(context) }
+    private val preferences by lazy { PreferenceManager.getDefaultSharedPreferences(app.applicationContext) }
 
     val cacheExpirationTime: Long
         get() = preferences.getString(
-            context.getString(R.string.preferences_cache_key),
-            context.getString(R.string.preferences_cache_default_value)
+            app.applicationContext.getString(R.string.preferences_cache_key),
+            app.applicationContext.getString(R.string.preferences_cache_default_value)
         )?.toLong() ?: 0L
 }

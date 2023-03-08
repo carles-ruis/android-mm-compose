@@ -16,6 +16,8 @@ plugins {
     id("com.github.ben-manes.versions").version(Version.benManes)
     // ./gradlew detekt
     id("io.gitlab.arturbosch.detekt").version(Version.detekt)
+    // dependency injection
+    id("com.google.dagger.hilt.android").version(Version.hilt).apply(false)
 }
 
 allprojects {

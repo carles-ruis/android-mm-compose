@@ -3,8 +3,10 @@ package com.carles.hyrule.data.mapper
 import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.data.local.MonsterDetailEntity
 import com.carles.hyrule.data.remote.MonsterDetailResponseDto
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MonsterDetailMapper {
+class MonsterDetailMapper @Inject constructor() {
 
     fun toEntity(dto: MonsterDetailResponseDto): MonsterDetailEntity =
         with(dto.data) {

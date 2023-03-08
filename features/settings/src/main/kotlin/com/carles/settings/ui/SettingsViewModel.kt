@@ -4,9 +4,14 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.carles.common.ui.addTo
 import com.carles.settings.domain.ResetCacheExpiration
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class SettingsViewModel(private val resetCacheExpiration: ResetCacheExpiration) : ViewModel() {
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
+    private val resetCacheExpiration: ResetCacheExpiration
+) : ViewModel() {
 
     private val disposables = CompositeDisposable()
 

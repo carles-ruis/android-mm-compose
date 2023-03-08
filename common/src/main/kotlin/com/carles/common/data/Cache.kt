@@ -1,12 +1,15 @@
 package com.carles.common.data
 
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
 data class CacheKey(val cacheItem: CacheItems, val itemId: Int = 0)
 
 enum class CacheItems { MONSTERS, MONSTER_DETAIL }
 
-class Cache(private val preferences: AppPreferences) {
+@Singleton
+class Cache @Inject constructor(private val preferences: AppPreferences) {
 
     private val map: MutableMap<CacheKey, Long> = mutableMapOf()
 

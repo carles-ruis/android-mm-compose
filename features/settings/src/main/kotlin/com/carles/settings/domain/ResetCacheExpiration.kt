@@ -3,8 +3,9 @@ package com.carles.settings.domain
 import com.carles.common.domain.AppSchedulers
 import com.carles.settings.data.SettingsRepository
 import io.reactivex.Completable
+import javax.inject.Inject
 
-class ResetCacheExpiration(
+class ResetCacheExpiration @Inject constructor(
     private val repository: SettingsRepository,
     private val schedulers: AppSchedulers
 ) {

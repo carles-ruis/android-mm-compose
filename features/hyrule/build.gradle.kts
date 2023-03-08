@@ -5,6 +5,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("io.gitlab.arturbosch.detekt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -14,7 +15,6 @@ android {
     defaultConfig {
         minSdk = AppConfig.minSdk
         targetSdk = AppConfig.targetSdk
-        //testInstrumentationRunner = AppConfig.testRunner
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -40,6 +40,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 detekt {
@@ -57,8 +60,8 @@ dependencies {
     implementation(Dependence.navigation)
     implementation(Dependence.navigationFragment)
     implementation(Dependence.fragment)
-    implementation(Dependence.koin)
-    implementation(Dependence.koinNavigation)
+    implementation(Dependence.hilt)
+    kapt(Dependence.hiltCompiler)
     implementation(Dependence.rxJava)
     implementation(Dependence.rxAndroid)
     implementation(Dependence.retrofit)

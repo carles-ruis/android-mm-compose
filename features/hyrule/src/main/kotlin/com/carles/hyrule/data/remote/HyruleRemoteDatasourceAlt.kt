@@ -7,8 +7,10 @@ import com.carles.hyrule.data.local.HyruleLocalDatasourceAlt
 import com.carles.hyrule.data.mapper.MonsterDetailMapper
 import com.carles.hyrule.data.mapper.MonstersMapper
 import io.reactivex.Single
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class HyruleRemoteDatasourceAlt(
+class HyruleRemoteDatasourceAlt @Inject constructor(
     private val api: HyruleApi,
     private val localDatasource: HyruleLocalDatasourceAlt,
     private val monstersMapper: MonstersMapper,

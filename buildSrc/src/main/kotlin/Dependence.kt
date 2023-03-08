@@ -12,6 +12,7 @@ object Version {
     val kotlin = "1.8.10"
     val benManes = "0.46.0"
     val detekt = "1.22.0"
+    val hilt = "2.45"
 
     val appCompat = "1.7.0-alpha02"
     val core = "1.9.0"
@@ -60,8 +61,6 @@ object Dependence {
     val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Version.retrofit}"
     val retrofitRxJava = "com.squareup.retrofit2:adapter-rxjava2:${Version.retrofit}"
     val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Version.loggingInterceptor}"
-    val koin = "io.insert-koin:koin-android:${Version.koin}"
-    val koinNavigation = "io.insert-koin:koin-androidx-navigation:${Version.koin}"
     val roomRuntime = "androidx.room:room-runtime:${Version.room}"
     val roomCompiler = "androidx.room:room-compiler:${Version.room}"
     val roomRxJava = "androidx.room:room-rxjava2:${Version.room}"
@@ -71,6 +70,8 @@ object Dependence {
     val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle}"
     val gson = "com.google.code.gson:gson:${Version.gson}"
     val glide = "com.github.bumptech.glide:glide:${Version.glide}"
+    val hilt = "com.google.dagger:hilt-android:${Version.hilt}"
+    val hiltCompiler = "com.google.dagger:hilt-compiler:${Version.hilt}"
 
     // Http inspector
     val chucker = "com.github.chuckerteam.chucker:library:${Version.chucker}"
@@ -88,6 +89,8 @@ object Dependence {
     private val testRules = "androidx.test:rules:${Version.androidTestRules}"
     private val espressoContrib = "com.android.support.test.espresso:espresso-contrib:${Version.espresso}"
     private val espresso = "com.android.support.test.espresso:espresso-core:${Version.espresso}"
+    val hiltTest = "com.google.dagger:hilt-android-testing:${Version.hilt}"
+    val hiltCompilerTest = "com.google.dagger:hilt-android-compiler:${Version.hilt}"
 
     val testImplementations = listOf(jUnit, mockk, archCoreTesting)
     val androidTestImplementations = listOf(jUnit, archCoreTesting, testRunner, testRules, espressoContrib, espresso)

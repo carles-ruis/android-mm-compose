@@ -6,6 +6,7 @@ plugins {
     id("kotlin-kapt")
     id("io.gitlab.arturbosch.detekt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -45,6 +46,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 detekt {
@@ -61,13 +65,22 @@ dependencies {
     implementation(Dependence.navigation)
     implementation(Dependence.navigationFragment)
     implementation(Dependence.fragment)
-    implementation(Dependence.koin)
-    implementation(Dependence.koinNavigation)
+    implementation(Dependence.hilt)
+    kapt(Dependence.hiltCompiler)
 
-    implementation(Dependence.stetho)
-    implementation(Dependence.stethoOkHttp)
+    implementation(Dependence.retrofit)
+    implementation(Dependence.retrofitConverterGson)
+    implementation(Dependence.retrofitRxJava)
+    implementation(Dependence.rxJava)
+    implementation(Dependence.rxAndroid)
+    implementation(Dependence.roomRuntime)
+
+    debugImplementation(Dependence.stetho)
+    debugImplementation(Dependence.stethoOkHttp)
     //debugImplementation(Dependence.leakCanary)
     detektPlugins(Dependence.detekt)
+    debugImplementation(Dependence.loggingInterceptor)
+    debugImplementation(Dependence.chucker)
 
     Dependence.testImplementations.forEach(::testImplementation)
     Dependence.androidTestImplementations.forEach(::androidTestImplementation)
@@ -77,4 +90,6 @@ dependencies {
     androidTestImplementation(Dependence.roomRuntime)
     kaptAndroidTest(Dependence.roomCompiler)
     androidTestImplementation(Dependence.roomRxJava)
+    androidTestImplementation(Dependence.hiltTest)
+    kaptAndroidTest(Dependence.hiltCompilerTest)
 }

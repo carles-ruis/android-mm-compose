@@ -2,16 +2,13 @@ package com.carles.hyrule.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
-import com.carles.common.ui.ERROR
-import com.carles.common.ui.SUCCESS
+import com.carles.common.ui.navigation.Screen
 import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.domain.GetMonsterDetail
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.Single
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -23,7 +20,7 @@ class MonsterDetailViewModelTest {
 
     private val getMonsterDetail: GetMonsterDetail = mockk()
     private val state = SavedStateHandle().apply {
-        set(MonsterDetailFragment.EXTRA_ID, 1)
+        set(Screen.MonsterDetail.monsterId, "1")
     }
     private lateinit var viewModel: MonsterDetailViewModel
 
@@ -35,10 +32,7 @@ class MonsterDetailViewModelTest {
         viewModel = MonsterDetailViewModel(state, getMonsterDetail)
 
         verify { getMonsterDetail.execute(1) }
-        val result = viewModel.monsterDetail.value!!
-        assertTrue(result.state is SUCCESS)
-        assertEquals(result.data, monsterDetail)
-        assertNull(result.message)
+        assertTrue(viewModel.uiState.value == MonsterDetailUiState(monster = monsterDetail))
     }
 
     @Test
@@ -49,9 +43,6 @@ class MonsterDetailViewModelTest {
         viewModel = MonsterDetailViewModel(state, getMonsterDetail)
 
         verify { getMonsterDetail.execute(1) }
-        val result = viewModel.monsterDetail.value!!
-        assertTrue(result.state is ERROR)
-        assertNull(result.data)
-        assertEquals(result.message, message)
+        assertTrue(viewModel.uiState.value == MonsterDetailUiState(error = message))
     }
 }

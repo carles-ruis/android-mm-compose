@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.carles.mm.MainActivity"
+            android:name="com.carles.mm.ui.MainActivity"
             android:label="@string/monsters_title"
             android:exported="true">
             <intent-filter>
@@ -22,10 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
 
     </application>
 </manifest>

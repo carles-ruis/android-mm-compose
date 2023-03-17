@@ -4,41 +4,30 @@
     <string name="appname">HYRULE MONSTERS</string>
     <string name="error_retry">RETRY</string>
 
-    <!-- non translatable strings -->
-    <string name="navigation_settings_deeplink" translatable="false">carles://settings</string>
-    <string name="preferences_cache_key" translatable="false">preferences_cache_key</string>
-    <string-array name="preferences_cache_values" translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>10</item>
-        <item>999999999</item>
-    </string-array>
-    <string name="preferences_cache_default_value" translatable="false">1</string>
-
     <!-- hyrule module strings -->
     <string name="monsters_title">@string/appname</string>
     <string name="monsters_menu_settings">Settings</string>
     <string name="error_server_response">Error obtaining data from the server</string>
-    <string name="monster_title" />
 
     <!-- settings module strings -->
     <string name="settings">Settings</string>
 
     <string name="preferences_cache">Cache</string>
+    <string name="preferences_cache_key" translatable="false">preferences_cache_key</string>
     <string name="preferences_cache_expiration">Cache expiration</string>
     <string name="preferences_cache_dont_use">Don\'t use cache</string>
     <string name="preferences_cache_one_minute">1 minute</string>
     <string name="preferences_cache_ten_minutes">10 minutes</string>
     <string name="preferences_cache_never">Never</string>
-    <string-array name="preferences_cache_entries">
-        <item>@string/preferences_cache_dont_use</item>
-        <item>@string/preferences_cache_one_minute</item>
-        <item>@string/preferences_cache_ten_minutes</item>
-        <item>@string/preferences_cache_never</item>
-    </string-array>
 
-
-
-
+    <!-- content descriptions and tags -->
+    <string name="description_back_arrow">Back</string>
+    <string name="tag_top_bar">Top bar</string>
+    <string name="tag_top_bar_title">Top bar title</string>
+    <string name="tag_monsters_list">Monsters list</string>
+    <string name="tag_settings_dialog">Settings dialog</string>
+    <string name="tag_monster_locations">Monster locations</string>
+    <string name="tag_monster_description">Monster description</string>
+    <string name="tag_monster_image">Monster image</string>
 
 </resources>

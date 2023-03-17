@@ -1,16 +1,12 @@
 package com.carles.hyrule.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.carles.common.ui.ERROR
-import com.carles.common.ui.SUCCESS
 import com.carles.hyrule.Monster
 import com.carles.hyrule.domain.RefreshMonsters
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.Single
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -31,10 +27,7 @@ class MonstersViewModelTest {
         viewModel = MonstersViewModel(refreshMonsters)
 
         verify { refreshMonsters.execute() }
-        val result = viewModel.monsters.value!!
-        assertTrue(result.state == SUCCESS)
-        assertEquals(result.data, monsters)
-        assertNull(result.message)
+        assertTrue(viewModel.uiState.value == MonstersUiState.Data(monsters = monsters))
     }
 
     @Test
@@ -45,10 +38,7 @@ class MonstersViewModelTest {
         viewModel = MonstersViewModel(refreshMonsters)
 
         verify { refreshMonsters.execute() }
-        val result = viewModel.monsters.value!!
-        assertTrue(result.state == ERROR)
-        assertNull(result.data)
-        assertEquals(result.message, message)
+        assertTrue(viewModel.uiState.value == MonstersUiState.Error(message = message))
     }
 
     @Test

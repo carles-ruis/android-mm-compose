@@ -3,30 +3,35 @@ package com.carles.hyrule.ui
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.carles.common.ui.MutableResourceLiveData
-import com.carles.common.ui.ResourceLiveData
-import com.carles.common.ui.addTo
-import com.carles.common.ui.setError
-import com.carles.common.ui.setLoading
-import com.carles.common.ui.setSuccess
+import com.carles.common.ui.extensions.addTo
+import com.carles.common.ui.navigation.Screen
 import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.domain.GetMonsterDetail
-import com.carles.hyrule.ui.MonsterDetailFragment.Companion.EXTRA_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
+
+data class MonsterDetailUiState(
+    val loading: Boolean = false,
+    val error: String? = null,
+    val monster: MonsterDetail? = null,
+)
 
 @HiltViewModel
 class MonsterDetailViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     private val getMonsterDetail: GetMonsterDetail
 ) : ViewModel() {
 
     private val disposables = CompositeDisposable()
-    private val id = savedStateHandle.get<Int>(EXTRA_ID) ?: 0
 
-    private val _monsterDetail = MutableResourceLiveData<MonsterDetail>()
-    val monsterDetail: ResourceLiveData<MonsterDetail> = _monsterDetail
+    private val id = savedStateHandle.get<String>(Screen.Arguments.monsterId)?.toInt() ?: 0
+
+    private val _uiState = MutableStateFlow(MonsterDetailUiState())
+    val uiState: StateFlow<MonsterDetailUiState> = _uiState
 
     init {
         getMonsterDetail()
@@ -35,12 +40,12 @@ class MonsterDetailViewModel @Inject constructor(
     private fun getMonsterDetail() {
         getMonsterDetail.execute(id)
             .doOnSubscribe {
-                _monsterDetail.setLoading()
+                _uiState.update { it.copy(loading = true) }
             }.subscribe({ monster ->
-                _monsterDetail.setSuccess(monster)
+                _uiState.update { it.copy(loading = false, error = null, monster = monster) }
             }, { error ->
                 Log.w("MonsterDetailViewModel", error)
-                _monsterDetail.setError(error.message)
+                _uiState.update { it.copy(loading = false, error = error.message) }
             }).addTo(disposables)
     }
 

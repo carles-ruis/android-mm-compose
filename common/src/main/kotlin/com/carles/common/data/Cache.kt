@@ -23,7 +23,7 @@ class Cache @Inject constructor(private val preferences: AppPreferences) {
 
     @SuppressWarnings("MagicNumber")
     fun set(key: CacheKey) {
-        map[key] = now() + preferences.cacheExpirationTime * 60 * 1000
+        map[key] = now() + 1000 * 60 * preferences.cacheExpirationTime
     }
 
     fun resetCacheExpiration() {

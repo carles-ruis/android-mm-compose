@@ -35,10 +35,13 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = AppConfig.jvmTarget
     }
     buildFeatures {
-        viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtension
     }
     kapt {
         correctErrorTypes = true
@@ -52,14 +55,7 @@ detekt {
 dependencies {
     implementation(project(":common"))
     implementation(Dependence.kotlin)
-    implementation(Dependence.material)
     implementation(Dependence.appCompat)
-    implementation(Dependence.recyclerview)
-    implementation(Dependence.constraintLayout)
-    implementation(Dependence.preference)
-    implementation(Dependence.navigation)
-    implementation(Dependence.navigationFragment)
-    implementation(Dependence.fragment)
     implementation(Dependence.hilt)
     kapt(Dependence.hiltCompiler)
     implementation(Dependence.rxJava)
@@ -70,13 +66,13 @@ dependencies {
     implementation(Dependence.roomRuntime)
     kapt(Dependence.roomCompiler)
     implementation(Dependence.roomRxJava)
-    implementation(Dependence.lifecycleExtensions)
-    kapt(Dependence.lifecycleCompiler)
-    implementation(Dependence.lifecycleReactive)
-    implementation(Dependence.lifecycleLiveData)
-    implementation(Dependence.glide)
+    implementation(Dependence.coil)
+
+    implementation(platform(Dependence.composeBom))
+    implementation(Dependence.material3)
+    implementation(Dependence.lifecycleViewModel)
+    implementation(Dependence.lifecycleRuntime)
 
     detektPlugins(Dependence.detekt)
-
-    Dependence.testImplementations.forEach(::testImplementation)
+    TestDependence.testImplementations.forEach(::testImplementation)
 }

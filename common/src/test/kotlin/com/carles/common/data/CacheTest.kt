@@ -20,20 +20,20 @@ class CacheTest {
 
     @Test
     fun `given isCached, when no item set, then it returns false`() {
-        every { preferences.cacheExpirationTime } returns 60_000L
+        every { preferences.cacheExpirationTime } returns 10
         assertFalse(cache.isCached(cacheKey))
     }
 
     @Test
     fun `given isCached, when item set and expired, then it returns false`() {
-        every { preferences.cacheExpirationTime } returns -10_000L
+        every { preferences.cacheExpirationTime } returns -1
         cache.set(cacheKey)
         assertFalse(cache.isCached(cacheKey))
     }
 
     @Test
     fun `given isCached, When item is set and not expired, then it returns true`() {
-        every { preferences.cacheExpirationTime } returns 60_000L
+        every { preferences.cacheExpirationTime } returns 10
         cache.set(cacheKey)
         assertTrue(cache.isCached(cacheKey))
     }

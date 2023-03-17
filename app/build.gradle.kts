@@ -5,7 +5,6 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("io.gitlab.arturbosch.detekt")
-    id("androidx.navigation.safeargs.kotlin")
     id("com.google.dagger.hilt.android")
 }
 
@@ -41,10 +40,13 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = AppConfig.jvmTarget
     }
     buildFeatures {
-        viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtension
     }
     kapt {
         correctErrorTypes = true
@@ -61,14 +63,8 @@ dependencies {
     implementation(project(":common"))
     implementation(Dependence.kotlin)
     implementation(Dependence.appCompat)
-    implementation(Dependence.constraintLayout)
-    implementation(Dependence.navigation)
-    implementation(Dependence.navigationFragment)
-    implementation(Dependence.fragment)
-    implementation(Dependence.material)
     implementation(Dependence.hilt)
     kapt(Dependence.hiltCompiler)
-
     implementation(Dependence.retrofit)
     implementation(Dependence.retrofitConverterGson)
     implementation(Dependence.retrofitRxJava)
@@ -76,21 +72,30 @@ dependencies {
     implementation(Dependence.rxAndroid)
     implementation(Dependence.roomRuntime)
 
-    debugImplementation(Dependence.stetho)
-    debugImplementation(Dependence.stethoOkHttp)
-    //debugImplementation(Dependence.leakCanary)
-    detektPlugins(Dependence.detekt)
-    debugImplementation(Dependence.loggingInterceptor)
-    debugImplementation(Dependence.chucker)
+    val composeBom = platform(Dependence.composeBom)
+    implementation(composeBom)
+    implementation(Dependence.material3)
+    implementation(Dependence.activityCompose)
+    implementation(Dependence.navigation)
+    implementation(Dependence.navigationAnimation)
+    implementation(Dependence.lifecycleViewModel)
+    implementation(Dependence.lifecycleRuntime)
 
-    Dependence.testImplementations.forEach(::testImplementation)
-    Dependence.androidTestImplementations.forEach(::androidTestImplementation)
+    detektPlugins(Dependence.detekt)
+    debugImplementation(Dependence.stetho)
+    //debugImplementation(Dependence.leakCanary)
+
+    TestDependence.testImplementations.forEach(::testImplementation)
+    TestDependence.androidTestImplementations.forEach(::androidTestImplementation)
     androidTestImplementation(Dependence.rxJava)
     androidTestImplementation(Dependence.rxAndroid)
     androidTestImplementation(Dependence.gson)
     androidTestImplementation(Dependence.roomRuntime)
     kaptAndroidTest(Dependence.roomCompiler)
     androidTestImplementation(Dependence.roomRxJava)
-    androidTestImplementation(Dependence.hiltTest)
-    kaptAndroidTest(Dependence.hiltCompilerTest)
+    androidTestImplementation(TestDependence.hilt)
+    kaptAndroidTest(TestDependence.hiltCompiler)
+    androidTestImplementation(composeBom)
+    androidTestImplementation(TestDependence.composeUi)
+    debugImplementation(TestDependence.composeUiManifest)
 }

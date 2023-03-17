@@ -29,10 +29,13 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = AppConfig.jvmTarget
     }
     buildFeatures {
-        viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtension
     }
     kapt {
         correctErrorTypes = true
@@ -48,17 +51,16 @@ dependencies {
     implementation(Dependence.kotlin)
     implementation(Dependence.appCompat)
     implementation(Dependence.core)
-    implementation(Dependence.material)
-    implementation(Dependence.constraintLayout)
-    implementation(Dependence.preference)
-    implementation(Dependence.navigation)
-    implementation(Dependence.navigationFragment)
     implementation(Dependence.hilt)
     kapt(Dependence.hiltCompiler)
     implementation(Dependence.rxJava)
     implementation(Dependence.rxAndroid)
 
-    detektPlugins(Dependence.detekt)
+    implementation(platform(Dependence.composeBom))
+    implementation(Dependence.material3)
+    implementation(Dependence.lifecycleViewModel)
+    implementation(Dependence.lifecycleRuntime)
 
-    Dependence.testImplementations.forEach(::testImplementation)
+    detektPlugins(Dependence.detekt)
+    TestDependence.testImplementations.forEach(::testImplementation)
 }

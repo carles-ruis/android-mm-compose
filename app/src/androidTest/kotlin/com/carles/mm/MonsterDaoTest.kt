@@ -1,6 +1,5 @@
 package com.carles.mm
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -8,18 +7,18 @@ import com.carles.hyrule.data.local.HyruleDatabase
 import com.carles.hyrule.data.local.MonsterDao
 import com.carles.hyrule.data.local.MonsterDetailEntity
 import com.carles.hyrule.data.local.MonsterEntity
+import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(AndroidJUnit4::class)
 class MonsterDaoTest {
-
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var dao: MonsterDao
     private lateinit var database: HyruleDatabase
@@ -41,43 +40,44 @@ class MonsterDaoTest {
     }
 
     @Test
-    fun givenLoadMonsters_whenCalled_thenLoadAllMonstersFromDatabase() {
-        dao.insertMonsters(MONSTERS_ENTITY).test().assertComplete()
-        dao.loadMonsters().test().assertValue(MONSTERS_ENTITY)
+    fun givenLoadMonsters_whenCalled_thenLoadAllMonstersFromDatabase() = runTest {
+        dao.insertMonsters(MONSTERS_ENTITY)
+        val result = dao.loadMonsters()
+        assertEquals(MONSTERS_ENTITY, result)
     }
 
     @Test
-    fun givenInsertMonsters_whenMonsterIsNotInDatabase_thenInsertIt() {
-        dao.insertMonsters(MONSTERS_ENTITY).test().assertValue(listOf(1L))
+    fun givenInsertMonsters_whenMonsterIsNotInDatabase_thenInsertIt() = runTest {
+        assertEquals(listOf(1L), dao.insertMonsters(MONSTERS_ENTITY))
     }
 
     @Test
-    fun givenInsertMonsters_whenMonsterIsAlreadyInDatabase_thenReplaceIt() {
-        dao.insertMonsters(MONSTERS_ENTITY).test().assertComplete()
-        dao.insertMonsters(MONSTERS_ENTITY).test().assertValue(listOf(1L))
+    fun givenInsertMonsters_whenMonsterIsAlreadyInDatabase_thenReplaceIt() = runTest {
+        dao.insertMonsters(MONSTERS_ENTITY)
+        assertEquals(listOf(1L), dao.insertMonsters(MONSTERS_ENTITY))
     }
 
     @Test
-    fun givenDeleteMonsters_whenCalled_thenDeleteAllMonstersFromDatabase() {
-        dao.insertMonsters(MONSTERS_ENTITY).test().assertComplete()
-        dao.deleteMonsters().test().assertValue(1)
+    fun givenDeleteMonsters_whenCalled_thenDeleteAllMonstersFromDatabase() = runTest {
+        dao.insertMonsters(MONSTERS_ENTITY)
+        assertEquals(1, dao.deleteMonsters())
     }
 
     @Test
-    fun givenLoadMonsterDetail_whenCalled_thenGetProperMonster() {
-        dao.insertMonsterDetail(MONSTER_DETAIL_ENTITY).test().assertComplete()
-        dao.loadMonsterDetail(1).test().assertValue(MONSTER_DETAIL_ENTITY)
+    fun givenLoadMonsterDetail_whenCalled_thenGetProperMonster() = runTest {
+        dao.insertMonsterDetail(MONSTER_DETAIL_ENTITY)
+        assertEquals(MONSTER_DETAIL_ENTITY, dao.loadMonsterDetail(1))
     }
 
     @Test
-    fun givenInsertMonsterDetail_whenMonsterIsNotInDatabase_thenInsertIt() {
-        dao.insertMonsterDetail(MONSTER_DETAIL_ENTITY).test().assertValue(1L)
+    fun givenInsertMonsterDetail_whenMonsterIsNotInDatabase_thenInsertIt() = runTest {
+        assertEquals(1L, dao.insertMonsterDetail(MONSTER_DETAIL_ENTITY))
     }
 
     @Test
-    fun givenInsertMonsterDetail_whenMonsterIsAlreadyInDatabase_thenReplaceIt() {
-        dao.insertMonsterDetail(MONSTER_DETAIL_ENTITY).test().assertComplete()
-        dao.insertMonsterDetail(MONSTER_DETAIL_ENTITY).test().assertValue(1L)
+    fun givenInsertMonsterDetail_whenMonsterIsAlreadyInDatabase_thenReplaceIt() = runTest {
+        dao.insertMonsterDetail(MONSTER_DETAIL_ENTITY)
+        assertEquals(1, dao.insertMonsterDetail(MONSTER_DETAIL_ENTITY))
     }
 
     companion object {

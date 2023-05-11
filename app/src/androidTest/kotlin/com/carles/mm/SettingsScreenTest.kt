@@ -21,11 +21,11 @@ import org.junit.runner.RunWith
 @HiltAndroidTest
 class SettingsScreenTest {
 
-    @get:Rule(order = 1)
-    val composeRule = createAndroidComposeRule<MainActivity>()
-
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val composeRule = createAndroidComposeRule<MainActivity>()
 
     @Test
     fun settingsScreen_testCacheExpirationSelection() {

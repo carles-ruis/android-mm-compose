@@ -1,12 +1,15 @@
 package com.carles.hyrule.data.remote
 
-import io.mockk.every
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
-import io.reactivex.Single
+import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class HyruleRemoteDatasourceTest {
 
     private val api: HyruleApi = mockk()
@@ -18,23 +21,21 @@ class HyruleRemoteDatasourceTest {
     }
 
     @Test
-    fun `given getMonsters, then get monsters from api`() {
-        every { api.getMonsters() } returns Single.just(MONSTERS_DTO)
-        val observer = datasource.getMonsters().test()
+    fun `given getMonsters, then get monsters from api`() = runTest {
+        coEvery { api.getMonsters() } returns MONSTERS_DTO
+        val result = datasource.getMonsters()
 
-        verify { api.getMonsters() }
-        observer.assertValue(MONSTERS_DTO)
-        observer.assertComplete()
+        coVerify { api.getMonsters() }
+        assertEquals(MONSTERS_DTO, result)
     }
 
     @Test
-    fun `given getMonsterDetail, then get monster detail from api`() {
-        every { api.getMonsterDetail(any()) } returns Single.just(MONSTER_DETAIL_DTO)
-        val observer = datasource.getMonsterDetail(1).test()
+    fun `given getMonsterDetail, then get monster detail from api`() = runTest {
+        coEvery { api.getMonsterDetail(any()) } returns MONSTER_DETAIL_DTO
+        val result = datasource.getMonsterDetail(1)
 
-        verify { api.getMonsterDetail("1") }
-        observer.assertValue(MONSTER_DETAIL_DTO)
-        observer.assertComplete()
+        coVerify { api.getMonsterDetail("1") }
+        assertEquals(MONSTER_DETAIL_DTO, result)
     }
 
     companion object {

@@ -11,15 +11,16 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@OptIn(ExperimentalTestApi::class)
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
 class MonsterDetailScreenTest {
 
-    @get:Rule(order = 1)
-    val composeRule = createAndroidComposeRule<MainActivity>()
-
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val composeRule = createAndroidComposeRule<MainActivity>()
 
     @Test
     fun monsterDetailScreen_checkContent() {
@@ -33,6 +34,7 @@ class MonsterDetailScreenTest {
             onRoot(useUnmergedTree = true).printToLog("monsterDetailScreen_checkContent")
 
             // check monster list rows
+            waitUntilAtLeastOneExists(hasTestTag(monsterListTag))
             onNodeWithTag(monsterListTag).apply {
                 onChildAt(2).assertTextEquals("fire keese")
                 onChildAt(3).assertTextEquals("frost talus")

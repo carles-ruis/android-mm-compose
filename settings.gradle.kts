@@ -1,4 +1,4 @@
-include("app", "hyrule", "common", "settings")
+include("app", "hyrule", "common", "settings", "commontest")
 rootProject.buildFileName = "build.gradle.kts"
 
 project(":settings").projectDir = File(rootDir, "features/settings")

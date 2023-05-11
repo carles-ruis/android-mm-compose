@@ -53,8 +53,6 @@ dependencies {
     implementation(Dependence.core)
     implementation(Dependence.hilt)
     kapt(Dependence.hiltCompiler)
-    implementation(Dependence.rxJava)
-    implementation(Dependence.rxAndroid)
 
     implementation(platform(Dependence.composeBom))
     implementation(Dependence.material3)
@@ -62,5 +60,6 @@ dependencies {
     implementation(Dependence.lifecycleRuntime)
 
     detektPlugins(Dependence.detekt)
+    testImplementation(project(":commontest"))
     TestDependence.testImplementations.forEach(::testImplementation)
 }

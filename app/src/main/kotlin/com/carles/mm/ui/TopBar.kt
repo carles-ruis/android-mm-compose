@@ -18,18 +18,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import com.carles.common.ui.TopBarItem
-import com.carles.common.ui.navigation.Navigate
+import com.carles.common.ui.navigation.Destination
 import com.carles.mm.R
+import org.w3c.dom.Text
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun TopBar(
-    navigate: Navigate,
     title: String,
     showBackButton: Boolean,
     menuItems: List<TopBarItem>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navigateTo: (Destination) -> Unit,
 ) {
     TopAppBar(
         title = {
@@ -38,7 +41,9 @@ fun TopBar(
                 transitionSpec = { fadeIn(tween()) with fadeOut(tween()) }) { target ->
                 Text(
                     text = target,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineMedium.merge(
+                        TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
+                    ),
                     modifier = Modifier.testTag(stringResource(R.string.tag_top_bar_title))
                 )
             }
@@ -46,7 +51,7 @@ fun TopBar(
         navigationIcon = {
             if (showBackButton) {
                 IconButton(
-                    onClick = { navigate.up() }) {
+                    onClick = { navigateTo(Destination.Back) }) {
                     Icon(Icons.Filled.ArrowBack, stringResource(R.string.description_back_arrow))
                 }
             }
@@ -54,7 +59,7 @@ fun TopBar(
         actions = {
             menuItems.forEach { menuItem ->
                 IconButton(
-                    onClick = { menuItem.action(navigate) }) {
+                    onClick = { navigateTo(menuItem.destination) }) {
                     Icon(menuItem.icon, stringResource(menuItem.description))
                 }
             }

@@ -4,13 +4,16 @@ import com.carles.common.data.Cache
 import com.carles.common.data.CacheItems
 import com.carles.common.data.CacheKey
 import com.carles.common.data.ItemNotCachedException
-import io.mockk.every
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
-import io.reactivex.Single
+import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class HyruleLocalDatasourceTest {
 
     private val dao: MonsterDao = mockk()
@@ -23,50 +26,44 @@ class HyruleLocalDatasourceTest {
     }
 
     @Test
-    fun `given getMonsters, when items are cached, then dao loads them`() {
-        every { cache.isCached(any()) } returns true
-        every { dao.loadMonsters() } returns Single.just(MONSTERS)
-        val observer = datasource.getMonsters().test()
+    fun `given getMonsters, when items are cached, then dao loads them`() = runTest {
+        coEvery { cache.isCached(any()) } returns true
+        coEvery { dao.loadMonsters() } returns MONSTERS
+        val result = datasource.getMonsters()
 
-        verify { cache.isCached(CacheKey(CacheItems.MONSTERS)) }
-        verify { dao.loadMonsters() }
-        observer.assertValue(MONSTERS)
-        observer.assertComplete()
+        coVerify { cache.isCached(CacheKey(CacheItems.MONSTERS)) }
+        coVerify { dao.loadMonsters() }
+        assertEquals(MONSTERS, result)
+    }
+
+    @Test(expected = ItemNotCachedException::class)
+    fun `given getMonsters, when items are not cached, then throw ItemNotCachedException`() = runTest {
+        coEvery { cache.isCached(any()) } returns false
+        datasource.getMonsters()
+
+        coVerify { cache.isCached(CacheKey(CacheItems.MONSTERS)) }
+        coVerify(exactly = 0) { dao.loadMonsters() }
     }
 
     @Test
-    fun `given getMonsters, when items are not cached, then emit ItemNotCachedException`() {
-        every { cache.isCached(any()) } returns false
-        val observer = datasource.getMonsters().test()
+    fun `given getMonsterDetail, when item is cached, then dao loads it`() = runTest {
+        coEvery { cache.isCached(any()) } returns true
+        coEvery { dao.loadMonsterDetail(any()) } returns MONSTER_DETAIL
+        val result = datasource.getMonsterDetail(1)
 
-        verify { cache.isCached(CacheKey(CacheItems.MONSTERS)) }
-        verify(exactly = 0) { dao.loadMonsters() }
-        observer.assertNoValues()
-        observer.assertError(ItemNotCachedException)
+        coVerify { cache.isCached(CacheKey(CacheItems.MONSTER_DETAIL, 1)) }
+        coVerify { dao.loadMonsterDetail(1) }
+        assertEquals(MONSTER_DETAIL, result)
     }
 
-    @Test
-    fun `given getMonsterDetail, when item is cached, then dao loads it`() {
-        every { cache.isCached(any()) } returns true
-        every { dao.loadMonsterDetail(any()) } returns Single.just(MONSTER_DETAIL)
-        val observer = datasource.getMonsterDetail(1).test()
+    @Test(expected = ItemNotCachedException::class)
+    fun `given getMonsterDetail, when item is not cached, then emit ItemNotCachedException`() = runTest {
+        coEvery { cache.isCached(any()) } returns false
+        coEvery { dao.loadMonsterDetail(any()) } returns MONSTER_DETAIL
+        datasource.getMonsterDetail(1)
 
-        verify { cache.isCached(CacheKey(CacheItems.MONSTER_DETAIL, 1)) }
-        verify { dao.loadMonsterDetail(1) }
-        observer.assertValue(MONSTER_DETAIL)
-        observer.assertComplete()
-    }
-
-    @Test
-    fun `given getMonsterDetail, when item is not cached, then emit ItemNotCachedException`() {
-        every { cache.isCached(any()) } returns false
-        every { dao.loadMonsterDetail(any()) } returns Single.just(MONSTER_DETAIL)
-        val observer = datasource.getMonsterDetail(1).test()
-
-        verify { cache.isCached(CacheKey(CacheItems.MONSTER_DETAIL, 1)) }
-        verify(exactly = 0) { dao.loadMonsterDetail(any()) }
-        observer.assertError(ItemNotCachedException)
-        observer.assertNoValues()
+        coVerify { cache.isCached(CacheKey(CacheItems.MONSTER_DETAIL, 1)) }
+        coVerify(exactly = 0) { dao.loadMonsterDetail(any()) }
     }
 
     companion object {

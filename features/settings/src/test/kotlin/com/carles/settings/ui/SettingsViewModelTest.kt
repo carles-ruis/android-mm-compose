@@ -1,24 +1,30 @@
 package com.carles.settings.ui
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.carles.commontest.MainDispatcherRule
 import com.carles.settings.R
 import com.carles.settings.SettingsUi
 import com.carles.settings.UserSettings
 import com.carles.settings.domain.ObserveUserSettings
 import com.carles.settings.domain.SetCacheExpirationTime
+import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
-import io.reactivex.Completable
-import io.reactivex.Flowable
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class SettingsViewModelTest {
 
     @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+    val mainDispatcherRule = MainDispatcherRule()
 
     private val setCacheExpirationTime: SetCacheExpirationTime = mockk()
     private val observeUserSettings: ObserveUserSettings = mockk()
@@ -27,9 +33,11 @@ class SettingsViewModelTest {
     private lateinit var viewModel: SettingsViewModel
 
     @Test
-    fun `given initialization, when user settings are received, then update ui state with the settings`() {
+    fun `given initialization, when user settings are received, then update ui state with the settings`() = runTest {
         val userSettings = UserSettings(10)
-        every { observeUserSettings.execute() } returns Flowable.just(userSettings)
+        every { observeUserSettings.execute() } returns flow {
+            emit(userSettings)
+        }
         every { settingsMapper.toUi(any()) } returns settingsUi
 
         viewModel = SettingsViewModel(setCacheExpirationTime, observeUserSettings, settingsMapper)
@@ -40,9 +48,11 @@ class SettingsViewModelTest {
     }
 
     @Test
-    fun `given initialization, when there is an error obtaining user settings, then update ui state with the error`() {
+    fun `given initialization, when there is an error obtaining user settings, then update ui state with the error`() = runTest {
         val message = "error observing settings"
-        every { observeUserSettings.execute() } returns Flowable.error(Throwable(message))
+        every { observeUserSettings.execute() } returns flow {
+            throw Throwable(message)
+        }
         viewModel = SettingsViewModel(setCacheExpirationTime, observeUserSettings, settingsMapper)
 
         verify { observeUserSettings.execute() }
@@ -51,15 +61,17 @@ class SettingsViewModelTest {
 
     @Test
     fun `given onSettingSelected, when new cache value is selected, then set new cache expiration time`() {
-        every { observeUserSettings.execute() } returns Flowable.just(UserSettings(10))
+        every { observeUserSettings.execute() } returns flow {
+            emit(UserSettings(10))
+        }
         every { settingsMapper.toUi(any()) } returns settingsUi
         every { settingsMapper.toCacheExpirationTimeValue(any()) } returns 1
-        every { setCacheExpirationTime.execute(any()) } returns Completable.complete()
+        coEvery { setCacheExpirationTime.execute(any()) } just Runs
 
         viewModel = SettingsViewModel(setCacheExpirationTime, observeUserSettings, settingsMapper)
         viewModel.onSettingSelected(R.string.preferences_cache_key, R.string.preferences_cache_one_minute)
 
         verify { settingsMapper.toCacheExpirationTimeValue(R.string.preferences_cache_one_minute) }
-        verify { setCacheExpirationTime.execute(1) }
+        coVerify { setCacheExpirationTime.execute(1) }
     }
 }

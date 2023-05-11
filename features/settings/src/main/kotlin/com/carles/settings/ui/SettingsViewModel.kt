@@ -3,16 +3,20 @@ package com.carles.settings.ui
 import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
-import com.carles.common.ui.extensions.addTo
+import androidx.lifecycle.viewModelScope
 import com.carles.settings.R
 import com.carles.settings.SettingsUi
 import com.carles.settings.domain.ObserveUserSettings
 import com.carles.settings.domain.SetCacheExpirationTime
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class SettingsUiState(
@@ -27,8 +31,6 @@ class SettingsViewModel @Inject constructor(
     private val settingsMapper: SettingsMapper
 ) : ViewModel() {
 
-    private val disposables = CompositeDisposable()
-
     private val _uiState = MutableStateFlow(SettingsUiState())
     val uiState: StateFlow<SettingsUiState> = _uiState
 
@@ -37,12 +39,15 @@ class SettingsViewModel @Inject constructor(
     }
 
     private fun observeUserSettings() {
-        observeUserSettings.execute().subscribe({ settings ->
-            _uiState.update { it.copy(settings = settingsMapper.toUi(settings), error = null) }
-        }, { error ->
-            Log.w("SettingsViewModel", error)
-            _uiState.update { it.copy(error = error.message) }
-        }).addTo(disposables)
+        observeUserSettings.execute()
+            .onEach { settings ->
+                _uiState.update { it.copy(settings = settingsMapper.toUi(settings), error = null) }
+            }
+            .catch { error ->
+                Log.w("SettingsViewModel", error)
+                _uiState.update { it.copy(error = error.message) }
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onSettingSelected(@StringRes key: Int, @StringRes selectedOption: Int) {
@@ -52,15 +57,11 @@ class SettingsViewModel @Inject constructor(
     }
 
     private fun setCacheExpirationTime(expirationTime: Int) {
-        setCacheExpirationTime.execute(expirationTime).subscribe({
-            // nothing to do here
-        }, { error ->
+        val exceptionHandler = CoroutineExceptionHandler { _, error ->
             Log.w("SettingsViewModel", error)
-        }).addTo(disposables)
-    }
-
-    override fun onCleared() {
-        disposables.dispose()
-        super.onCleared()
+        }
+        viewModelScope.launch(exceptionHandler) {
+            setCacheExpirationTime.execute(expirationTime)
+        }
     }
 }

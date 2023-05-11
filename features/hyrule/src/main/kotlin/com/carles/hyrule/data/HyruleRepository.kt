@@ -1,12 +1,12 @@
 package com.carles.hyrule.data
 
+import com.carles.common.data.ItemNotCachedException
 import com.carles.hyrule.Monster
 import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.data.local.HyruleLocalDatasource
 import com.carles.hyrule.data.mapper.MonsterDetailMapper
 import com.carles.hyrule.data.mapper.MonstersMapper
 import com.carles.hyrule.data.remote.HyruleRemoteDatasource
-import io.reactivex.Single
 import javax.inject.Inject
 
 class HyruleRepository @Inject constructor(
@@ -16,47 +16,37 @@ class HyruleRepository @Inject constructor(
     private val monsterDetailMapper: MonsterDetailMapper
 ) : HyruleRepo {
 
-    override fun getMonsters(): Single<List<Monster>> {
-        return localDatasource.getMonsters().map { entity ->
-            monstersMapper.fromEntity(entity)
-        }.onErrorResumeNext {
+    override suspend fun getMonsters(): List<Monster> {
+        return try {
+            val entities = localDatasource.getMonsters()
+            monstersMapper.fromEntity(entities)
+        } catch (e: ItemNotCachedException) {
             refreshMonsters()
         }
     }
 
-    override fun refreshMonsters(): Single<List<Monster>> {
-        return remoteDatasource.getMonsters().map { dto ->
-            monstersMapper.toEntity(dto)
-        }.flatMap {
-            localDatasource.persist(it).andThen(
-                Single.defer {
-                    localDatasource.getMonsters().map { entity ->
-                        monstersMapper.fromEntity(entity)
-                    }
-                }
-            )
-        }
+    override suspend fun refreshMonsters(): List<Monster> {
+        val dtos = remoteDatasource.getMonsters()
+        val entities = monstersMapper.toEntity(dtos)
+        localDatasource.persist(entities)
+        val localEntities = localDatasource.getMonsters()
+        return monstersMapper.fromEntity(localEntities)
     }
 
-    override fun getMonsterDetail(id: Int): Single<MonsterDetail> {
-        return localDatasource.getMonsterDetail(id).map { entity ->
+    override suspend fun getMonsterDetail(id: Int): MonsterDetail {
+        return try {
+            val entity = localDatasource.getMonsterDetail(id)
             monsterDetailMapper.fromEntity(entity)
-        }.onErrorResumeNext {
+        } catch (e: ItemNotCachedException) {
             refreshMonsterDetail(id)
         }
     }
 
-    override fun refreshMonsterDetail(id: Int): Single<MonsterDetail> {
-        return remoteDatasource.getMonsterDetail(id).map { dto ->
-            monsterDetailMapper.toEntity(dto)
-        }.flatMap {
-            localDatasource.persist(it).andThen(
-                Single.defer {
-                    localDatasource.getMonsterDetail(id).map { entity ->
-                        monsterDetailMapper.fromEntity(entity)
-                    }
-                }
-            )
-        }
+    override suspend fun refreshMonsterDetail(id: Int): MonsterDetail {
+        val dto = remoteDatasource.getMonsterDetail(id)
+        val entity = monsterDetailMapper.toEntity(dto)
+        localDatasource.persist(entity)
+        val localEntity = localDatasource.getMonsterDetail(id)
+        return monsterDetailMapper.fromEntity(localEntity)
     }
 }

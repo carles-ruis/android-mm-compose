@@ -3,15 +3,15 @@ package com.carles.hyrule.ui
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.carles.common.ui.extensions.addTo
+import androidx.lifecycle.viewModelScope
 import com.carles.common.ui.navigation.Screen
 import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.domain.GetMonsterDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class MonsterDetailUiState(
@@ -26,8 +26,6 @@ class MonsterDetailViewModel @Inject constructor(
     private val getMonsterDetail: GetMonsterDetail
 ) : ViewModel() {
 
-    private val disposables = CompositeDisposable()
-
     private val id = savedStateHandle.get<String>(Screen.Arguments.monsterId)?.toInt() ?: 0
 
     private val _uiState = MutableStateFlow(MonsterDetailUiState())
@@ -38,20 +36,16 @@ class MonsterDetailViewModel @Inject constructor(
     }
 
     private fun getMonsterDetail() {
-        getMonsterDetail.execute(id)
-            .doOnSubscribe {
-                _uiState.update { it.copy(loading = true) }
-            }.subscribe({ monster ->
+        viewModelScope.launch {
+            _uiState.update { it.copy(loading = true) }
+            try {
+                val monster = getMonsterDetail.execute(id)
                 _uiState.update { it.copy(loading = false, error = null, monster = monster) }
-            }, { error ->
-                Log.w("MonsterDetailViewModel", error)
-                _uiState.update { it.copy(loading = false, error = error.message) }
-            }).addTo(disposables)
-    }
-
-    override fun onCleared() {
-        disposables.dispose()
-        super.onCleared()
+            } catch (e: Exception) {
+                Log.w("MonsterDetailViewModel", e)
+                _uiState.update { it.copy(loading = false, error = e.message) }
+            }
+        }
     }
 
     fun retry() {

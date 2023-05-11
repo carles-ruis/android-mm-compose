@@ -1,48 +1,52 @@
 package com.carles.settings.data
 
-import com.carles.common.data.AppPreferences
+import com.carles.common.data.AppDatastore
 import com.carles.common.data.Cache
 import com.carles.settings.UserSettings
 import io.mockk.Runs
-import io.mockk.every
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.spyk
-import io.mockk.verify
-import org.junit.Assert.assertEquals
+import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class SettingsRepositoryTest {
 
     private val cache: Cache = mockk()
-    private val preferences: AppPreferences = mockk()
+    private val datastore: AppDatastore = mockk()
     private lateinit var repository: SettingsRepository
     private lateinit var spy: SettingsRepository
 
     @Before
     fun setup() {
-        repository = SettingsRepository(cache, preferences)
-        spy = spyk(SettingsRepository(cache, preferences))
+        repository = SettingsRepository(cache, datastore)
+        spy = spyk(SettingsRepository(cache, datastore))
     }
 
     @Test
-    fun `given setCacheExpirationTime, when called, then reset cache, store new value and emit`() {
-        every { cache.resetCacheExpiration() } just Runs
-        every { preferences getProperty AppPreferences::cacheExpirationTime.name } returns 0
-        every { preferences setProperty AppPreferences::cacheExpirationTime.name value any<Int>() } just Runs
+    fun `given setCacheExpirationTime, when called, then reset cache, store new value and emit`() = runTest {
+        coEvery { cache.resetCacheExpiration() } just Runs
+        coEvery { datastore.setCacheExpirationTime(any()) } just Runs
 
-        val observer = spy.setCacheExpirationTime(10).test()
+        repository.setCacheExpirationTime(10)
 
-        verify { cache.resetCacheExpiration() }
-        verify { preferences.cacheExpirationTime = 10 }
-        verify { spy.emitUserSettings() }
-        observer.assertComplete()
+        coVerify { cache.resetCacheExpiration() }
+        coVerify { datastore.setCacheExpirationTime(10) }
     }
 
     @Test
-    fun `given getUserSettings, when called, then return UserSettings object with preferences value`() {
-        every { preferences getProperty AppPreferences::cacheExpirationTime.name } returns 10
-        assertEquals(UserSettings(10), repository.getUserSettings())
+    fun `given getUserSettings, when called, then return UserSettings object with preferences value`() = runTest {
+        coEvery { datastore.getCacheExpirationTime() } returns flow { emit(10) }
+        val result = repository.observeUserSettings().first()
+        coVerify { datastore.getCacheExpirationTime() }
+        assertEquals(UserSettings(10), result)
     }
 }

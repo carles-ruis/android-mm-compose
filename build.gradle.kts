@@ -9,7 +9,6 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
     }
 }
-
 plugins {
     // use: ./gradlew dependencyUpdates
     id("com.github.ben-manes.versions").version(Version.benManes)

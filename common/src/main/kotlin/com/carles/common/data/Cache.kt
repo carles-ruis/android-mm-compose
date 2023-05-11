@@ -1,5 +1,6 @@
 package com.carles.common.data
 
+import kotlinx.coroutines.flow.first
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -9,7 +10,7 @@ data class CacheKey(val cacheItem: CacheItems, val itemId: Int = 0)
 enum class CacheItems { MONSTERS, MONSTER_DETAIL }
 
 @Singleton
-class Cache @Inject constructor(private val preferences: AppPreferences) {
+class Cache @Inject constructor(private val datastore: AppDatastore) {
 
     private val map: MutableMap<CacheKey, Long> = mutableMapOf()
 
@@ -22,12 +23,13 @@ class Cache @Inject constructor(private val preferences: AppPreferences) {
     }
 
     @SuppressWarnings("MagicNumber")
-    fun set(key: CacheKey) {
-        map[key] = now() + 1000 * 60 * preferences.cacheExpirationTime
+    suspend fun set(key: CacheKey) {
+        val expirationTime = datastore.getCacheExpirationTime().first()
+        map[key] = now() + 1000 * 60 * expirationTime
     }
 
-    fun resetCacheExpiration() {
-        for (key in map.keys) {
+    suspend fun resetCacheExpiration() {
+        map.keys.forEach { key ->
             set(key)
         }
     }

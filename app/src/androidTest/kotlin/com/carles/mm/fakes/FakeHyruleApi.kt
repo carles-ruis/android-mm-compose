@@ -7,25 +7,22 @@ import com.carles.mm.api.MONSTERS_DETAIL_133_RESPONSE_DTO
 import com.carles.mm.api.MONSTERS_DETAIL_151_RESPONSE_DTO
 import com.carles.mm.api.MONSTERS_RESPONSE_DTO
 import com.google.gson.Gson
-import io.reactivex.Single
 
 class FakeHyruleApi : HyruleApi {
 
-    override fun getMonsters(): Single<MonstersResponseDto> {
-        return Single.just(
-            Gson().fromJson(
-                MONSTERS_RESPONSE_DTO,
-                MonstersResponseDto::class.java
-            )
+    override suspend fun getMonsters(): MonstersResponseDto {
+        return Gson().fromJson(
+            MONSTERS_RESPONSE_DTO,
+            MonstersResponseDto::class.java
         )
     }
 
-    override fun getMonsterDetail(id: String): Single<MonsterDetailResponseDto> {
+    override suspend fun getMonsterDetail(id: String): MonsterDetailResponseDto {
         val response = when (id) {
             "133" -> MONSTERS_DETAIL_133_RESPONSE_DTO
             "151" -> MONSTERS_DETAIL_151_RESPONSE_DTO
             else -> throw IllegalArgumentException()
         }
-        return Single.just(Gson().fromJson(response, MonsterDetailResponseDto::class.java))
+        return Gson().fromJson(response, MonsterDetailResponseDto::class.java)
     }
 }

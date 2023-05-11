@@ -1,21 +1,19 @@
 package com.carles.hyrule.domain
 
-import com.carles.hyrule.di.HyruleRepositoryQualifier
-import com.carles.common.domain.AppSchedulers
+import com.carles.common.domain.AppDispatchers
 import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.data.HyruleRepo
-import io.reactivex.Single
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GetMonsterDetail @Inject constructor(
-    @HyruleRepositoryQualifier
     private val repository: HyruleRepo,
-    private val schedulers: AppSchedulers
+    private val dispatchers: AppDispatchers
 ) {
 
-    fun execute(id: Int): Single<MonsterDetail> {
-        return repository.getMonsterDetail(id)
-            .subscribeOn(schedulers.io)
-            .observeOn(schedulers.ui)
+    suspend fun execute(id: Int): MonsterDetail {
+        return withContext(dispatchers.io) {
+            repository.getMonsterDetail(id)
+        }
     }
 }

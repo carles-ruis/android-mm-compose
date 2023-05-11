@@ -63,7 +63,9 @@ class MainActivity : FragmentActivity() {
 
         Scaffold(
             topBar = {
-                TopBar(navigate, topBarTitle, showBackButton, currentScreen.menuItems)
+                TopBar(topBarTitle, showBackButton, currentScreen.menuItems) { destination ->
+                    navigate.to(destination)
+                }
             }) { innerPadding ->
             MainNavHost(navigate, changeTitle, Modifier.padding(innerPadding))
         }

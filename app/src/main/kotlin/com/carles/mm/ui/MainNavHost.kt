@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
+import com.carles.common.ui.navigation.Destination
 import com.carles.common.ui.navigation.Navigate
 import com.carles.common.ui.navigation.Screen
 import com.carles.common.ui.navigation.defaultComposable
@@ -22,8 +23,8 @@ fun MainNavHost(navigate: Navigate, changeTitle: (String) -> Unit, modifier: Mod
         startDestination = Screen.Monsters.route,
         modifier = modifier
     ) {
-        monstersDestination { id -> navigate.toMonsterDetail(id) }
-        monsterDetailDestination(changeTitle) { navigate.up() }
+        monstersDestination { id -> navigate.to(Destination.MonsterDetail(id)) }
+        monsterDetailDestination(changeTitle) { navigate.to(Destination.Back) }
         settingsDestination()
     }
 }

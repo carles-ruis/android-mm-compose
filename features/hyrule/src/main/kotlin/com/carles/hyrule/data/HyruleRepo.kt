@@ -2,15 +2,14 @@ package com.carles.hyrule.data
 
 import com.carles.hyrule.Monster
 import com.carles.hyrule.MonsterDetail
-import io.reactivex.Single
 
 interface HyruleRepo {
 
-    fun getMonsters(): Single<List<Monster>>
+    suspend fun getMonsters(): List<Monster>
 
-    fun refreshMonsters(): Single<List<Monster>>
+    suspend fun refreshMonsters(): List<Monster>
 
-    fun getMonsterDetail(id: Int): Single<MonsterDetail>
+    suspend fun getMonsterDetail(id: Int): MonsterDetail
 
-    fun refreshMonsterDetail(id: Int): Single<MonsterDetail>
+    suspend fun refreshMonsterDetail(id: Int): MonsterDetail
 }

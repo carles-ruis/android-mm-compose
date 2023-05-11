@@ -3,7 +3,7 @@ package com.carles.mm.di
 import android.content.Context
 import androidx.room.Room
 import com.carles.common.di.CommonModule
-import com.carles.common.domain.AppSchedulers
+import com.carles.common.domain.AppDispatchers
 import com.carles.hyrule.data.local.HyruleDatabase
 import com.carles.hyrule.data.local.MonsterDao
 import com.carles.hyrule.data.remote.HyruleApi
@@ -14,7 +14,7 @@ import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @TestInstallIn(
@@ -22,16 +22,13 @@ import javax.inject.Singleton
     replaces = [CommonModule::class, HyruleProvideModule::class]
 )
 @Module
-class TestModule {
+object TestModule {
 
     @Provides
     @Singleton
-    fun provideAppSchedulers(): AppSchedulers {
-        return AppSchedulers(
-            io = AndroidSchedulers.mainThread(),
-            ui = AndroidSchedulers.mainThread(),
-            new = AndroidSchedulers.mainThread()
-        )
+    fun provideDispatchers(): AppDispatchers {
+        val dispatcher = Dispatchers.Main
+        return AppDispatchers(dispatcher, dispatcher, dispatcher)
     }
 
     @Provides

@@ -37,7 +37,7 @@ sealed class Screen(
         label = R.string.appname,
         path = "monsters_path",
         menuItems = listOf(
-            TopBarItem(Icons.Filled.Settings, R.string.settings) { navigate -> navigate.toSettings() }
+            TopBarItem(Icons.Filled.Settings, R.string.settings, Destination.Settings)
         )
     )
 

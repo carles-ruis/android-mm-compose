@@ -13,15 +13,19 @@ import com.carles.hyrule.data.remote.MonsterDetailDto
 import com.carles.hyrule.data.remote.MonsterDetailResponseDto
 import com.carles.hyrule.data.remote.MonsterDto
 import com.carles.hyrule.data.remote.MonstersResponseDto
-import io.mockk.every
+import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.just
 import io.mockk.mockk
 import io.mockk.spyk
-import io.mockk.verify
-import io.reactivex.Completable
-import io.reactivex.Single
+import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class HyruleRepositoryTest {
 
     private val localDatasource: HyruleLocalDatasource = mockk()
@@ -38,91 +42,85 @@ class HyruleRepositoryTest {
     }
 
     @Test
-    fun `given getMonsters, when monsters are cached, then get monsters from local`() {
-        every { localDatasource.getMonsters() } returns Single.just(MONSTERS_ENTITY)
-        every { monstersMapper.fromEntity(any()) } returns MONSTERS
-        val observer = repository.getMonsters().test()
+    fun `given getMonsters, when monsters are cached, then get monsters from local`() = runTest {
+        coEvery { localDatasource.getMonsters() } returns MONSTERS_ENTITY
+        coEvery { monstersMapper.fromEntity(any()) } returns MONSTERS
+        val result = repository.getMonsters()
 
-        verify { localDatasource.getMonsters() }
-        verify { monstersMapper.fromEntity(MONSTERS_ENTITY) }
-        observer.assertValue(MONSTERS)
-        observer.assertComplete()
+        coVerify { localDatasource.getMonsters() }
+        coVerify { monstersMapper.fromEntity(MONSTERS_ENTITY) }
+        assertEquals(MONSTERS, result)
     }
 
     @Test
-    fun `given getMonsters, when monsters are not cached, then refresh them from remote`() {
-        every { localDatasource.getMonsters() } returns Single.error(ItemNotCachedException)
-        every { monstersMapper.fromEntity(any()) } returns MONSTERS
-        every { spy.refreshMonsters() } returns Single.just(MONSTERS)
-        val observer = spy.getMonsters().test()
+    fun `given getMonsters, when monsters are not cached, then refresh them from remote`() = runTest {
+        coEvery { localDatasource.getMonsters() } throws ItemNotCachedException
+        coEvery { monstersMapper.fromEntity(any()) } returns MONSTERS
+        coEvery { spy.refreshMonsters() } returns MONSTERS
+        val result = spy.getMonsters()
 
-        verify { localDatasource.getMonsters() }
-        verify(exactly = 0) { monstersMapper.fromEntity(MONSTERS_ENTITY) }
-        verify { spy.refreshMonsters() }
-        observer.assertValue(MONSTERS)
-        observer.assertComplete()
+        coVerify { localDatasource.getMonsters() }
+        coVerify(exactly = 0) { monstersMapper.fromEntity(MONSTERS_ENTITY) }
+        coVerify { spy.refreshMonsters() }
+        assertEquals(MONSTERS, result)
     }
 
     @Test
-    fun `given refreshMonsters, when monsters are obtained, then persist them and get them from local`() {
-        every { remoteDatasource.getMonsters() } returns Single.just(MONSTERS_DTO)
-        every { monstersMapper.toEntity(any()) } returns MONSTERS_ENTITY
-        every { localDatasource.persist(any<List<MonsterEntity>>()) } returns Completable.complete()
-        every { localDatasource.getMonsters() } returns Single.just(MONSTERS_ENTITY)
-        every { monstersMapper.fromEntity(any()) } returns MONSTERS
-        val observer = repository.refreshMonsters().test()
+    fun `given refreshMonsters, when monsters are obtained, then persist them and get them from local`() = runTest {
+        coEvery { remoteDatasource.getMonsters() } returns MONSTERS_DTO
+        coEvery { monstersMapper.toEntity(any()) } returns MONSTERS_ENTITY
+        coEvery { localDatasource.persist(any<List<MonsterEntity>>()) } just Runs
+        coEvery { localDatasource.getMonsters() } returns MONSTERS_ENTITY
+        coEvery { monstersMapper.fromEntity(any()) } returns MONSTERS
+        val result = repository.refreshMonsters()
 
-        verify { remoteDatasource.getMonsters() }
-        verify { monstersMapper.toEntity(MONSTERS_DTO) }
-        verify { localDatasource.persist(MONSTERS_ENTITY) }
-        verify { localDatasource.getMonsters() }
-        verify { monstersMapper.fromEntity(MONSTERS_ENTITY) }
-        observer.assertValue(MONSTERS)
-        observer.assertComplete()
+        coVerify { remoteDatasource.getMonsters() }
+        coVerify { monstersMapper.toEntity(MONSTERS_DTO) }
+        coVerify { localDatasource.persist(MONSTERS_ENTITY) }
+        coVerify { localDatasource.getMonsters() }
+        coVerify { monstersMapper.fromEntity(MONSTERS_ENTITY) }
+        assertEquals(MONSTERS, result)
     }
 
     @Test
-    fun `given getMonsterDetail, when monster is cached, then get monster from local`() {
-        every { localDatasource.getMonsterDetail(any()) } returns Single.just(MONSTER_DETAIL_ENTITY)
-        every { monsterDetailMapper.fromEntity(any()) } returns MONSTER_DETAIL
-        val observer = repository.getMonsterDetail(1).test()
+    fun `given getMonsterDetail, when monster is cached, then get monster from local`() = runTest {
+        coEvery { localDatasource.getMonsterDetail(any()) } returns MONSTER_DETAIL_ENTITY
+        coEvery { monsterDetailMapper.fromEntity(any()) } returns MONSTER_DETAIL
+        val result = repository.getMonsterDetail(1)
 
-        verify { localDatasource.getMonsterDetail(1) }
-        verify { monsterDetailMapper.fromEntity(MONSTER_DETAIL_ENTITY) }
-        observer.assertValue(MONSTER_DETAIL)
-        observer.assertComplete()
+        coVerify { localDatasource.getMonsterDetail(1) }
+        coVerify { monsterDetailMapper.fromEntity(MONSTER_DETAIL_ENTITY) }
+        assertEquals(MONSTER_DETAIL, result)
     }
 
     @Test
-    fun `given getMonsterDetail, when monster is not cached, then refresh it from remote`() {
-        every { localDatasource.getMonsterDetail(any()) } returns Single.error(ItemNotCachedException)
-        every { monsterDetailMapper.fromEntity(any()) } returns MONSTER_DETAIL
-        every { spy.refreshMonsterDetail(any()) } returns Single.just(MONSTER_DETAIL)
-        val observer = spy.getMonsterDetail(1).test()
+    fun `given getMonsterDetail, when monster is not cached, then refresh it from remote`() = runTest {
+        coEvery { localDatasource.getMonsterDetail(any()) } throws ItemNotCachedException
+        coEvery { monsterDetailMapper.fromEntity(any()) } returns MONSTER_DETAIL
+        coEvery { spy.refreshMonsterDetail(any()) } returns MONSTER_DETAIL
+        val result = spy.getMonsterDetail(1)
 
-        verify { localDatasource.getMonsterDetail(1) }
-        verify(exactly = 0) { monsterDetailMapper.fromEntity(MONSTER_DETAIL_ENTITY) }
-        verify { spy.refreshMonsterDetail(1) }
-        observer.assertValue(MONSTER_DETAIL)
-        observer.assertComplete()
+        coVerify { localDatasource.getMonsterDetail(1) }
+        coVerify(exactly = 0) { monsterDetailMapper.fromEntity(MONSTER_DETAIL_ENTITY) }
+        coVerify { spy.refreshMonsterDetail(1) }
+        assertEquals(MONSTER_DETAIL, result)
     }
 
     @Test
-    fun `given refreshMonsterDetail, when monster is obtained, then persist it and get it from local`() {
-        every { remoteDatasource.getMonsterDetail(any()) } returns Single.just(MONSTER_DETAIL_DTO)
-        every { monsterDetailMapper.toEntity(any()) } returns MONSTER_DETAIL_ENTITY
-        every { localDatasource.persist(any<MonsterDetailEntity>()) } returns Completable.complete()
-        every { localDatasource.getMonsterDetail(any()) } returns Single.just(MONSTER_DETAIL_ENTITY)
-        every { monsterDetailMapper.fromEntity(any()) } returns MONSTER_DETAIL
-        val observer = repository.refreshMonsterDetail(1).test()
+    fun `given refreshMonsterDetail, when monster is obtained, then persist it and get it from local`() = runTest {
+        coEvery { remoteDatasource.getMonsterDetail(any()) } returns MONSTER_DETAIL_DTO
+        coEvery { monsterDetailMapper.toEntity(any()) } returns MONSTER_DETAIL_ENTITY
+        coEvery { localDatasource.persist(any<MonsterDetailEntity>()) } just Runs
+        coEvery { localDatasource.getMonsterDetail(any()) } returns MONSTER_DETAIL_ENTITY
+        coEvery { monsterDetailMapper.fromEntity(any()) } returns MONSTER_DETAIL
+        val result = repository.refreshMonsterDetail(1)
 
-        verify { remoteDatasource.getMonsterDetail(1) }
-        verify { monsterDetailMapper.toEntity(MONSTER_DETAIL_DTO) }
-        verify { localDatasource.persist(MONSTER_DETAIL_ENTITY) }
-        verify { localDatasource.getMonsterDetail(1) }
-        verify { monsterDetailMapper.fromEntity(MONSTER_DETAIL_ENTITY) }
-        observer.assertValue(MONSTER_DETAIL)
-        observer.assertComplete()
+        coVerify { remoteDatasource.getMonsterDetail(1) }
+        coVerify { monsterDetailMapper.toEntity(MONSTER_DETAIL_DTO) }
+        coVerify { localDatasource.persist(MONSTER_DETAIL_ENTITY) }
+        coVerify { localDatasource.getMonsterDetail(1) }
+        coVerify { monsterDetailMapper.fromEntity(MONSTER_DETAIL_ENTITY) }
+        assertEquals(MONSTER_DETAIL, result)
     }
 
     companion object {

@@ -58,14 +58,11 @@ dependencies {
     implementation(Dependence.appCompat)
     implementation(Dependence.hilt)
     kapt(Dependence.hiltCompiler)
-    implementation(Dependence.rxJava)
-    implementation(Dependence.rxAndroid)
     implementation(Dependence.retrofit)
     implementation(Dependence.retrofitConverterGson)
-    implementation(Dependence.retrofitRxJava)
     implementation(Dependence.roomRuntime)
+    implementation(Dependence.roomKtx)
     kapt(Dependence.roomCompiler)
-    implementation(Dependence.roomRxJava)
     implementation(Dependence.coil)
 
     implementation(platform(Dependence.composeBom))
@@ -74,5 +71,6 @@ dependencies {
     implementation(Dependence.lifecycleRuntime)
 
     detektPlugins(Dependence.detekt)
+    testImplementation(project(":commontest"))
     TestDependence.testImplementations.forEach(::testImplementation)
 }

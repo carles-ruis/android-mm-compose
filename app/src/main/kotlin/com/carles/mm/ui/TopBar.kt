@@ -20,17 +20,16 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
-import com.carles.common.ui.TopBarItem
+import com.carles.common.ui.navigation.DestinationItem
 import com.carles.common.ui.navigation.Destination
 import com.carles.mm.R
-import org.w3c.dom.Text
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun TopBar(
     title: String,
     showBackButton: Boolean,
-    menuItems: List<TopBarItem>,
+    menuItems: List<DestinationItem>,
     modifier: Modifier = Modifier,
     navigateTo: (Destination) -> Unit,
 ) {

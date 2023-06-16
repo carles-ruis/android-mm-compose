@@ -7,13 +7,12 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.carles.common.R
-import com.carles.common.ui.TopBarItem
 
 sealed class Screen(
     @StringRes val label: Int,
     private val path: String,
     val arguments: List<NamedNavArgument> = emptyList(),
-    val menuItems: List<TopBarItem> = emptyList()
+    val menuItems: List<DestinationItem> = emptyList()
 ) {
 
     val route = buildString {
@@ -37,7 +36,7 @@ sealed class Screen(
         label = R.string.appname,
         path = "monsters_path",
         menuItems = listOf(
-            TopBarItem(Icons.Filled.Settings, R.string.settings, Destination.Settings)
+            DestinationItem(Icons.Filled.Settings, R.string.settings, Destination.Settings)
         )
     )
 

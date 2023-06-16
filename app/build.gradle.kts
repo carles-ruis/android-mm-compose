@@ -36,7 +36,6 @@ android {
     testOptions {
         unitTests.isReturnDefaultValues = true
         unitTests.isIncludeAndroidResources = true
-        animationsDisabled = true
     }
 
     kotlinOptions {
@@ -81,18 +80,13 @@ dependencies {
     detektPlugins(Dependence.detekt)
     debugImplementation(Dependence.stetho)
     //debugImplementation(Dependence.leakCanary)
+    debugImplementation(TestDependence.composeUiManifest)
 
     TestDependence.testImplementations.forEach(::testImplementation)
-    androidTestImplementation(TestDependence.junit)
     androidTestImplementation(TestDependence.testRunner)
     androidTestImplementation(TestDependence.testRules)
-    androidTestImplementation(Dependence.gson)
-    androidTestImplementation(Dependence.roomRuntime)
-    androidTestImplementation(Dependence.roomKtx)
-    kaptAndroidTest(Dependence.roomCompiler)
     androidTestImplementation(TestDependence.hilt)
     kaptAndroidTest(TestDependence.hiltCompiler)
     androidTestImplementation(composeBom)
     androidTestImplementation(TestDependence.composeUi)
-    debugImplementation(TestDependence.composeUiManifest)
 }

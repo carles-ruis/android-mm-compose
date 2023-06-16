@@ -13,7 +13,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class HyruleLocalDatasourceTest {
 
     private val dao: MonsterDao = mockk()

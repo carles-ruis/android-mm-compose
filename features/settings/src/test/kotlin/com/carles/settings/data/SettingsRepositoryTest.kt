@@ -10,14 +10,12 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.spyk
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class SettingsRepositoryTest {
 
     private val cache: Cache = mockk()

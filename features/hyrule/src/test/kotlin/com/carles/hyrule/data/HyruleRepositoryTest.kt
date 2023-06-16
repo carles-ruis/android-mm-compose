@@ -20,12 +20,10 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.spyk
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class HyruleRepositoryTest {
 
     private val localDatasource: HyruleLocalDatasource = mockk()

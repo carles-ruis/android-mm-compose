@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.carles.common.ui.GreenTheme
+import com.carles.common.ui.HyruleTheme
 import com.carles.common.ui.navigation.Navigate
 import com.carles.common.ui.navigation.Screen
 import com.carles.common.ui.navigation.screens
@@ -34,7 +34,7 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            GreenTheme {
+            HyruleTheme {
                 MainApp()
             }
         }

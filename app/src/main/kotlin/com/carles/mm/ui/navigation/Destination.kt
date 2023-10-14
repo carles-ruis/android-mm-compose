@@ -1,4 +1,4 @@
-package com.carles.common.ui.navigation
+package com.carles.mm.ui.navigation
 
 sealed class Destination {
     object Back : Destination()

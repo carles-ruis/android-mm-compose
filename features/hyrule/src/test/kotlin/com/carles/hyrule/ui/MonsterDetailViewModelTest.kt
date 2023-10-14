@@ -1,7 +1,7 @@
 package com.carles.hyrule.ui
 
 import androidx.lifecycle.SavedStateHandle
-import com.carles.common.ui.navigation.Screen
+import com.carles.common.ui.navigation.NavigationArguments
 import com.carles.commontest.MainDispatcherRule
 import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.domain.GetMonsterDetail
@@ -19,8 +19,7 @@ class MonsterDetailViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val getMonsterDetail: GetMonsterDetail = mockk()
-    private val state = SavedStateHandle().apply {
-        set(Screen.Arguments.monsterId, "1")
+    private val state = SavedStateHandle().apply { set(NavigationArguments.monsterId, "1")
     }
     private lateinit var viewModel: MonsterDetailViewModel
 

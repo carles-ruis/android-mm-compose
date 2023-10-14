@@ -17,18 +17,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.carles.common.ui.HyruleTheme
-import com.carles.common.ui.navigation.Navigate
-import com.carles.common.ui.navigation.Screen
-import com.carles.common.ui.navigation.screens
+import com.carles.mm.ui.navigation.Screen
+import com.carles.mm.ui.navigation.go
+import com.carles.mm.ui.navigation.screens
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : FragmentActivity() {
-
-    @Inject
-    lateinit var navigate: Navigate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +42,6 @@ class MainActivity : FragmentActivity() {
         val context = LocalContext.current
 
         val navController = rememberAnimatedNavController()
-        navigate.navController = navController
         val currentBackStackEntry by navController.currentBackStackEntryAsState()
         val currentScreen = screens.find { it.route == currentBackStackEntry?.destination?.route } ?: Screen.Monsters
 
@@ -64,10 +59,10 @@ class MainActivity : FragmentActivity() {
         Scaffold(
             topBar = {
                 TopBar(topBarTitle, showBackButton, currentScreen.menuItems) { destination ->
-                    navigate.to(destination)
+                    navController.go(destination)
                 }
             }) { innerPadding ->
-            MainNavHost(navigate, changeTitle, Modifier.padding(innerPadding))
+            MainNavHost(navController, changeTitle, Modifier.padding(innerPadding))
         }
     }
 }

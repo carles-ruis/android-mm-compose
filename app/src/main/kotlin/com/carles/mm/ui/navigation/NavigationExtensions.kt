@@ -1,4 +1,4 @@
-package com.carles.common.ui.navigation
+package com.carles.mm.ui.navigation
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
@@ -8,6 +8,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import com.google.accompanist.navigation.animation.composable
 
@@ -40,3 +41,23 @@ private fun AnimatedContentScope<NavBackStackEntry>.slideInFromLeftToRight() = s
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.slideOutFromLeftToRight() = slideOutHorizontally(targetOffsetX = { it })
+
+fun NavController.go(destination: Destination) {
+    when (destination) {
+        Destination.Back -> up()
+        Destination.Settings -> toSettings()
+        is Destination.MonsterDetail -> toMonsterDetail(destination.monsterId.toString())
+    }
+}
+
+private fun NavController.toSettings() {
+    navigate(Screen.Settings.navigationRoute())
+}
+
+private fun NavController.toMonsterDetail(id: String) {
+    navigate(Screen.MonsterDetail.navigationRoute(id))
+}
+
+private fun NavController.up() {
+    popBackStack()
+}

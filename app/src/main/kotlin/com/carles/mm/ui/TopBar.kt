@@ -18,11 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.PlatformTextStyle
-import androidx.compose.ui.text.TextStyle
-import com.carles.common.ui.navigation.DestinationItem
-import com.carles.common.ui.navigation.Destination
 import com.carles.mm.R
+import com.carles.mm.ui.navigation.Destination
+import com.carles.mm.ui.navigation.DestinationItem
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
@@ -37,12 +35,11 @@ fun TopBar(
         title = {
             AnimatedContent(
                 targetState = title,
+                label = "AnimatedContent:TopBar",
                 transitionSpec = { fadeIn(tween()) with fadeOut(tween()) }) { target ->
                 Text(
                     text = target,
-                    style = MaterialTheme.typography.headlineMedium.merge(
-                        TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
-                    ),
+                    style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier.testTag(stringResource(R.string.tag_top_bar_title))
                 )
             }

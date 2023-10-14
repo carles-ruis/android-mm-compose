@@ -1,4 +1,4 @@
-package com.carles.common.ui.navigation
+package com.carles.mm.ui.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
@@ -7,6 +7,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.carles.common.R
+import com.carles.common.ui.navigation.NavigationArguments
 
 sealed class Screen(
     @StringRes val label: Int,
@@ -43,17 +44,13 @@ sealed class Screen(
     object MonsterDetail : Screen(
         label = R.string.appname,
         path = "monster_detail_path",
-        arguments = listOf(navArgument(monsterId) { NavType.StringType })
+        arguments = listOf(navArgument(NavigationArguments.monsterId) { NavType.StringType })
     )
 
     object Settings : Screen(
         label = R.string.settings,
         path = "settings_path"
     )
-
-    companion object Arguments {
-        const val monsterId = "monster_id"
-    }
 }
 
 val screens = listOf(Screen.Monsters, Screen.MonsterDetail, Screen.Settings)

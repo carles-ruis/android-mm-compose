@@ -5,26 +5,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
-import com.carles.common.ui.navigation.Destination
-import com.carles.common.ui.navigation.Navigate
-import com.carles.common.ui.navigation.Screen
-import com.carles.common.ui.navigation.defaultComposable
+import androidx.navigation.NavHostController
 import com.carles.hyrule.ui.MonsterDetailScreen
 import com.carles.hyrule.ui.MonstersScreen
+import com.carles.mm.ui.navigation.Destination
+import com.carles.mm.ui.navigation.Screen
+import com.carles.mm.ui.navigation.defaultComposable
+import com.carles.mm.ui.navigation.go
 import com.carles.settings.ui.SettingsScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MainNavHost(navigate: Navigate, changeTitle: (String) -> Unit, modifier: Modifier = Modifier) {
+fun MainNavHost(navController: NavHostController, changeTitle: (String) -> Unit, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
-        navController = navigate.navController,
+        navController = navController,
         startDestination = Screen.Monsters.route,
         modifier = modifier
     ) {
-        monstersDestination { id -> navigate.to(Destination.MonsterDetail(id)) }
-        monsterDetailDestination(changeTitle) { navigate.to(Destination.Back) }
+        monstersDestination { id -> navController.go(Destination.MonsterDetail(id)) }
+        monsterDetailDestination(changeTitle) { navController.go(Destination.Back) }
         settingsDestination()
     }
 }

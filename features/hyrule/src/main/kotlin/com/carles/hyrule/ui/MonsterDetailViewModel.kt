@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.carles.common.ui.navigation.Screen
+import com.carles.common.ui.navigation.NavigationArguments
 import com.carles.hyrule.MonsterDetail
 import com.carles.hyrule.domain.GetMonsterDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +26,7 @@ class MonsterDetailViewModel @Inject constructor(
     private val getMonsterDetail: GetMonsterDetail
 ) : ViewModel() {
 
-    private val id = savedStateHandle.get<String>(Screen.Arguments.monsterId)?.toInt() ?: 0
+    private val id = savedStateHandle.get<String>(NavigationArguments.monsterId)?.toInt() ?: 0
 
     private val _uiState = MutableStateFlow(MonsterDetailUiState())
     val uiState: StateFlow<MonsterDetailUiState> = _uiState
